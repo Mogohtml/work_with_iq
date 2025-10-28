@@ -1,10 +1,13 @@
+import os
+
 import vk_api
+from fuzzywuzzy import process
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 import time
 import json
 import csv
 import random
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from typing import List, Dict, Optional
 import logging
 from pathlib import Path
@@ -35,7 +38,7 @@ logger = logging.getLogger(__name__)
 # Скачивание WordNet, если ещё не скачали
 try:
     nltk.data.find('corpora/wordnet')
-except nltk.downloader.ErrorMessage:
+except LookupError:
     nltk.download('wordnet')
 
 
@@ -98,7 +101,7 @@ class VKGroupParser:
     def parse_group_members(
             self,
             group_id: str,
-            max_users: int = 1000,
+            max_users: int = 10,
             filters: Dict = None
     ) -> List[Dict]:
         """
@@ -159,7 +162,7 @@ class VKGroupParser:
 
                 # фильтруем пользователей
                 for user in items:
-                    if self._filter_user(user, filters):
+                    if self._filter_user(user, filters, group_id):
                         users.append(user)
 
                         # Прерываем если достигли лимита
@@ -200,58 +203,56 @@ class VKGroupParser:
             Список синонимов.
         """
         synonyms = set()
-
         if lang == 'en':
             for syn in wordnet.synsets(word):
                 for lemma in syn.lemmas():
                     synonym = lemma.name().replace('_', ' ')
                     if synonym.lower() != word.lower():
                         synonyms.add(synonym)
-
         elif lang == 'ru':
-            synsets = self.ruwordnet.get_synsets(word)
-            for synset in synsets:
-                for lemma in synset.lemmas:
-                    if lemma.lower() != word.lower():
-                        synonyms.add(lemma)
+            # Временно отключаем RuWordNet
+            synonyms.update(["спортзал", "тренажерный зал", "кроссфит"])  # Пример для "фитнес"
         else:
             print(f"Поддержка языка '{lang}' не реализована.")
-
-        # --- Примеры использования ---
-
-        # Английский
-        english_word = "fitness"
-        english_synonyms = get_synonyms_for_language(english_word, 'en')
-        print(f"Синонимы для английского слова '{english_word}': {english_synonyms}")
-        # Пример вывода: Синонимы для английского слова 'fast': ['rapid', 'flying', 'flickering', 'swift', 'quick', ...]
-
-        # Русский
-        russian_word = "фитнес"
-        russian_synonyms = get_synonyms_for_language(russian_word, 'ru')
-        print(f"Синонимы для русского слова '{russian_word}': {russian_synonyms}")
-        # Пример вывода: Синонимы для русского слова 'быстрый': ['резвый', 'шустрый', 'скорый', 'проворный', ...]
-
         return list(synonyms)
 
-    def _expand_group_by_niche(self, niche: str) -> List[str]:
+
+    def _expand_group_by_niche(self, niche: str, lang: Optional[str] = None) -> List[str]:
         """ Расширение для обработки синонимов и опечаток в названии ниши для групп
         Args:
             niche: Исходный запрос (например, "фитнес").
         Returns:
             Список расширенных запросов.
         """
-        niche = niche.lower().strip() # Нормализация
+        niche = niche.lower().strip()
+        if lang is None:
+            lang = 'ru' if any('а' <= c <= 'я' for c in niche) else 'en'
 
-
-        synonyms = {
-            "фитнес": ["fitness", "спортзал", "тренажерный зал", "бодибилдинг", "кроссфит"],
-            "недвижимость": ["real estate", "квартиры", "ипотека", "арeнда", "жилье"]
+        synonym_map = {
+            'ru': {
+                "фитнес": ["fitness", "спортзал", "тренажерный зал", "бодибилдинг", "кроссфит"],
+            },
+            'en': {
+                "fitness": ["gym", "workout", "тренажерный зал", "бодибилдинг"],
+            }
         }
 
-        if niche in synonyms:
-            return [niche, synonyms[niche]]
+        expanded_queries = set([niche])
+
+        if lang in synonym_map:
+            if niche in synonym_map[lang]:
+                expanded_queries.update(synonym_map[lang][niche])
+            else:
+                all_known_niches = list(synonym_map[lang].keys())
+                best_match, score = process.extractOne(niche, all_known_niches)
+                if score > 80:
+                    expanded_queries.update(synonym_map[lang][best_match])
+                else:
+                    expanded_queries.add(niche + "*")
         else:
-            return [niche, niche + "*"]
+            expanded_queries.add(niche + "*")
+
+        return list(expanded_queries)
 
 
     def find_groups_by_niche(self, niche: str, count: int) -> List[str]:
@@ -265,34 +266,135 @@ class VKGroupParser:
                 response = self.vk.groups.search(q=query, count=count, type="group")
                 groups = response.get('items', [])
                 for group in groups:
-                    all_groups.add(str(group['id'])) # Удаляем дубликаты групп
+                    all_groups.add(str(group['id']))
             except Exception as e:
                 logger.error(f"Ошибка поиска групп для запроса: {query}: {e}")
         logger.info(f"Найдено групп по нише {niche}: {len(all_groups)}")
-        return list(all_groups)\
+        return list(all_groups)
 
 
-    def _is_group_relevant(group: Dict, niche_keywords: List[str]) -> bool:
+    def _is_group_relevant(self, group: Dict, niche_keywords: List[str]) -> bool:
         description = group.get("description", "").lower()
         return any(keyword in description for keyword in niche_keywords)
 
-    def parse_leads_by_niche(self, niche: str, max_users: int = 1000, filters: Dict = None, group_count: int = 3) -> List[Dict]:
+    def _is_group_active(self, group_id: str) -> bool:
+        """
+        Проверяет, был ли последний пост в группе опубликован в течение последних 6 месяцев.
+        Args:
+            group_id: ID группы.
+        Returns:
+            True, если группа активна, иначе False.
+        """
+        try:
+            posts_response = self.vk.wall.get(owner_id=f"-{group_id}", count=1)
+            posts = posts_response.get('items', [])
+
+            if posts:
+                last_post = posts[0]
+                last_post_timestamp = last_post.get('date')
+
+                if last_post_timestamp:
+                    last_post_date = datetime.fromtimestamp(last_post_timestamp)
+                    six_months_ago = datetime.now() - timedelta(days=6 * 30)
+
+                    return last_post_date > six_months_ago
+                else:
+                    # Если у поста нет даты, считаем группу неактивной или пропускаем
+                    return False
+            else:
+                # Если постов нет, считаем группу неактивной
+                return False
+        except Exception as e:
+            logger.error(f"Ошибка проверки активности группы {group_id}: {e}")
+            return False
+
+    def _get_user_comments_in_group(self, user_id: int, group_id: str, months: int = 2) -> List[Dict]:
+        """
+        Получение комментариев пользователя в группе за последние `months` месяцев.
+        Args:
+            user_id: ID пользователя.
+            group_id: ID группы.
+            months: Количество месяцев для проверки.
+        Returns:
+            Список комментариев.
+        """
+        comments = []
+        try:
+            # Получаем текущую дату и дату `months` месяцев назад
+            current_time = int(time.time())
+            start_time = current_time - months * 30 * 24 * 60 * 60
+
+            # Получаем посты группы
+            posts_response = self.vk.wall.get(owner_id=f"-{group_id}", count=1)
+            posts = posts_response.get('items', [])
+
+            # Для каждого поста получаем комментарии пользователя
+            for post in posts:
+                post_id = post['id']
+                comments_response = self.vk.wall.getComments(
+                    owner_id=f"-{group_id}",
+                    post_id=post_id,
+                    count=100,
+                    sort='asc'
+                )
+                post_comments = comments_response.get('items', [])
+                for comment in post_comments:
+                    if comment['from_id'] == user_id and comment['date'] >= start_time:
+                        comments.append(comment)
+        except Exception as e:
+            logger.error(f"Ошибка получения комментариев пользователя {user_id} в группе {group_id}: {e}")
+
+        return comments
+
+
+    def _are_comments_relevant(self, comments: List[Dict], keywords: List[str]) -> bool:
+        logger.info(f"Проверка релевантности {len(comments)} комментариев")
+        for comment in comments:
+            comment_text = comment.get('text', '').lower()
+            logger.info(f"Текст комментария: {comment_text}")
+            if any(keyword in comment_text for keyword in keywords):
+                logger.info("Найден релевантный комментарий")
+                return True
+        logger.info("Релевантные комментарии не найдены")
+        return False
+
+
+    def parse_leads_by_niche(self, niche: str, max_users: int = 10, filters: Dict = None, group_count: int = 20, max_active_groups: int = 10) -> List[Dict]:
         """
         Парсинг лидов по нише с расширенным поиском групп.
         """
         group_ids = self.find_groups_by_niche(niche, group_count)
         if not group_ids:
             logger.warning(f"Не найдено групп по нише: {niche}")
+            return []
+
+        # После того как собрали список активных групп, можно переходить к парсингу пользователей
+        actual_groups = []
+        for group_id in group_ids:
+            if len(actual_groups) >= max_active_groups:
+                break
+            if self._is_group_active(group_id):
+                actual_groups.append(group_id)
+                logger.info(f"Группа {group_id} активна и добавлена в список")
+
+        if not actual_groups:
+            logger.warning(f"Не найдено активных групп по нише: {niche}")
+            return []
 
         all_leads = []
-        for group_id in group_ids:
+        for group_id in actual_groups:
             logger.info(f"Парсинг группы: {group_id}...")
+            # Передаем оставшееся количество пользователей, которое нужно собрать
+            remaining_users = max_users - len(all_leads)
+            if remaining_users <= 0:
+                break
             leads = self.parse_group_members(group_id=group_id, max_users=max_users, filters=filters)
             all_leads.extend(leads)
             if len(all_leads) >= max_users:
                 break
         logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
         return all_leads
+
 
     def _get_group_info(self, group_id: str) -> Dict:
         """Получение информации о группе"""
@@ -306,7 +408,7 @@ class VKGroupParser:
             logger.error(f"Ошибка получения информации о группе: {e}")
             raise
 
-    def _filter_user(self, user: Dict, filters: Dict) -> bool:
+    def _filter_user(self, user: Dict, filters: Dict, group_id: str = None) -> bool:
         """Фильтрация пользователя по критериям"""
 
         # Пропускаем удаленные аккаунты
@@ -348,6 +450,17 @@ class VKGroupParser:
             if not user.get('has_mobile'):
                 return False
 
+        # Проверка релевантности комментариев пользователя в группе
+        if group_id and False: # Отключение на время
+            keywords = ["фитнес", "спортзал", "тренажерный зал", "бодибилдинг", "кроссфит", "тренировка", "спорт",
+                        "fitness", "gym"]
+            comments = self._get_user_comments_in_group(user['id'], group_id, months=6)
+            logger.info(f"Комментарии пользователя: {len(comments)}")
+            if not self._are_comments_relevant(comments, keywords):
+                logger.info("Пропущен: комментарии не релевантны")
+                return False
+
+        logger.info("Пользователь прошел фильтрацию")
         return True
 
     def _is_user_active(self, user: Dict, days: int = 30) -> bool:
@@ -586,9 +699,11 @@ class VKGroupParser:
         logger.info(f"Загружено {len(users)} пользователей из {filename}")
         return users
 
-    def get_user_stats(self, users: List[Dict]) -> Dict:
+    def get_user_stats(self, users: List[Dict], all_groups, actual_groups) -> Dict:
         """Статистика по собранным пользователям"""
         stats = {
+            'groups': all_groups,
+            'actual_groups': actual_groups,
             'total': len(users),
             'can_message': sum(1 for u in users if u.get('can_write_private_message')),
             'online_now': sum(1 for u in users if u.get('online')),
@@ -660,6 +775,7 @@ def main():
             stats = parser.get_user_stats(leads)
             logger.info(f"""
                     Стастистика парсера:
+                    Всего групп: 
                     Всего пользователей: {stats['total']}
                     С открытыми ЛС: {stats['can_message']}
                     Сейчас онлайн: {stats['online_now']}
