@@ -358,43 +358,40 @@ class VKGroupParser:
         logger.info("Релевантные комментарии не найдены")
         return False
 
-
-    def parse_leads_by_niche(self, niche: str, max_users: int = 10, filters: Dict = None, group_count: int = 20, max_active_groups: int = 10) -> List[Dict]:
+    def parse_leads_by_niche(self, niche: str, max_users_per_group: int = 5, filters: Dict = None,
+                             group_count: int = 20, max_active_groups: int = 10) -> tuple:
         """
         Парсинг лидов по нише с расширенным поиском групп.
+        Возвращает кортеж: (список лидов, список всех групп, список активных групп)
+        max_users_per_group: Максимальное количество пользователей для парсинга из одной группы (по умолчанию 5)
         """
         group_ids = self.find_groups_by_niche(niche, group_count)
         if not group_ids:
             logger.warning(f"Не найдено групп по нише: {niche}")
-            return []
+            return [], group_ids, []
 
-        # После того как собрали список активных групп, можно переходить к парсингу пользователей
-        actual_groups = []
+        # Собираем активные группы
+        active_groups = []
         for group_id in group_ids:
-            if len(actual_groups) >= max_active_groups:
+            if len(active_groups) >= max_active_groups:
                 break
             if self._is_group_active(group_id):
-                actual_groups.append(group_id)
+                active_groups.append(group_id)
                 logger.info(f"Группа {group_id} активна и добавлена в список")
 
-        if not actual_groups:
+        if not active_groups:
             logger.warning(f"Не найдено активных групп по нише: {niche}")
-            return []
+            return [], group_ids, active_groups
 
+        # Парсим пользователей из активных групп
         all_leads = []
-        for group_id in actual_groups:
+        for group_id in active_groups:
             logger.info(f"Парсинг группы: {group_id}...")
-            # Передаем оставшееся количество пользователей, которое нужно собрать
-            remaining_users = max_users - len(all_leads)
-            if remaining_users <= 0:
-                break
-            leads = self.parse_group_members(group_id=group_id, max_users=max_users, filters=filters)
+            leads = self.parse_group_members(group_id=group_id, max_users=max_users_per_group, filters=filters)
             all_leads.extend(leads)
-            if len(all_leads) >= max_users:
-                break
-        logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
-        return all_leads
 
+        logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
+        return all_leads, group_ids, active_groups
 
     def _get_group_info(self, group_id: str) -> Dict:
         """Получение информации о группе"""
@@ -699,11 +696,11 @@ class VKGroupParser:
         logger.info(f"Загружено {len(users)} пользователей из {filename}")
         return users
 
-    def get_user_stats(self, users: List[Dict], all_groups, actual_groups) -> Dict:
+    def get_user_stats(self, users: List[Dict], total_groups: List[str], actual_groups: List[str]) -> Dict:
         """Статистика по собранным пользователям"""
         stats = {
-            'groups': all_groups,
-            'actual_groups': actual_groups,
+            'groups': len(total_groups),
+            'actual_groups': len(actual_groups),
             'total': len(users),
             'can_message': sum(1 for u in users if u.get('can_write_private_message')),
             'online_now': sum(1 for u in users if u.get('online')),
@@ -762,12 +759,12 @@ def main():
         'only_can_message': True,
         'only_active': True,
     }
-    MAX_LEADS = 50
+    MAX_LEADS_PER_GROUP = 5
     try:
         parser = VKGroupParser(token=TOKEN)
-        leads = parser.parse_leads_by_niche(
+        leads, all_groups, active_groups = parser.parse_leads_by_niche(
             niche=NICHE,
-            max_users=MAX_LEADS,
+            max_users_per_group=MAX_LEADS_PER_GROUP,
             filters=FILTERS
         )
         if leads:
@@ -775,7 +772,8 @@ def main():
             stats = parser.get_user_stats(leads)
             logger.info(f"""
                     Стастистика парсера:
-                    Всего групп: 
+                    Всего групп: {stats['total_groups']}
+                    Активных групп: {stats['actual_groups']}
                     Всего пользователей: {stats['total']}
                     С открытыми ЛС: {stats['can_message']}
                     Сейчас онлайн: {stats['online_now']}
