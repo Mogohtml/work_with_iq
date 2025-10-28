@@ -163,6 +163,8 @@ class VKGroupParser:
                 # фильтруем пользователей
                 for user in items:
                     if self._filter_user(user, filters, group_id):
+                        user['group_name'] = group_info['name']
+                        user['group_id'] = group_id
                         users.append(user)
 
                         # Прерываем если достигли лимита
@@ -673,7 +675,7 @@ class VKGroupParser:
         if users:
             with open(csv_file_path, 'w', encoding='utf-8', newline='') as f:
                 fields = [
-                    'id', 'first_name', 'last_name', 'sex', 'city', 'bdate',
+                    'id', 'group_name', 'group_id', 'first_name', 'last_name', 'sex', 'city', 'bdate',
                     'can_write_private_message', 'last_seen', 'online', 'has_mobile'
                 ]
 
@@ -762,14 +764,14 @@ def main():
     MAX_LEADS_PER_GROUP = 5
     try:
         parser = VKGroupParser(token=TOKEN)
-        leads, all_groups, active_groups = parser.parse_leads_by_niche(
+        leads, total_groups, actual_groups = parser.parse_leads_by_niche(
             niche=NICHE,
             max_users_per_group=MAX_LEADS_PER_GROUP,
             filters=FILTERS
         )
         if leads:
             json_file, csv_file = parser.save_users(leads, filename=f"leads_{NICHE}")
-            stats = parser.get_user_stats(leads)
+            stats = parser.get_user_stats(leads, total_groups=total_groups, actual_groups=actual_groups)
             logger.info(f"""
                     Стастистика парсера:
                     Всего групп: {stats['total_groups']}
