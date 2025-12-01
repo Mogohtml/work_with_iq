@@ -1,0 +1,613 @@
+[
+  {
+    "id": 1431573,
+    "bdate": "13.6.1990",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/A_LmcA99yhI0mpNAhuNTFrvT0eK6oi0_x8P91H9dB_3ehSBMeQ7O-PiokR_2MZU3P9kdXWmaQ2jqJiHMMKRutB3N.jpg?quality=96&crop=399,286,606,606&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540&ava=1&u=SslTaoJNt5edJ_7Q1CXkoo4_YsnkJfnWUfHuu88k9lA&cs=200x200",
+    "has_mobile": 1,
+    "interests": "Катание на коровах, крокодилах и слонопотамах, прыгание с парашютом... правда 1 попытка осталась, Компьютеры, Альпенизм, Кафе, Клубы, Казино, Собирать грибочки и ягоды, Подводное ныряние- топором ко дну, и много всего ещё хорошего))",
+    "can_write_private_message": 1,
+    "site": "http://vkontakte.ru/id1431573?rate=1&amp;amp;amp;amp;amp;amp;amp;amp;amp;v=3.",
+    "status": "https://growcapital.io/ref/p/10558 зарегайся и бабки на автомате будут",
+    "last_seen": {
+      "platform": 7,
+      "time": 1759266027
+    },
+    "followers_count": 3352,
+    "occupation": {
+      "name": "Прокуратура",
+      "type": "work"
+    },
+    "career": [
+      {
+        "city_id": 4128014,
+        "company": "Продажа нелегальных растений и удобрений",
+        "country_id": 213,
+        "from": 2003,
+        "position": "Собираю бананы,кокосы, и прочие мелочи"
+      },
+      {
+        "city_id": 2,
+        "company": "Прокуратура",
+        "country_id": 1,
+        "from": 2007,
+        "position": "Прокурор"
+      }
+    ],
+    "university": 960,
+    "university_name": "Банковская школа ЦБ РФ",
+    "faculty": 4411,
+    "faculty_name": "Банковское дело",
+    "graduation": 2009,
+    "education_form": "Очное отделение",
+    "education_status": "Студент (специалист)",
+    "relation": 5,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ],
+      "life_main": 4,
+      "people_main": 4,
+      "political": 1,
+      "smoking": 5
+    },
+    "universities": [
+      {
+        "chair": 19186,
+        "chair_name": "Банковского дела",
+        "city": -2,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "education_status": "Студент (специалист)",
+        "education_status_id": 2,
+        "faculty": 4411,
+        "faculty_name": "Банковское дело",
+        "graduation": 2009,
+        "id": 960,
+        "name": "Банковская школа ЦБ РФ"
+      }
+    ],
+    "schools": [
+      {
+        "city": 2,
+        "class": "б",
+        "class_id": 2,
+        "country": 1,
+        "id": "59347",
+        "name": "Школа №26",
+        "year_from": 1997,
+        "year_graduated": 2005,
+        "year_to": 2005,
+        "speciality": "Школьник"
+      },
+      {
+        "city": 5099795,
+        "class": "б",
+        "class_id": 2,
+        "country": 9,
+        "id": "486128",
+        "name": "Saint PatricK",
+        "year_from": 1998,
+        "year_graduated": 2005,
+        "year_to": 2003,
+        "speciality": "Школьник-студент"
+      }
+    ],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Антон",
+    "last_name": "Дульцев",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 3332412,
+    "city": {
+      "id": 66,
+      "title": "Киров"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/_WsrxurNkcAKSNKjcNcMxBW7gOcTCjwKkYr5h_Y91HTdgcgVPnrKwFjyUTpe75133VwYy7fe7FY4DGoMrZLmcLL2.jpg?quality=95&crop=94,53,765,765&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=jVbOF-eL2nbtOATlCCbixJH-b4a1BDX50JZ9tUBmj4M&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "ты уже личность, если в тебе есть творчество",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761377270
+    },
+    "occupation": {
+      "id": 555,
+      "name": "ВятГУ (бывш. ВятГТУ, КирПИ)",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 66
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Вадим",
+    "last_name": "Соколов",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 5898168,
+    "bdate": "24.1",
+    "city": {
+      "id": 5489,
+      "title": "Озёры"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/mLvePjorpd1E-RNv37bOLLviWnpDXRVw3VjT88XS73bUve-SBTvl8JM_NpMxm1FPiYxJKm-_9hk_kj_TYh5aqCZo.jpg?quality=95&crop=132,140,734,734&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=b8ciS19YjxQ8BtPjNQenFUszdyhEWbYcYcg1D-Ep9bY&cs=200x200",
+    "has_mobile": 1,
+    "interests": "",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "No amount of money ever bought a second of time",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761539371
+    },
+    "followers_count": 1867,
+    "occupation": {
+      "id": 218,
+      "name": "МФЮА",
+      "type": "university",
+      "graduate_year": 2018,
+      "country_id": 1,
+      "city_id": 1
+    },
+    "career": [],
+    "university": 92503,
+    "university_name": "ГСИ",
+    "faculty": 179793,
+    "faculty_name": "Финансы и кредит",
+    "graduation": 2012,
+    "education_form": "Очное отделение",
+    "education_status": "Студент (специалист)",
+    "relation": 4,
+    "relation_partner": {
+      "id": 50408796,
+      "first_name": "Мария",
+      "last_name": "Плаксина"
+    },
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ],
+      "life_main": 0,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [
+      {
+        "chair": 149623,
+        "chair_name": "Финансов и кредита",
+        "city": 80,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "education_status": "Студент (специалист)",
+        "education_status_id": 2,
+        "faculty": 179793,
+        "faculty_name": "Финансы и кредит",
+        "graduation": 2012,
+        "id": 92503,
+        "name": "ГСИ"
+      },
+      {
+        "chair": 14729,
+        "chair_name": "Финансы и кредит",
+        "city": 1,
+        "country": 1,
+        "education_status": "Выпускник (бакалавр)",
+        "education_status_id": 6,
+        "faculty": 8571,
+        "faculty_name": "Финансово-экономический факультет",
+        "graduation": 2018,
+        "id": 218,
+        "name": "МФЮА"
+      }
+    ],
+    "schools": [
+      {
+        "city": 5489,
+        "country": 1,
+        "id": "30265",
+        "name": "Школа № 6",
+        "year_graduated": 2007
+      }
+    ],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Алексей",
+    "last_name": "Плаксин",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 6037140,
+    "bdate": "24.7.2002",
+    "city": {
+      "id": 151,
+      "title": "Уфа"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/wcBMYQloY8m3slf8mhxYBZBygCosMz7JwTy1FYJVRdtA_uxHeuUnwGenRlCCduI2Yg_UYM5hl18oMTlaKNrWF2y0.jpg?quality=95&crop=0,0,1920,1920&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=YmiYqF4_89MrUdS9MgNnYwZjQlEoO7lZvSi-IdY2j8c&cs=200x200",
+    "has_mobile": 1,
+    "interests": "",
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "home_phone": "",
+    "site": "",
+    "status": "#ЁVIL ЁMPIRЁ/////////////////////5",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761541610
+    },
+    "followers_count": 441,
+    "career": [],
+    "university": 0,
+    "university_name": "",
+    "faculty": 0,
+    "faculty_name": "",
+    "graduation": 0,
+    "relation": 4,
+    "relation_partner": {
+      "id": 620561689,
+      "first_name": "Дашок",
+      "last_name": "Ещкерешкова"
+    },
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ],
+      "life_main": 2,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [],
+    "schools": [],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Пашок",
+    "last_name": "Ещкерешков",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 10137063,
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/2-dLpnTCQXlcF29fxcx0bjjNatEexx88vd-wvKg4dI9Sg8FJSewiWtnxnBnRVt9qhoqB2v45ny9c34esxNDv_GFB.jpg?quality=96&crop=0,0,2048,2048&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=kUyr3zfESK-04gF18F80oVEFZyA9mX_M9jQyqQLVpPw&cs=200x200",
+    "has_mobile": 1,
+    "interests": "",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761545642
+    },
+    "followers_count": 293,
+    "career": [],
+    "university": 0,
+    "university_name": "",
+    "faculty": 0,
+    "faculty_name": "",
+    "graduation": 0,
+    "relation": 0,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "life_main": 0,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [],
+    "schools": [],
+    "sex": 1,
+    "online": 1,
+    "online_app": 3140623,
+    "first_name": "Yuliya",
+    "last_name": "Kuz'mina",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 25695252,
+    "bdate": "16.9",
+    "country": {
+      "id": 2,
+      "title": "Украина"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/knoppr4dbUbMMjs3z_qANl5cxXrjlyERa2c_xdi_DDb4iDR-Y15CcNxbWFbCU365oNi_4FgcHLrSkt4g3VQve6CZ.jpg?quality=95&crop=47,40,1233,1233&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&ava=1&u=1ZGgUpGNcCF-LxEhBfTaTjBbyurq7nwqE5wzik775wg&cs=200x200",
+    "has_mobile": 0,
+    "interests": "",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1759246011
+    },
+    "followers_count": 1598,
+    "career": [],
+    "university": 0,
+    "university_name": "",
+    "faculty": 0,
+    "faculty_name": "",
+    "graduation": 0,
+    "relation": 0,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "life_main": 0,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [],
+    "schools": [],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Данек",
+    "last_name": "Поушен",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 28922028,
+    "city": {
+      "id": 472,
+      "title": "Костомукша"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/RoMRBYYLEB3Fj99DB3QI1DqztwybcEXoB6lKjDo6lb2Oqr7sT3Md6Q-akCnUFKsvgABBOycTkkuvBAb5pFUEY9hv.jpg?quality=95&crop=0,0,2160,2160&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=OXymB1SdvNkV7SWFqhynmM0eRCbYkHyiHpNgBiL3edo&cs=200x200",
+    "has_mobile": 1,
+    "interests": "",
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "site": "",
+    "status": "necro🔥",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761500147
+    },
+    "followers_count": 46,
+    "career": [],
+    "university": 0,
+    "university_name": "",
+    "faculty": 0,
+    "faculty_name": "",
+    "graduation": 0,
+    "relation": 0,
+    "universities": [],
+    "schools": [],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Max",
+    "last_name": "Dmtdoy",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 29372749,
+    "bdate": "3.8",
+    "city": {
+      "id": 119,
+      "title": "Ростов-на-Дону"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/vyEAOd6DLh5kTrfZZdvauur7YxZMzRunGOf2xrOQ9PBVUAZYgDEFnp-jQwYnGBVDU1hpoE4z-9wY9aU0IaW50kzC.jpg?quality=96&crop=13,744,1302,1302&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&ava=1&u=k5ArDmLZQwjSdYONamJaXdw0YUEZXnwax7mwJpWcsV8&cs=200x200",
+    "has_mobile": 1,
+    "skype": "НЕ ПОМНЮ.",
+    "interests": "много всяких разных!!!",
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "home_phone": "",
+    "site": "http://vk.com/kombimebel",
+    "status": "",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761545782
+    },
+    "followers_count": 865,
+    "occupation": {
+      "id": 32801284,
+      "name": "KOMBIHOME Кухни/шкафы на заказ в Ростове-на-Дону",
+      "type": "work"
+    },
+    "career": [
+      {
+        "city_id": 119,
+        "country_id": 1,
+        "group_id": 32801284,
+        "position": "Основатель Мебельной мастерской \"KOMBI\""
+      }
+    ],
+    "university": 0,
+    "university_name": "",
+    "faculty": 0,
+    "faculty_name": "",
+    "graduation": 0,
+    "relation": 4,
+    "relation_partner": {
+      "id": 29325872,
+      "first_name": "Анастасия",
+      "last_name": "Шаравина"
+    },
+    "personal": {
+      "alcohol": 2,
+      "inspired_by": "МУЗыкА!",
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ],
+      "life_main": 0,
+      "people_main": 6,
+      "smoking": 2
+    },
+    "universities": [],
+    "schools": [
+      {
+        "city": 101,
+        "class": "",
+        "class_id": 0,
+        "country": 1,
+        "id": "541522",
+        "name": "Школа-интернат № 33",
+        "type": 3,
+        "type_str": "Школа-интернат",
+        "year_from": 1996,
+        "year_graduated": 2006,
+        "year_to": 2006
+      },
+      {
+        "city": 119,
+        "class": "",
+        "class_id": 0,
+        "country": 1,
+        "id": "292860",
+        "name": "Лицей № 13",
+        "year_from": 2008,
+        "year_graduated": 2009,
+        "year_to": 2009
+      }
+    ],
+    "sex": 2,
+    "online": 1,
+    "online_app": 6287487,
+    "first_name": "Дмитрий",
+    "last_name": "Шаравин",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 31557668,
+    "bdate": "3.3",
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/NIEC7IoakfrWtFnjIQiqkWnjvJVYjk4Iaz3YO4n_J2Re8dVty77tn9LlCzEO6QcZMghr0yGCdajGmhkKg4SKkd8X.jpg?quality=96&crop=65,88,616,616&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540&ava=1&u=FLD3ZO8qgg9hxIed_7AA4watemsn4h09cpXfnrUIfp4&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "https://boosty.to/maratsafin",
+    "status": "inst: maratneva | tg: https://t.me/maratcam",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761545621
+    },
+    "followers_count": 141138,
+    "occupation": {
+      "id": 128108435,
+      "name": "Полжизни я пропил, полжизни пропью",
+      "type": "work"
+    },
+    "sex": 2,
+    "online": 1,
+    "online_app": 3140623,
+    "first_name": "Марат",
+    "last_name": "Сафин",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 34591724,
+    "city": {
+      "id": 73,
+      "title": "Красноярск"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/HGrgQm9WURJpV5zzeSkEFR3hJ440X2veH-RCWrHl3wXc3yWuKUJI27YLh2rUlMc47v_b6IgChcf7mS0_2Q49v14w.jpg?quality=95&crop=0,175,1908,1908&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=G6N17RrlY3ptxmTaw2xaHXHqCCp9pnBGvOwUYGxKr0A&cs=200x200",
+    "has_mobile": 1,
+    "interests": "танцы, кино, музыка",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "♪ ♫♪ ♫ ♪ ♫♪ ♫ ♪♫ ♪♫♪ ♫♪ ♫ ♪♫♪ ♫ ♪ ♫ ♪♫♪",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761544247
+    },
+    "followers_count": 352,
+    "career": [],
+    "university": 0,
+    "university_name": "",
+    "faculty": 0,
+    "faculty_name": "",
+    "graduation": 0,
+    "relation": 4,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ],
+      "life_main": 0,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [],
+    "schools": [],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Андрей",
+    "last_name": "Витальевич",
+    "can_access_closed": true,
+    "is_closed": false
+  }
+]

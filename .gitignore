@@ -1,2 +1,13 @@
+# Логи и кеш
+vk_auto.log
+vk_spam_bot-main/cash
+user_ids.xlsx
+
+# Виртуальное окружение
+venv/
 .env
-.idea
+
+# IDE
+.idea/
+.vscode/
+__pycache__/
