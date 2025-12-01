@@ -1,5 +1,7 @@
 import os
 
+import keyboard  # Для горячих клавиш
+import threading  # Для фоновой проверки клавиш
 import vk_api
 from fuzzywuzzy import process
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
@@ -13,6 +15,7 @@ import logging
 from pathlib import Path
 from os import getenv
 from dotenv import *
+import pandas as pd
 
 import nltk
 from nltk.corpus import wordnet
@@ -63,9 +66,33 @@ class VKGroupParser:
 
         # Создание экземпляра RuWordNet
         self.ruwordnet = RuWordNet()
+        # Флаг для пропуска группы
+        self.skip_group = False
 
         # инициализация
         self._init_user()
+
+        self.keywords = [
+            # Графический дизайн
+            "дизайн", "графический дизайн", "логотип", "баннер", "аватарка", "фирменный стиль", "брендинг",
+            "ui/ux", "веб-дизайн", "дизайнер", "photoshop", "illustrator", "figma", "sketch", "графика",
+
+            # Веб-разработка
+            "разработка", "программирование", "it", "айти", "веб-разработка", "сайт", "программист", "разработчик",
+            "python", "django", "flask", "frontend", "backend", "fullstack", "devops", "software",
+
+            # Интернет-магазины
+            "интернет-магазин", "онлайн-магазин", "электронная коммерция", "e-commerce", "продажи онлайн", "магазин",
+            "товар", "корзина", "оплата онлайн", "доставка", "интернет торговля", "онлайн покупки", "shopify",
+            "woocommerce",
+
+            # Боты
+            "бот", "чат-бот", "телеграм бот", "telegram bot", "viber бот", "whatsapp бот", "автоматизация", "рассылка",
+
+            # Мобильные приложения
+            "мобильное приложение", "flutter", "android", "ios", "кроссплатформенное приложение", "ui/ux дизайн",
+            "приложение", "app store", "google play", "пуш-уведомления", "геолокация"
+        ]
 
         logger.info(f"Парсер инициализирован для пользователя {self.user_id}")
 
@@ -98,6 +125,11 @@ class VKGroupParser:
 
         self.last_request_time = time.time()
 
+    def _listen_for_skip(self):
+        """Фоновая функция для прослушки Ctrl + N"""
+        keyboard.add_hotkey('ctrl+n', lambda: setattr(self, 'skip_group', True))
+        keyboard.wait()  # Бесконечный цикл для прослушки
+
     def parse_group_members(
             self,
             group_id: str,
@@ -125,6 +157,10 @@ class VKGroupParser:
         """
         logger.info(f"Начинаем парсинг группы: {group_id}")
 
+        # Запускаем фоновую прослушку клавиш
+        listener_thread = threading.Thread(target=self._listen_for_skip, daemon=True)
+        listener_thread.start()
+
         # получаем информацию о группе
         group_info = self._get_group_info(group_id)
         logger.info(f"Группа: {group_info['name']}, участников: {group_info['members_count']}")
@@ -138,6 +174,10 @@ class VKGroupParser:
             filters = {}
 
         while len(users) < max_users:
+            if self.skip_group:
+                logger.info(f"Пропускаем группу {group_id} по Ctrl + N")
+                self.skip_group = False
+                break
             try:
                 self._smart_delay()
 
@@ -309,26 +349,12 @@ class VKGroupParser:
             return False
 
     def _get_user_comments_in_group(self, user_id: int, group_id: str, months: int = 2) -> List[Dict]:
-        """
-        Получение комментариев пользователя в группе за последние `months` месяцев.
-        Args:
-            user_id: ID пользователя.
-            group_id: ID группы.
-            months: Количество месяцев для проверки.
-        Returns:
-            Список комментариев.
-        """
         comments = []
         try:
-            # Получаем текущую дату и дату `months` месяцев назад
             current_time = int(time.time())
             start_time = current_time - months * 30 * 24 * 60 * 60
-
-            # Получаем посты группы
-            posts_response = self.vk.wall.get(owner_id=f"-{group_id}", count=1)
+            posts_response = self.vk.wall.get(owner_id=f"-{group_id}", count=5)  # Получаем последние 5 постов
             posts = posts_response.get('items', [])
-
-            # Для каждого поста получаем комментарии пользователя
             for post in posts:
                 post_id = post['id']
                 comments_response = self.vk.wall.getComments(
@@ -343,9 +369,7 @@ class VKGroupParser:
                         comments.append(comment)
         except Exception as e:
             logger.error(f"Ошибка получения комментариев пользователя {user_id} в группе {group_id}: {e}")
-
         return comments
-
 
     def _are_comments_relevant(self, comments: List[Dict], keywords: List[str]) -> bool:
         logger.info(f"Проверка релевантности {len(comments)} комментариев")
@@ -358,43 +382,40 @@ class VKGroupParser:
         logger.info("Релевантные комментарии не найдены")
         return False
 
-
-    def parse_leads_by_niche(self, niche: str, max_users: int = 10, filters: Dict = None, group_count: int = 20, max_active_groups: int = 10) -> List[Dict]:
+    def parse_leads_by_niche(self, niche: str, max_users: int = 10, filters: Dict = None, group_count: int = 20,
+                             max_active_groups: int = 10) -> List[Dict]:
         """
-        Парсинг лидов по нише с расширенным поиском групп.
+        Парсинг лидов по нише с расширенным поиском групп и сохранением по группам.
         """
         group_ids = self.find_groups_by_niche(niche, group_count)
         if not group_ids:
             logger.warning(f"Не найдено групп по нише: {niche}")
             return []
 
-        # После того как собрали список активных групп, можно переходить к парсингу пользователей
-        actual_groups = []
-        for group_id in group_ids:
-            if len(actual_groups) >= max_active_groups:
-                break
-            if self._is_group_active(group_id):
-                actual_groups.append(group_id)
-                logger.info(f"Группа {group_id} активна и добавлена в список")
-
-        if not actual_groups:
-            logger.warning(f"Не найдено активных групп по нише: {niche}")
-            return []
-
         all_leads = []
-        for group_id in actual_groups:
-            logger.info(f"Парсинг группы: {group_id}...")
-            # Передаем оставшееся количество пользователей, которое нужно собрать
-            remaining_users = max_users - len(all_leads)
-            if remaining_users <= 0:
-                break
-            leads = self.parse_group_members(group_id=group_id, max_users=max_users, filters=filters)
-            all_leads.extend(leads)
-            if len(all_leads) >= max_users:
-                break
+        for group_id in group_ids[:max_active_groups]:  # Ограничиваем количеством активных групп
+            if self._is_group_active(group_id):
+                logger.info(f"Парсинг группы: {group_id}...")
+                remaining_users = max_users - len(all_leads)
+                if remaining_users <= 0:
+                    break
+                leads = self.parse_group_members(group_id=group_id, max_users=remaining_users, filters=filters)
+                if leads:
+                    # Сохраняем для каждой группы отдельно в cash
+                    self.save_users(leads, filename=f"leads_{niche}_{group_id}")
+                    all_leads.extend(leads)
+                    if len(all_leads) >= max_users:
+                        break
+            else:
+                logger.info(f"Группа {group_id} неактивна, пропускаем")
+
+        # Сохраняем все уникальные лиды в общий user_ids.xlsx
+        if all_leads:
+            unique_leads = self._remove_duplicates(all_leads)
+            self.save_users(unique_leads, filename="user_ids")  # Общий файл
+
         logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
         return all_leads
-
 
     def _get_group_info(self, group_id: str) -> Dict:
         """Получение информации о группе"""
@@ -451,14 +472,17 @@ class VKGroupParser:
                 return False
 
         # Проверка релевантности комментариев пользователя в группе
-        if group_id and False: # Отключение на время
-            keywords = ["фитнес", "спортзал", "тренажерный зал", "бодибилдинг", "кроссфит", "тренировка", "спорт",
-                        "fitness", "gym"]
-            comments = self._get_user_comments_in_group(user['id'], group_id, months=6)
-            logger.info(f"Комментарии пользователя: {len(comments)}")
-            if not self._are_comments_relevant(comments, keywords):
-                logger.info("Пропущен: комментарии не релевантны")
-                return False
+            # Проверка релевантности комментариев пользователя в группе
+            if group_id:
+                keywords = self.keywords
+                comments = self._get_user_comments_in_group(user['id'], group_id, months=6)
+                if comments:
+                    if not self._are_comments_relevant(comments, keywords):
+                        logger.info("Пропущен: комментарии пользователя не релевантны")
+                        return False
+                else:
+                    logger.info("Пропущен: у пользователя нет комментариев в группе")
+                    return False
 
         logger.info("Пользователь прошел фильтрацию")
         return True
@@ -654,43 +678,51 @@ class VKGroupParser:
             age=self._get_user_age(user) or ''
         )
 
-    def save_users(self, users: List[Dict], filename: str = 'users'):
-        """Сохранение пользователей в файлы"""
-        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    def save_users(self, users: List[Dict], filename: str = 'user_ids'):
+        """Сохранение пользователей в Excel файл."""
+        # Создаем список строк в нужном формате
+        user_data = []
+        for user in users:
+            first_name = user.get('first_name', '')
+            last_name = user.get('last_name', '')
+            user_id = user.get('id', '')
+            user_url = f"https://vk.com/id{user_id}"
+            user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}")
+        # Создаем DataFrame
+        df = pd.DataFrame(user_data, columns=['UserInfo'])
+        df[['Name', 'ID', 'URL']] = df['UserInfo'].str.split('\t', expand=True, n=2)
+        df = df.drop(columns=['UserInfo'])
 
-        # Укажите директорию для сохранения
-        output_dir = 'queries'
+        # Убедимся, что директория существует
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        save_path = os.path.join(script_dir, 'vk_spam_bot-main')
+        os.makedirs(save_path, exist_ok=True)
 
-        # Создайте директорию, если она не существует
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir, exist_ok=True)  # Параметр exist_ok=True предотвращает ошибку, если папка уже есть
+        if filename == 'user_ids':
+            # Общий файл: только в vk_spam_bot-main/user_ids.xlsx
+            excel_filename = os.path.join(save_path, "user_ids.xlsx")
+            df.to_excel(excel_filename, index=False)
+            logger.info(f"Лидов сохранено в {excel_filename}")
+        else:
+            # Файлы по группам: только в cash/
+            cash_path = os.path.join(save_path, 'cash')
+            os.makedirs(cash_path, exist_ok=True)
+            cash_filename = os.path.join(cash_path, f"{filename}.xlsx")
+            df.to_excel(cash_filename, index=False)
+            logger.info(f"Лидов сохранено в {cash_filename}")
 
-        json_file_path = os.path.join(output_dir, f'{filename}_{timestamp}.json')
-        csv_file_path = os.path.join(output_dir, f'{filename}_{timestamp}.csv')
+        return excel_filename if filename == 'user_ids' else cash_filename
 
-        # JSON - полные данные
-        with open(json_file_path, 'w', encoding='utf-8') as f:
-            json.dump(users, f, ensure_ascii=False, indent=2)
-
-        # CSV - основные поля
-        if users:
-            with open(csv_file_path, 'w', encoding='utf-8', newline='') as f:
-                fields = [
-                    'id', 'first_name', 'last_name', 'sex', 'city', 'bdate',
-                    'can_write_private_message', 'last_seen', 'online', 'has_mobile'
-                ]
-
-                writer = csv.DictWriter(f, fieldnames=fields, extrasaction='ignore')
-                writer.writeheader()
-
-                for user in users:
-                    row = user.copy()
-                    row['city'] = user.get('city', {}).get('title', '')
-                    row['last_seen'] = user.get('last_seen', {}).get('time', '')
-                    writer.writerow(row)
-
-        logger.info(f"Данные сохранены: {json_file_path}, {csv_file_path}")
-        return json_file_path, csv_file_path
+    def _remove_duplicates(self, users: List[Dict]) -> List[Dict]:
+        """Удаляет дубликаты пользователей по ID."""
+        seen_ids = set()
+        unique_users = []
+        for user in users:
+            user_id = user.get('id')
+            if user_id and user_id not in seen_ids:
+                seen_ids.add(user_id)
+                unique_users.append(user)
+        return unique_users
 
     def load_users(self, filename: str) -> List[Dict]:
         """Загрузка пользователей из JSON файла"""
@@ -753,7 +785,7 @@ class VKGroupParser:
 
 
 def main():
-    NICHE = "fitness"  # Попробуй также "fitness", "фитнесс", "спортзал"
+    NICHE = "стартап"  # Попробуй также "fitness", "фитнесс", "спортзал"
     FILTERS = {
         'city_ids': [1, 2],  # Москва и СПб
         'age_from': 18,
@@ -771,27 +803,31 @@ def main():
             filters=FILTERS
         )
         if leads:
-            json_file, csv_file = parser.save_users(leads, filename=f"leads_{NICHE}")
-            stats = parser.get_user_stats(leads)
+            # Определяем group_count (из параметров parse_leads_by_niche)
+            group_count = 20  # Или любое значение, как в вызове parse_leads_by_niche
+
+            # Вычисляем all_groups и actual_groups
+            all_groups = parser.find_groups_by_niche(NICHE, group_count)
+            actual_groups = [g for g in all_groups if parser._is_group_active(g)]
+
+            stats = parser.get_user_stats(leads, all_groups, actual_groups)
             logger.info(f"""
-                    Стастистика парсера:
-                    Всего групп: 
-                    Всего пользователей: {stats['total']}
-                    С открытыми ЛС: {stats['can_message']}
-                    Сейчас онлайн: {stats['online_now']}
-                    Используют мобильное приложение: {stats['has_mobile']}
-
-                    Пол:
-                    - Мужчины: {stats['sex']['male']}
-                    - Женщины: {stats['sex']['female']}
-                    - Не указан: {stats['sex']['unknown']}
-
-                    Активность:
-                    - Сегодня: {stats['activity']['today']}
-                    - За неделю: {stats['activity']['week']}
-                    - За месяц: {stats['activity']['month']}
-
-                    """)
+                        Стастистика парсера:
+                        Всего групп: {len(all_groups)}
+                        Активных групп: {len(actual_groups)}
+                        Всего пользователей: {stats['total']}
+                        С открытыми ЛС: {stats['can_message']}
+                        Сейчас онлайн: {stats['online_now']}
+                        Используют мобильное приложение: {stats['has_mobile']}
+                        Пол:
+                        - Мужчины: {stats['sex']['male']}
+                        - Женщины: {stats['sex']['female']}
+                        - Не указан: {stats['sex']['unknown']}
+                        Активность:
+                        - Сегодня: {stats['activity']['today']}
+                        - За неделю: {stats['activity']['week']}
+                        - За месяц: {stats['activity']['month']}
+                        """)
 
             '''# ШАГ 2: Рассылка (опционально)
             if stats['can_message'] > 0:

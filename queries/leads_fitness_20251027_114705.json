@@ -1,0 +1,2224 @@
+[
+  {
+    "id": 9405,
+    "bdate": "22.6.1993",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/4a3IOyfc8xlyZWiSalbjm2N_AcIQ_KVoyud5YqbGKS-BdBxzeIebhVyhoIwZy_boGSK9I17GhnK56uGVf5Y3ZpYd.jpg?quality=96&crop=95,301,665,665&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640&ava=1&u=Ye-3D4vtWy4SufvILJViRMwQEHyJ08uI2BpomcaYG2M&cs=200x200",
+    "has_mobile": 1,
+    "interests": "",
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "home_phone": "",
+    "site": "https://www.livelib.ru/reader/Victorov",
+    "status": "",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761054211
+    },
+    "followers_count": 6889,
+    "occupation": {
+      "id": 304,
+      "name": "НИУ МЭИ",
+      "type": "university",
+      "graduate_year": 2019,
+      "country_id": 1,
+      "city_id": 1
+    },
+    "career": [],
+    "university": 304,
+    "university_name": "НИУ МЭИ",
+    "faculty": 2175768,
+    "faculty_name": "Инженерно-экономический институт",
+    "graduation": 2019,
+    "education_form": "Очное отделение",
+    "education_status": "Выпускник (бакалавр)",
+    "relation": 0,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "life_main": 0,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [
+      {
+        "chair": 1889335,
+        "chair_name": "Кафедра прикладной и бизнес-информатики",
+        "city": 1,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "education_status": "Выпускник (бакалавр)",
+        "education_status_id": 6,
+        "faculty": 2175768,
+        "faculty_name": "Инженерно-экономический институт",
+        "graduation": 2019,
+        "id": 304,
+        "name": "НИУ МЭИ"
+      }
+    ],
+    "schools": [
+      {
+        "city": 1,
+        "country": 1,
+        "id": "13247",
+        "name": "Школа № 1413"
+      }
+    ],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Руслан",
+    "last_name": "Викторов",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 13934,
+    "bdate": "31.7",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/ems3f2Bnb4WO9Bv-qDi5zod7ASgCp9DmXomiLF8WMUBQJOlL9BuvSDGbyKjaV4TL6i1nr-nw-0c7L1XWkdBPWXbl.jpg?quality=96&crop=0,185,1622,1622&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=buZMmqL3Qqf7vkM5zh-NYkdbmeJxCbuuvoijq1FrqOw&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "И ВМЕСТЕ ВСЕ К ТОЙ ЗВЕЗДЕ МЫ ПРИШЛИ ЗА ПИТЕР! ЗЕНИТ - ЧЕМПИОН! 17.05.2015",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761553596
+    },
+    "occupation": {
+      "name": "-------------------",
+      "type": "work"
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Dmitry",
+    "last_name": "Smirnov",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 25528,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/otXrozv-oswEVX8R5nxHeP84X0X-QcTQSAWP4tBbCtGScJN-lA3qkcCCnYgaULiZjwHxJLLUB2mm3Ix64dp2EXer.jpg?quality=95&crop=298,421,340,340&as=32x32,48x48,72x72,108x108,160x160,240x240&ava=1&u=MoPcgnezPoZ1EBIgYlSjjagijkqRQ90kShKDbfxGjB8&cs=200x200",
+    "has_mobile": 1,
+    "interests": "Ядерная физика и астрономия",
+    "can_write_private_message": 1,
+    "site": "KosmetikaKorei.ru",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761494880
+    },
+    "followers_count": 2300,
+    "occupation": {
+      "id": 223059598,
+      "name": "ЖК Pulse Premier (Пульс Премьер)",
+      "type": "work"
+    },
+    "career": [
+      {
+        "city_id": 2,
+        "country_id": 1,
+        "from": 2021,
+        "group_id": 203702888
+      },
+      {
+        "city_id": 2,
+        "country_id": 1,
+        "group_id": 223059598
+      }
+    ],
+    "university": 64,
+    "university_name": "СПбГУНиПТ (бывш. СПбГАХиПТ)",
+    "faculty": 293,
+    "faculty_name": "Холодильной техники\r\n",
+    "graduation": 2006,
+    "education_form": "Очное отделение",
+    "education_status": "Выпускница (специалист)",
+    "relation": 0,
+    "personal": {
+      "inspired_by": "",
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ],
+      "political": 8,
+      "religion": "Оптимистичное :)"
+    },
+    "universities": [
+      {
+        "chair": 5487,
+        "chair_name": "Холодильных машин и низкопотенциальной энергетики",
+        "city": 2,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "education_status": "Выпускница (специалист)",
+        "education_status_id": 5,
+        "faculty": 293,
+        "faculty_name": "Холодильной техники\r\n",
+        "graduation": 2006,
+        "id": 64,
+        "name": "СПбГУНиПТ"
+      },
+      {
+        "chair": 2819,
+        "chair_name": "Кафедра организации и управления производственными комплексами (Нефтегазохимическим, строительным и транспортным, бывш. Организации и управления в нефтегазохимическом комплексе, Экономики и менеджмента в нефтегазохимическом комплексе)",
+        "city": 2,
+        "country": 1,
+        "education_form": "Заочное отделение",
+        "education_form_id": 3,
+        "education_status": "Выпускница (специалист)",
+        "education_status_id": 5,
+        "faculty": 2161995,
+        "faculty_name": "Факультет менеджмента",
+        "graduation": 2009,
+        "id": 50,
+        "name": "ИНЖЭКОН"
+      },
+      {
+        "chair": 2147794,
+        "chair_name": "Строительство",
+        "city": 2,
+        "country": 1,
+        "education_form": "Дистанционное обучение",
+        "education_form_id": 5,
+        "education_status": "Выпускница (специалист)",
+        "education_status_id": 5,
+        "faculty": 2157466,
+        "faculty_name": "Инженерно-строительный институт",
+        "graduation": 2021,
+        "id": 56,
+        "name": "СПбПУ Петра Великого (Политех)"
+      }
+    ],
+    "schools": [
+      {
+        "city": 5258127,
+        "class": "б",
+        "class_id": 2,
+        "country": 65,
+        "id": "258596",
+        "name": "Школа № 69 ГСВГ",
+        "year_from": 1989,
+        "year_to": 1991
+      },
+      {
+        "city": 5259562,
+        "class": "",
+        "class_id": 0,
+        "country": 65,
+        "id": "213792",
+        "name": "Школа № 131 ГСВГ",
+        "year_from": 1991,
+        "year_to": 1992
+      },
+      {
+        "city": 1048255,
+        "class": "",
+        "class_id": 0,
+        "country": 1,
+        "id": "80218",
+        "name": "Гимназия № 5",
+        "type": 1,
+        "type_str": "Гимназия",
+        "year_from": 1990,
+        "year_to": 1998
+      },
+      {
+        "city": 1048255,
+        "class": "а",
+        "class_id": 1,
+        "country": 1,
+        "id": "84195",
+        "name": "Школа № 9",
+        "year_from": 1998,
+        "year_graduated": 2000,
+        "year_to": 2000
+      }
+    ],
+    "sex": 1,
+    "online": 0,
+    "first_name": "Элла",
+    "last_name": "Симонова",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 25604,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/qHDd-bMyQlT0nyqSEdh47LC4FUJMp7h1N2UNVI1YMa7940n_k7Q27oSt-XK4Po3hxsrrgVzgYd2kT8ChPMC8JCrD.jpg?quality=95&crop=115,235,421,421&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360&ava=1&u=4ljugofQ1jB0IP0fajrViKf7wmXQXl598xxFT_C8s9U&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761554255
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Виктория",
+    "last_name": "Смирнова",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 29207,
+    "bdate": "29.8",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/2aLAHEHUY7Jc-cpj_TnitM8FXppOAs7NWtLG5JRhvGWIggw5Bi8niIzClWj-bB7IemEgZQAJ-W0QyEjrLnF2Ndr9.jpg?quality=95&crop=641,584,1070,1070&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=4lSFmwkScamHNeEri1Vr3mmXt_744deudHy6fqlH9ZQ&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "Трамонтана 🌬️",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761507452
+    },
+    "occupation": {
+      "id": 1070,
+      "name": "РГСУ",
+      "type": "university",
+      "graduate_year": 2011,
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Симон",
+    "last_name": "Рукавичникова",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 30768,
+    "bdate": "20.9",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/ooUkmBYKPf6DUIOuS17VRkFANmPDhBYs4OtkRjs3mReQqCsomb7SXJR55NnGllwq1ExLNJE8ghtqMZHNocpqbSGj.jpg?quality=95&crop=148,0,1109,1109&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&ava=1&u=vR9e88UuPXDLM5p-9akBAARB0QcuuEVmxhEqrjBo8lk&cs=200x200",
+    "has_mobile": 1,
+    "interests": "",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "А-ля у-лю гони гусей",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761509537
+    },
+    "followers_count": 2578,
+    "occupation": {
+      "name": "Цирк Чудес",
+      "type": "work"
+    },
+    "career": [
+      {
+        "city_id": 1,
+        "country_id": 1,
+        "group_id": 89391860,
+        "position": "Главный редактор"
+      },
+      {
+        "city_id": 1,
+        "company": "Цирк Чудес",
+        "country_id": 1,
+        "position": "Сценарии, буквы, идеи"
+      }
+    ],
+    "university": 188,
+    "university_name": "Литературный институт им. А. М. Горького",
+    "faculty": 733,
+    "faculty_name": "Кафедра литературного мастерства (Литературного творчества)",
+    "graduation": 0,
+    "education_form": "Очное отделение",
+    "relation": 0,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "langs": [
+        "Русский",
+        "English"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        },
+        {
+          "id": 3,
+          "native_name": "English"
+        }
+      ],
+      "life_main": 0,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [
+      {
+        "chair": 9036,
+        "chair_name": "Поэзия",
+        "city": 1,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "faculty": 733,
+        "faculty_name": "Кафедра литературного мастерства (Литературного творчества)",
+        "id": 188,
+        "name": "ЛИ им. Горького"
+      },
+      {
+        "chair": 9036,
+        "chair_name": "Поэзия",
+        "city": 1,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "faculty": 733,
+        "faculty_name": "Кафедра литературного мастерства (Литературного творчества)",
+        "id": 188,
+        "name": "Литературный институт им. А. М. Горького"
+      }
+    ],
+    "schools": [],
+    "sex": 1,
+    "online": 0,
+    "first_name": "Лера",
+    "last_name": "Кокорева",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 37721,
+    "bdate": "6.2",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/Yv_6v3e9pskLmcvuwLFCsdQ2dfj2Ob4B6RMGr95E8E7kT9r0yPUB90YWP3J4tfIjnXyG21PaqMrt3BzIlmuQuPdf.jpg?quality=95&crop=238,1265,736,736&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=-z4W3HyIsbyQN07GrfdzffH5qvUku9BkloDzYlBTZK0&cs=200x200",
+    "has_mobile": 1,
+    "skype": "missiris0602",
+    "can_write_private_message": 1,
+    "site": "http://irinaplekhweb.tilda.ws/photographer",
+    "status": "inst - @irinaplekh_photo 📸",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761548663
+    },
+    "followers_count": 2093,
+    "occupation": {
+      "id": 94976640,
+      "name": "Babysmile Photography",
+      "type": "work"
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Ирина",
+    "last_name": "Плех",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 41878,
+    "bdate": "19.4",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig1/oTtqLvNJu6M9uAaMyA5Su2i_FfwmfelnPowmFYFPJ4FlXpLDPYrFlAcSN8SNVB66PhotfkUy.jpg?quality=96&crop=0,18,594,594&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540&ava=1&u=5i-OTXOHYJiWrK0pHbucPHz2trEOY0J_cLQOkRi_Aac&cs=200x200",
+    "has_mobile": 1,
+    "interests": "Путешествия, приключения, этнография, антропология, история, религии, космос, корабли, восток, философия, тайные общества, символы, балет, дождь, природа, ночь, романтика, чувство юмора, запахи, любовь, Италия, Ближний Восток, Кавказ",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761421934
+    },
+    "followers_count": 1540,
+    "occupation": {
+      "id": 87,
+      "name": "Финансовый университет (бывш. ГУМФ)",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 1
+    },
+    "career": [],
+    "university": 87,
+    "university_name": "ГУМФ (бывш. АБИК)",
+    "faculty": 356,
+    "faculty_name": "Финансовый",
+    "graduation": 0,
+    "education_form": "Очное отделение",
+    "education_status": "Выпускница (специалист)",
+    "relation": 1,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "путешествия, музыка, любовь, природа, красота, чувство юмора",
+      "langs": [
+        "Русский",
+        "English",
+        "Français"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        },
+        {
+          "id": 3,
+          "native_name": "English"
+        },
+        {
+          "id": 16,
+          "native_name": "Français"
+        }
+      ],
+      "life_main": 6,
+      "people_main": 5,
+      "smoking": 0
+    },
+    "universities": [
+      {
+        "chair": 9137,
+        "chair_name": "Финансы и кредит",
+        "city": 1,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "education_status": "Выпускница (специалист)",
+        "education_status_id": 5,
+        "faculty": 356,
+        "faculty_name": "Финансовый",
+        "id": 87,
+        "name": "Финансовый университет (бывш. ГУМФ)"
+      }
+    ],
+    "schools": [],
+    "sex": 1,
+    "online": 0,
+    "first_name": "Анна",
+    "last_name": "Мохратова",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 43366,
+    "bdate": "24.11",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/FjvjHis8mSfgv548zpIRbGOKiAC0vjyEEACBNmvrjkwPFswQLF73HwjUCzSBlfalnJxgc0ms5LSsnJ9xL21vHeXb.jpg?quality=95&crop=300,193,662,662&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640&ava=1&u=jfG6cTu-19M6ZZh-sOkuRRIR5b8DUvv0yxMZiJowwU8&cs=200x200",
+    "has_mobile": 1,
+    "skype": "viktoria14075",
+    "can_write_private_message": 1,
+    "mobile_phone": "iPhone 11 Pro Max",
+    "home_phone": "Panasonic(черный)",
+    "site": "http://vkontakte.ru/app638461_43366",
+    "status": "Люблю Вас МОИ Островские))))",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761480435
+    },
+    "followers_count": 1911,
+    "occupation": {
+      "id": 40,
+      "name": "СПбГЛТУ им. Кирова",
+      "type": "university",
+      "graduate_year": 2010,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Виктория",
+    "last_name": "Островская",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 45523,
+    "bdate": "31.12",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/39boD08FVLq3EktBhoGdXVl8n8uaierx9LI43VXvdwq6artbbGzYl-jReMHoT1NcSzV9cQ5OWxnfaPWolyVLSO0f.jpg?quality=95&crop=139,1,808,808&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=jghf_Icnt0GQguLycFjl0jha58hun-oL6zpA28AHaZI&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761542239
+    },
+    "occupation": {
+      "id": 263,
+      "name": "МИИТ",
+      "type": "university",
+      "graduate_year": 2011,
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Мария",
+    "last_name": "Земцовская",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 45659,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/NC6UOi_X4PjyLwfyCt9QVAEdH5VBTnnIaDcLx5FZUGvqiCVOZRERKbTH4ZlQsXvldviNY3KBraxIyux6286uiymy.jpg?quality=95&crop=187,64,814,814&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=E6E361BIcxxm-9JVgxmgk6TpXTrN3P54bFNKTtCQiko&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "home_phone": "************************",
+    "site": "",
+    "status": "https://p2pr.me/162788111561077e9bb8038",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761460127
+    },
+    "followers_count": 1249,
+    "sex": 2,
+    "online": 0,
+    "first_name": "Лев",
+    "last_name": "Зайцев",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 45967,
+    "bdate": "12.3",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun9-25.userapi.com/impg/c10924/u45967/d_4acdffe9.jpg?quality=96&as=32x32,48x48,72x72&sign=bf3cdebdabceaec10f7cb176a4e2a00d&u=cW7dadriw5P914_O-VjCneZik7nMo29p-OWulEJk-og&cs=200x200",
+    "has_mobile": 1,
+    "interests": "",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761545446
+    },
+    "followers_count": 5179,
+    "occupation": {
+      "id": 304,
+      "name": "МЭИ (ТУ)",
+      "type": "university",
+      "graduate_year": 2010,
+      "country_id": 1,
+      "city_id": 1
+    },
+    "career": [],
+    "university": 304,
+    "university_name": "НИУ МЭИ",
+    "faculty": 2480,
+    "faculty_name": "Институт проблем энергетической эффективности",
+    "graduation": 2010,
+    "education_form": "Очное отделение",
+    "education_status": "Выпускник (специалист)",
+    "relation": 0,
+    "universities": [
+      {
+        "chair": 9400,
+        "chair_name": "Экономика и управление на предприятии",
+        "city": 1,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "education_status": "Выпускник (специалист)",
+        "education_status_id": 5,
+        "faculty": 2480,
+        "faculty_name": "Институт проблем энергетической эффективности",
+        "graduation": 2010,
+        "id": 304,
+        "name": "МЭИ (ТУ)"
+      }
+    ],
+    "schools": [
+      {
+        "city": 722,
+        "class": "а",
+        "class_id": 1,
+        "country": 1,
+        "id": "8029",
+        "name": "Школа № 21",
+        "year_from": 1994,
+        "year_graduated": 2004,
+        "year_to": 2004
+      }
+    ],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Александр",
+    "last_name": "Комаров",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 46521,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/tGn2qmdTJQ0b6CR43Nu_GnBk96mAhvYENLVv6qGnipQYrx48zP2jaRRuQD7q8-uzVtT43tW57iCXEC7ihQG3dQ01.jpg?quality=95&crop=1,18,1289,1289&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&ava=1&u=MfdCpQXcHmAawfCsMyz5AlH5AkwOCERvUIJb-mXbc_4&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "Делайте то, во что верите, и верьте в то, что делаете. Все остальное — пустая трата энергии и времени.",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761518025
+    },
+    "occupation": {
+      "name": "ООО \"Карлсберг Восточная Европа\"",
+      "type": "work"
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Кристина",
+    "last_name": "Трохон",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 54175,
+    "bdate": "2.12",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/OUnlwxGIrAcGMcN86BQotxPJnUAbS87PEskVRG8QWihk6SBnG6oCl5_1D1xuxxTiclQzAh1W3k2sbTa-HKd4rZRa.jpg?quality=96&crop=0,0,1020,1020&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=JS_SqwX3eMYzEn8ShSxMmMVNSzxGCEQ1cp5nY6WW1H4&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761551403
+    },
+    "followers_count": 554,
+    "occupation": {
+      "id": 56,
+      "name": "НИУ СПбГПУ (Политех)",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Ника",
+    "last_name": "Зимакова",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 55789,
+    "bdate": "25.10",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/xcCPcSe9W-rL1257HtGAJ78QRkcFWbPVqN5MY_5WUGwOZAv-cQuWZkxo_P6917w96KlpyefNVnIyTuhpmuA7MFoF.jpg?quality=96&crop=511,192,1537,1537&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=LZK91pf4JDL5GkrJtxMB9MA-8369bwyHzxvNtMMaQgI&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1759687548
+    },
+    "followers_count": 156,
+    "occupation": {
+      "id": 6858,
+      "name": "ХГАЭП",
+      "type": "university",
+      "graduate_year": 2007,
+      "country_id": 1,
+      "city_id": 153
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Владимир",
+    "last_name": "Баганов",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 58190,
+    "bdate": "22.4",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig1/DXs1-kYroXbt7jNvJAgK0AZX-jgSZq3eRDcK0SPvdn9-UVI7LP1MHsssLl0tYYedCxW5-Lp7.jpg?quality=96&crop=162,162,1296,1296&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&ava=1&u=IFfAvtlkIsTdELCMa96P0OPllsNyVZH4y8KC_eBt-6o&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761548906
+    },
+    "followers_count": 1416,
+    "occupation": {
+      "id": 55,
+      "name": "СПбГМТУ (бывш. ЛКИ)",
+      "type": "university",
+      "graduate_year": 2011,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Дарья",
+    "last_name": "Макарик",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 60401,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/xALTfhI4tLfyotQxEIOplX-bmKmdEekCVzr4pFAU717_VOdRuqyRM_8MkM4RRUj4lyBmBZLCT8WL_MJwGhr5DLs7.jpg?quality=95&crop=1,214,506,506&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480&ava=1&u=r6q_uuldQPoeU8JybOdFGOqSBzj6yvs02NUw78BiFQg&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "Паровозик, который смог",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761552375
+    },
+    "occupation": {
+      "id": 196456,
+      "name": "ЕАОИ",
+      "type": "university",
+      "graduate_year": 2015,
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Ленка",
+    "last_name": "Иванова",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 65639,
+    "bdate": "23.3",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig1/dgu6NBzd60CMKkLeuIccembu__dwD5GPPkiuCPNHWVOO9eLd5fIUlRNgo2QPEyDTUJsei46x.jpg?quality=96&crop=128,425,595,595&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540&ava=1&u=WvrEFk56sdcyYm7Nsg4qUuKKHxuX8zIdQ1aQ_faZFeo&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761338949
+    },
+    "followers_count": 495,
+    "occupation": {
+      "id": 22822305,
+      "name": "ВКонтакте",
+      "type": "work"
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Екатерина",
+    "last_name": "Лабутина",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 71873,
+    "bdate": "27.11",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/Qff1ZS2jtHEafHH-7t-_FY_t9mNEmVFelR-AlCzDZtOKKYmt73e26aGo4R6ZBpZPSUoxfT-FS8LKylxtFQO3zub3.jpg?quality=95&crop=265,213,540,540&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540&ava=1&u=9yuXqo-8u7oidBe8685Z0ZmB_J-Ains_s9pg8vye-u8&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761545487
+    },
+    "followers_count": 1533,
+    "occupation": {
+      "id": 56,
+      "name": "СПбГПУ Политех",
+      "type": "university",
+      "graduate_year": 2011,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Надежда",
+    "last_name": "Полянкина",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 76146,
+    "bdate": "1.12",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/4hAY696cTvy8Fk8801gQEsmAN4B9WVxglMO-33395r21xc5OjjAC-1TmUjQHYkFzknDMnXHlMCuL1PIHr3wvVs82.jpg?quality=95&crop=0,151,1000,1000&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=VzwNpHyai9f4_r9yjOH9ztV6F8wMzxu9ZWSCtrZvkAE&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "vk.com/mary_mama Подушки Для Беременных",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761507743
+    },
+    "followers_count": 3505,
+    "occupation": {
+      "id": 30362942,
+      "name": "Подушки для беременных СПб Mary mama",
+      "type": "work"
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Ma",
+    "last_name": "Sha",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 80878,
+    "bdate": "26.10",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/gUGsDgVJyu-ZTYGjKfA31iW1CyM1tRmRn5OKj1ZkGe9BVzK93tQfu02mrUE_quksAZGibhuabrvbxT7HBUIKU2hR.jpg?quality=95&crop=422,371,1321,1321&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&ava=1&u=zGYLoPueQ1Pj7imJSBkTM_y-WZrfXZ04hhUA1gFFjNo&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761511869
+    },
+    "followers_count": 486,
+    "sex": 2,
+    "online": 0,
+    "first_name": "Никита",
+    "last_name": "Валентинович",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 81369,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/UKwZjGQ5P9QSf1kba2uwwCtH_7YgW8Ppnl42pPSjIoYHBnG4VtciJnN_sIgaKt_D8sGlP_OxoOEiGg5aXazj-ut4.jpg?quality=95&crop=58,62,644,644&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640&ava=1&u=O7bam83Lf4N7ryvDPF6L83hQSmuaUIbDDh6ybL7PTVU&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761554295
+    },
+    "occupation": {
+      "id": 1173072,
+      "name": "СПбГЭУ (ранее ФИНЭК, ИНЖЭКОН, СПбГУСЭ)",
+      "type": "university",
+      "graduate_year": 2008,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Александр",
+    "last_name": "Алекс",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 81949,
+    "bdate": "18.5",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/pokXAZRLoNAlqg5WdJyaCdWft5LWfNHyGSr4ynydXc2yvsHvIhDtgbtAwrxGDxDs_DMLvXrWrrujsmMvx6PCjygI.jpg?quality=96&crop=0,472,1226,1226&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&ava=1&u=DgJLyebvxwPrS8hu6cMHHtXtgVme9a-Pb3JYVh0O8Ek&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "home_phone": "",
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761482468
+    },
+    "followers_count": 312,
+    "occupation": {
+      "id": 242,
+      "name": "МГЛУ",
+      "type": "university",
+      "graduate_year": 2011,
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Александра",
+    "last_name": "Киприч",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 82829,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/teKB0tRUHUsDE5iqzcTvkawcJ35A56CbcJlzqc-6u1w1jO_BqiZxktn9VWOny_sihxJ3aiQd726CVRPZ11Acy-Pv.jpg?quality=95&crop=278,1039,1233,1233&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&ava=1&u=U9qzXepyPjxawO3kYbWM7D1bvrMNLlCvi8_IzPeZ4n4&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761554667
+    },
+    "occupation": {
+      "id": 24,
+      "name": "НОИР (ИУОРР)",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 1,
+    "online": 1,
+    "online_app": 3140623,
+    "first_name": "Ольга",
+    "last_name": "Зубкова",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 90409,
+    "bdate": "9.5",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/BT11FMege7W2ZpLkcTSdOEBwjn6l1f0K71AGn26k0G2PGxmt8-2SVxuIo19cR0MTt1JXkQtL-dGxlgTaTcjGt2Uc.jpg?quality=95&crop=0,0,900,900&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=Vrxw5bdb6HoPLmMm2FesNO9baxj4C5WSWy_hc8qtba0&cs=200x200",
+    "has_mobile": 1,
+    "interests": "",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "Уходящий силуэт летней грозы.",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761549384
+    },
+    "followers_count": 326,
+    "occupation": {
+      "id": 15,
+      "name": "ГМА им. адмирала С. О. Макарова (бывш. ЛВИМУ)",
+      "type": "university",
+      "graduate_year": 2025,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "career": [],
+    "university": 15,
+    "university_name": "ГМА им. адмирала С. О. Макарова (бывш. ЛВИМУ)",
+    "faculty": 0,
+    "faculty_name": "",
+    "graduation": 2025,
+    "relation": 0,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "life_main": 5,
+      "people_main": 2,
+      "political": 4,
+      "smoking": 1
+    },
+    "universities": [
+      {
+        "city": 2,
+        "country": 1,
+        "graduation": 2025,
+        "id": 15,
+        "name": "ГМА им. адмирала С. О. Макарова (бывш. ЛВИМУ)"
+      }
+    ],
+    "schools": [],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Виктор",
+    "last_name": "Королев",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 102294,
+    "bdate": "12.4",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/MO-64vMdnFiw8mC8nwinKuYSCSq2LnPwtwH8Y5Nf0Ikd3muggW3KB-1tuwTbosEWeNPP2YA2tqVBWP_lHZVin6op.jpg?quality=95&crop=140,76,880,880&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=PYuq-VcK1HgtqRQ0xvmjbsmiP7sAuIOU8pSoaScCwAs&cs=200x200",
+    "has_mobile": 1,
+    "skype": "mileno4ka87",
+    "interests": "",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "You know you love me xoxo",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761553784
+    },
+    "followers_count": 1018,
+    "occupation": {
+      "id": 1,
+      "name": "СПбГУ",
+      "type": "university",
+      "graduate_year": 2011,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "career": [],
+    "university": 1,
+    "university_name": "СПбГУ",
+    "faculty": 11,
+    "faculty_name": "Факультет прикладной математики - процессов управления",
+    "graduation": 2011,
+    "relation": 0,
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "Если у вас могут быть одновременно свобода и любовь, вам больше ничего не нужно. У вас все есть.",
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ],
+      "life_main": 0,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [
+      {
+        "chair": 147,
+        "chair_name": "Кафедра компьютерных технологий и систем",
+        "city": 2,
+        "country": 1,
+        "faculty": 11,
+        "faculty_name": "Факультет прикладной математики - процессов управления",
+        "graduation": 2011,
+        "id": 1,
+        "name": "СПбГУ"
+      }
+    ],
+    "schools": [
+      {
+        "city": 2,
+        "class": "г",
+        "class_id": 4,
+        "country": 1,
+        "id": "119",
+        "name": "Школа №249 им. М. В. Маневича",
+        "year_from": 1995,
+        "year_graduated": 2004,
+        "year_to": 2002,
+        "speciality": "математика"
+      },
+      {
+        "city": 2,
+        "class": "",
+        "class_id": 0,
+        "country": 1,
+        "id": "42365",
+        "name": "Колледж водных ресурсов (бывш. ПУ №89)",
+        "type": 15,
+        "type_str": "Проф. училище",
+        "year_from": 2002,
+        "year_graduated": 2005,
+        "year_to": 2005,
+        "speciality": "Оператор ПК, гр. 181"
+      }
+    ],
+    "sex": 1,
+    "online": 0,
+    "first_name": "Надежда",
+    "last_name": "Ермолаева",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 103757,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/OI6M3R1t6-KXndxMyK_sViIna5pSvT4PCcypD_TIsGWNkS9nG91-gnARpEEWbcQVUXCbBuDJFxJL5-hF7GdLWaos.jpg?quality=95&crop=457,453,444,444&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360&ava=1&u=3YlZBVQIpn5wWHFYD4p_15mZuEDBwE0m68eAvFPl6IE&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761543376
+    },
+    "followers_count": 239,
+    "occupation": {
+      "id": 53,
+      "name": "Университет ИТМО",
+      "type": "university",
+      "graduate_year": 2017,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Валерий",
+    "last_name": "Киреенков",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 122300,
+    "bdate": "6.4",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/KfXTQUFnMyYcEQxXfIoX8qwpg_FXtGVyUIBChHSMZtLrbxWwI8ghmYVrvDuy5NTLvDM-wIH9dhR6cCvAJ7YT4lrL.jpg?quality=96&crop=195,427,307,307&as=32x32,48x48,72x72,108x108,160x160,240x240&ava=1&u=D1Mk-B9FFMtzEUz6slUaVbrcpgLRiWabUAXFufLjW_k&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761554142
+    },
+    "followers_count": 1325,
+    "occupation": {
+      "id": 1,
+      "name": "СПбГУ",
+      "type": "university",
+      "graduate_year": 2011,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Альбина",
+    "last_name": "Шведова",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 131075,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/OEwbBdrPh_yJ1xNkJHdnFcOCU5qhXclrlUdHt-x8oXpO78-vLUfucAgrS7NSVEEkv4Xg5gAwLEDacuehqaJSxM-6.jpg?quality=95&crop=132,400,407,407&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360&ava=1&u=A15928QaRfNrIfTumGWEvT1mJrnwVPQOjuo_xaKf2r8&cs=200x200",
+    "has_mobile": 1,
+    "interests": "PC Games, настольный тенис, бадминтон, футбол, бассейн, рыбалка",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761508026
+    },
+    "followers_count": 52,
+    "occupation": {
+      "id": 260,
+      "name": "МГУПП",
+      "type": "university",
+      "graduate_year": 2011,
+      "country_id": 1,
+      "city_id": 1
+    },
+    "career": [],
+    "university": 260,
+    "university_name": "МГУПП",
+    "faculty": 2149212,
+    "faculty_name": "Экономики и предпринимательства\r\n",
+    "graduation": 2011,
+    "education_form": "Очное отделение",
+    "relation": 1,
+    "personal": {
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ]
+    },
+    "universities": [
+      {
+        "chair": 2035442,
+        "chair_name": "Экономика, иноватика и финансы",
+        "city": 1,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "faculty": 2149212,
+        "faculty_name": "Экономики и предпринимательства\r\n",
+        "graduation": 2011,
+        "id": 260,
+        "name": "МГУПП"
+      }
+    ],
+    "schools": [
+      {
+        "city": 1,
+        "class": "д",
+        "class_id": 5,
+        "country": 1,
+        "id": "1534",
+        "name": "Школа № 1184",
+        "year_from": 1996,
+        "year_to": 2001
+      },
+      {
+        "city": 1,
+        "class": "а",
+        "class_id": 1,
+        "country": 1,
+        "id": "4771",
+        "name": "Школа № 114",
+        "year_from": 2001,
+        "year_graduated": 2006,
+        "year_to": 2006,
+        "speciality": "физико-математическая"
+      }
+    ],
+    "sex": 2,
+    "online": 0,
+    "first_name": "Руслан",
+    "last_name": "Сейфетдинов",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 135728,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/vN6x7V8G0L_Vuz2c4_tIQ7aiQCybro9B9eNuQ9x9rKcE8wH9NkIqAiIFvShwbQafR0POT7ahoU6Nl8UM3no8ITYC.jpg?quality=95&crop=396,9,1698,1698&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=Ilm0DKbJRImT88wIaxO9hyetAW3tZIuXQ6kg4SVC7kY&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "Продюсер российско-китайских культурных проектов, журналист и певица, проект КИТАРАМА ✨, Руководитель Комитета креативных индустрий РАСПП",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761550659
+    },
+    "occupation": {
+      "id": 196591978,
+      "name": "КИТАРАМА KITARAMA",
+      "type": "work"
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Катя",
+    "last_name": "Андреас",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 139648,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/X1MJik6QSpEKdNSOjMOxrsmF-jBvaZMOQwPm3g6RXUrqBXSzDiPKs0Bt7kekQWYrm9ODliuzwAeAZFIPog66bYLL.jpg?quality=95&crop=1299,450,1176,1176&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&ava=1&u=V7Z-SXj8_EyAcms0sdS7z-VLJsmjcSqXMbG7PYXz4IY&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761548097
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Олег",
+    "last_name": "Александров",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 141788,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig1/j85xFoUsyPQOmnRYt7bbfLgJC2zkc1ZZbSnz1wHYhAUmBFU2CMR7flS_8pHKxPAv6GEyzwmk.jpg?quality=96&crop=71,71,571,571&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540&ava=1&u=N06vcnFkTuK6rNVGgwWYMNAhYwbIvOCORHR4fjm4x_s&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "home_phone": "",
+    "site": "moscowsupercharge.com",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761324140
+    },
+    "followers_count": 3684,
+    "occupation": {
+      "id": 80117084,
+      "name": "Moscow Supercharge (MSC)",
+      "type": "work"
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Polya",
+    "last_name": "Renne",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 153212,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/qmV7hKd1fWQD9nENFWBG9IqZhtCCoc-kCfreaJiglv8zBayOVooTHyjpi_Z2z3UHGf0I_AAAdy0Eb5eDdd8EVa0Q.jpg?quality=95&crop=3,0,1917,1917&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=mgGa5yMT6GKp59W6ogNVPsn2RCNhbi_vuPHwA1Ekv5c&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "враг будет разбит,победа будет за нами,всем всего светлого и ясного",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761553872
+    },
+    "occupation": {
+      "id": 260,
+      "name": "МГУПП",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Грант",
+    "last_name": "Чернорус-Лорян",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 153581,
+    "bdate": "29.3",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/JEVPvZUdcj1T-B6njZ8JGwy8kqVQeP4YsIk6LWX8j0SaMldJ88kNu96sKjmRkqB15wEPcj0Or5YWHVCoeZW96POH.jpg?quality=95&crop=0,285,1920,1920&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=PDfT96c-bQKEu0-IexL3ulrLUR69HsYOPRTjj7yrexU&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "NL, гербалайф, орифлейм, удаленная работа за млн в наносекунду и прочая нечисть, добавление в друзья для Вас платное - 100 р. через вк.",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761554751
+    },
+    "occupation": {
+      "id": 53768810,
+      "name": "BIOCAD",
+      "type": "work"
+    },
+    "sex": 1,
+    "online": 1,
+    "first_name": "Екатерина",
+    "last_name": "Сальникова",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 160745,
+    "bdate": "8.10",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig1/So0RZdu1Ap6TeKvgdClqBkPiCvDbrP94bOCqOhkRX9hHqzILkk2vlSmbMjrEKvpPWPp7RsVp.jpg?quality=96&crop=166,1,838,838&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=bj4AHA8zdZ97_03mDthNrzKxjrIC4duTQ7kWlOII5Vs&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761522371
+    },
+    "occupation": {
+      "id": 34,
+      "name": "РГПУ им. А. И. Герцена",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Вера",
+    "last_name": "Агневич",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 162989,
+    "bdate": "29.10",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/jBAW9qZIcic-3hE3z-_lXu7Uoy3Cq7t8az9NqmNfyFHkFi_mb2gFlQWwqgJRhTY_EfBaZJ59KbjSNK3SCzo82iRL.jpg?quality=95&crop=181,417,1333,1333&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&ava=1&u=PhgWI0iBz-u05eF_LBmbmSwGCVufbfrryuAmKdmzm38&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761551966
+    },
+    "followers_count": 128,
+    "occupation": {
+      "id": 498747,
+      "name": "Università degli Studi di Catania",
+      "type": "university",
+      "graduate_year": 2014,
+      "country_id": 88,
+      "city_id": 3853
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Maria",
+    "last_name": "Caruso",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 165535,
+    "bdate": "9.11",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig1/y60ZpZPa8mVgAX7hDjC42pyois_-HQiXf_RS4ccVM4k0VATd0rmXzIl7rokgHArkB5OPDm7l.jpg?quality=96&crop=174,174,1392,1392&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280&ava=1&u=UT_Xp69qRONJlNpOAMr3wnujrSbkonFQFpS8liUP4iA&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "Маленькое женское счастье)",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761554510
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Татьяна",
+    "last_name": "Каминская",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 167105,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig1/DlBTFwmOkX_BD2Mo0ALkacEhFFSuiZ5-YgUADyOIEJfJfDSJQBIA0NcDkpX-ZKYhsSbzEYyW.jpg?quality=96&crop=13,3,660,660&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640&ava=1&u=EJy-0_dXz8tuBgo4kHemcdsHGNJuJA9JByyvX_5w-5Y&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "http://www.aurabi.ru - основной сайт http://press.aurabi.ru - типография http://www.vk.com/aurabi - группа в Контакте",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761550791
+    },
+    "followers_count": 362,
+    "occupation": {
+      "name": "Системный интегратор Аураби",
+      "type": "work"
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Марина",
+    "last_name": "Ржевская",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 169767,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig1/bi4dxvx8KPdU2Dx74uDC5ix1oynwSLDYPmWXnmUlsR2XdVYGZMpNc3YILP3tv6JWXmYW6qtZ.jpg?quality=96&crop=69,2,228,228&as=32x32,48x48,72x72,108x108,160x160&ava=1&u=QehgESGRkplmBpEwaIbe2J4Lkh8XYXLIj6ZBpJEGeB0&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "home_phone": "",
+    "site": "http://www.lastfm.ru/user/Livervit",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761551033
+    },
+    "followers_count": 762,
+    "occupation": {
+      "id": 348,
+      "name": "ФА при Правительстве РФ",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Веталь",
+    "last_name": "Абрамов",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 179554,
+    "bdate": "24.6",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/u5mrRnFNY93-iew551MyWKSB5KbBU1HjMN9faf7aBJI7_yOVL4k2-B9g5fx3aFAZHqJn7JPVjCVVCXj1YYk-VjIj.jpg?quality=95&crop=0,596,1440,1440&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=p5w8qX9XeSypCRVDAHeVCWP0hzGiMUGP9_wrivIOMNg&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "https://www.instagram.com/venechka_rx/",
+    "status": "Hurra die Welt geht unter",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761421521
+    },
+    "followers_count": 1707,
+    "occupation": {
+      "id": 57206,
+      "name": "Представительство Университета «Синергия» (бывш. КФ МФПУ, МФПА)",
+      "type": "university",
+      "graduate_year": 2015,
+      "country_id": 1,
+      "city_id": 483
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Виктория",
+    "last_name": "Кузьмичева",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 179779,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig1/vzQ8mkdOmMZuV-wylC2WW4Iz1AlbkWm_hc5W0uOGQPSjh0FVpymnPbPF-_fHUUDQXHMlOEWr.jpg?quality=96&crop=560,103,831,831&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=pZuEJdDodTaIAo9ls4hHjxFR2dqy88AgkUE_jf-KWFY&cs=200x200",
+    "has_mobile": 1,
+    "skype": "nikkurkov",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761424268
+    },
+    "followers_count": 921,
+    "occupation": {
+      "id": 224498,
+      "name": "РГСУ (НФ)",
+      "type": "university",
+      "graduate_year": 2007,
+      "country_id": 1,
+      "city_id": 1723
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Николай",
+    "last_name": "Курков",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 181850,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig1/yi33J3fwaT0eTr3Yp-6VExXt8ofEuT7-PkjaC4kSwoc1dtaITDanZxAcVZRe41pScCKpY1OT.jpg?quality=96&crop=301,0,1536,1536&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=Stqqy8-D-Cq9AIB-ZOCcLhKmYSMDoYECFWUcwizHEh4&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "Границы условные",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761516523
+    },
+    "occupation": {
+      "id": 245,
+      "name": "МГОУ (открытый)",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Оксана",
+    "last_name": "Толмачева",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 189120,
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/vaolAKeKuHGZ-TZWgD4WKt7xxY6RKRKiE_M0ddpur5Z53mgxewonBn7FsS6orazXVxX_uFBAzpSgVsR6c399K3G2.jpg?quality=95&crop=329,9,1902,1902&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=YqJ_C9OmCim57xM1NCpGaCMUEPubMClx-i2enFrb4Y4&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1760526613
+    },
+    "occupation": {
+      "id": 55,
+      "name": "СПбГМТУ (бывш. ЛКИ)",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Александр",
+    "last_name": "Большаков",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 189795,
+    "bdate": "6.10",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/4PalAP5Agf99Ofnzms2FLAp008hotiA3J0uBp8989ZHeyl73CkXEDM63uQ_tTvakd5aXQztac8PMmhwRwACRg8VN.jpg?quality=95&crop=9,279,1515,1515&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080,1280x1280,1440x1440&ava=1&u=SD_4M18EKAr0Y9_zlopwoHJ3g_djqhE9HYCG2fBH9-k&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761509250
+    },
+    "followers_count": 247,
+    "occupation": {
+      "id": 841,
+      "name": "ТвГУ",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 141
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Екатерина",
+    "last_name": "Нестерова",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 193367,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig2/pbl-qy8EWSWPOE1sREEhryEOPQQogmQHqzcvFV2aTQCTZ0bsaa7vRwmH9HNrnX1qMzOkiPEtBaI0tbxbb5tTYWWk.jpg?quality=95&crop=0,0,720,720&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=JsqhwCKof7GLsAkHFykgQwfxZvFA6zHLa4OpTnyP_ic&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "mobile_phone": "",
+    "site": "",
+    "status": "Последний пионер🫡",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761508291
+    },
+    "followers_count": 4802,
+    "occupation": {
+      "id": 321,
+      "name": "РГУФКСиТ",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 2,
+    "online": 0,
+    "first_name": "Данила",
+    "last_name": "Михайловский",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 196035,
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig1/TTVUoeXojrrVUDBZZFHLgVnvvQ7bB2eX1xGpGLReg5yYCBmv1jIwXxb4L9PUcO9WKHAzBpvw.jpg?quality=96&crop=0,235,960,960&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=Ja4dRjVRBREhyuKABfXtL7dHo7g5aswg6zwn_hMHVb8&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761083998
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Soy",
+    "last_name": "Milk",
+    "can_access_closed": false,
+    "is_closed": true
+  },
+  {
+    "id": 199738,
+    "bdate": "12.11",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig1/K5gtlHDxz94GkCtUgpVY45jbd36p1q86uMiv2_22jZBKuJwusTzz_cqdP6Bmsb_kPp3Ad2-t.jpg?quality=96&crop=1,136,1077,1077&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720&ava=1&u=PQ4AYJNz6xpEySz2ogX0QtIWhgomqsNKljpQQMX7U-o&cs=200x200",
+    "has_mobile": 1,
+    "skype": "zaic221",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 4,
+      "time": 1760637200
+    },
+    "followers_count": 551,
+    "sex": 2,
+    "online": 0,
+    "first_name": "Nikita",
+    "last_name": "Zaycev",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 200873,
+    "bdate": "27.3",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-1.userapi.com/s/v1/ig1/iUhdnZYWAmobxBAslina4rVOYlT7wnx1no5HlyPz4su4-0lgaqI3pvjbv09OvPdul4ktPieZ.jpg?quality=96&crop=693,299,1242,1242&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&ava=1&u=PVwZPqbrSomHU1Gr6bagacTZabpdDBQARNQzWxFCl54&cs=200x200",
+    "has_mobile": 1,
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "",
+    "last_seen": {
+      "platform": 2,
+      "time": 1761554299
+    },
+    "followers_count": 749,
+    "occupation": {
+      "id": 64,
+      "name": "СПбГУНиПТ",
+      "type": "university",
+      "graduate_year": 2006,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Евгения",
+    "last_name": "Одностайченко",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 207277,
+    "bdate": "26.9",
+    "city": {
+      "id": 1,
+      "title": "Москва"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/LOE2E8m_o7ch5pO9y93BpVywBfpFGLRk-ODqX4Eg-XQqWcQ3LYtF0wLESFWtqFZme85gx-KLIq7Ewey1DxbFnJdG.jpg?quality=95&crop=2,395,1149,1149&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1080x1080&ava=1&u=v0vHYVMhaQQEJ3KW1AfkRG1TWfpajybeD3OmlUkR3EA&cs=200x200",
+    "has_mobile": 1,
+    "skype": "darachka89",
+    "can_write_private_message": 1,
+    "site": "",
+    "status": "Поверьте, все именно так, как вы того хотите...©",
+    "last_seen": {
+      "platform": 4,
+      "time": 1761466993
+    },
+    "followers_count": 2023,
+    "occupation": {
+      "id": 4401,
+      "name": "МГУУ Правительства Москвы",
+      "type": "university",
+      "country_id": 1,
+      "city_id": 1
+    },
+    "sex": 1,
+    "online": 0,
+    "first_name": "Дара",
+    "last_name": "Гырылтуева",
+    "can_access_closed": true,
+    "is_closed": false
+  },
+  {
+    "id": 208658,
+    "bdate": "3.5",
+    "city": {
+      "id": 2,
+      "title": "Санкт-Петербург"
+    },
+    "country": {
+      "id": 1,
+      "title": "Россия"
+    },
+    "photo_200": "https://sun147-2.userapi.com/s/v1/ig2/lZ8ZGvqPcsb_qKoe6fdgsgZPaAMXmh83KWlm92lS6r6jDNlHitmONY1xKKwwWYHfC87ErNfQiy3dYgvTWIns_ePt.jpg?quality=95&crop=28,1,588,588&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540&ava=1&u=IB7KkdytFvmcfJKYuYZsgMR-bPbEmg9uLzOlJHWj6Ro&cs=200x200",
+    "has_mobile": 1,
+    "interests": "люблю путешествовать....:)",
+    "can_write_private_message": 1,
+    "site": " https://t.me/stroinostikrasotaa",
+    "status": "ИНДИВИДУАЛЬНЫЕ ПРОГРАММЫ |  СОПРОВОЖДЕНИЕ ДО РЕЗУЛЬТАТА ОНЛАЙН | ЗАПИСЬ https://mrqz.me/stroinostikrasota",
+    "last_seen": {
+      "platform": 7,
+      "time": 1761554721
+    },
+    "followers_count": 1904,
+    "occupation": {
+      "id": 48,
+      "name": "СПбГАСУ",
+      "type": "university",
+      "graduate_year": 2012,
+      "country_id": 1,
+      "city_id": 2
+    },
+    "career": [
+      {
+        "city_id": 2,
+        "company": "ОАО \"Газпром газораспределение Ленинградская область\"",
+        "country_id": 1,
+        "from": 2012,
+        "until": 2016
+      },
+      {
+        "city_id": 2,
+        "company": "Комитет по государственному контролю, использованию и охране памятников истории и культуры",
+        "country_id": 1,
+        "from": 2012,
+        "until": 2012
+      }
+    ],
+    "university": 48,
+    "university_name": "СПбГАСУ",
+    "faculty": 167,
+    "faculty_name": "Строительный\r\n",
+    "graduation": 2012,
+    "education_form": "Очное отделение",
+    "education_status": "Выпускница (специалист)",
+    "relation": 4,
+    "relation_partner": {
+      "id": 7684189,
+      "first_name": "Сергей",
+      "last_name": "Карпенко"
+    },
+    "personal": {
+      "alcohol": 0,
+      "inspired_by": "",
+      "langs": [
+        "Русский"
+      ],
+      "langs_full": [
+        {
+          "id": 0,
+          "native_name": "Русский"
+        }
+      ],
+      "life_main": 0,
+      "people_main": 0,
+      "smoking": 0
+    },
+    "universities": [
+      {
+        "chair": 62813,
+        "chair_name": "Геотехники",
+        "city": 2,
+        "country": 1,
+        "education_form": "Очное отделение",
+        "education_form_id": 1,
+        "education_status": "Выпускница (специалист)",
+        "education_status_id": 5,
+        "faculty": 167,
+        "faculty_name": "Строительный\r\n",
+        "graduation": 2012,
+        "id": 48,
+        "name": "СПбГАСУ"
+      }
+    ],
+    "schools": [
+      {
+        "city": 2,
+        "class": "в",
+        "class_id": 3,
+        "country": 1,
+        "id": "17918",
+        "name": "Школа №126",
+        "year_from": 1997,
+        "year_graduated": 2007,
+        "year_to": 2007,
+        "speciality": "экономика"
+      }
+    ],
+    "sex": 1,
+    "online": 1,
+    "first_name": "Настасья",
+    "last_name": "Карпенко",
+    "can_access_closed": true,
+    "is_closed": false
+  }
+]
