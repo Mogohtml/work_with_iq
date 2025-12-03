@@ -1,0 +1,527 @@
+2025-11-26 11:50:49,126 - INFO - VKPersonalMessageSender инициализирован
+2025-11-26 11:50:49,126 - INFO - Начинаем рассылку из user_ids.xlsx
+2025-11-26 11:50:49,513 - WARNING - Некоторые фото не найдены: {'works_bot_2.jpg', 'works_shop_1.jpg', 'works_bot_3.jpg', 'works_site_2.jpg', 'works_design_8.jpg', 'works_bot_1.jpg', 'works_shop_3.jpg', 'works_shop_4.jpg', 'works_site_5.jpg', 'works_site_6.png', 'works_site_1.jpg'}
+2025-11-26 11:50:49,518 - WARNING - Пропускаем строку 0: нет ID
+2025-11-26 11:50:49,519 - WARNING - Пропускаем строку 1: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 2: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 3: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 4: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 5: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 6: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 7: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 8: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 9: нет ID
+2025-11-26 11:50:49,520 - WARNING - Пропускаем строку 10: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 11: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 12: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 13: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 14: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 15: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 16: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 17: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 18: нет ID
+2025-11-26 11:50:49,521 - WARNING - Пропускаем строку 19: нет ID
+2025-11-26 11:50:49,522 - WARNING - Пропускаем строку 20: нет ID
+2025-11-26 11:50:49,522 - WARNING - Пропускаем строку 21: нет ID
+2025-11-26 11:50:49,522 - WARNING - Пропускаем строку 22: нет ID
+2025-11-26 11:50:49,522 - WARNING - Пропускаем строку 23: нет ID
+2025-11-26 11:50:49,522 - WARNING - Пропускаем строку 24: нет ID
+2025-11-26 11:50:49,522 - WARNING - Пропускаем строку 25: нет ID
+2025-11-26 11:50:49,522 - WARNING - Пропускаем строку 26: нет ID
+2025-11-26 11:50:49,522 - WARNING - Пропускаем строку 27: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 28: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 29: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 30: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 31: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 32: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 33: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 34: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 35: нет ID
+2025-11-26 11:50:49,523 - WARNING - Пропускаем строку 36: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 37: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 38: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 39: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 40: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 41: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 42: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 43: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 44: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 45: нет ID
+2025-11-26 11:50:49,524 - WARNING - Пропускаем строку 46: нет ID
+2025-11-26 11:50:49,525 - WARNING - Пропускаем строку 47: нет ID
+2025-11-26 11:50:49,525 - WARNING - Пропускаем строку 48: нет ID
+2025-11-26 11:50:49,525 - WARNING - Пропускаем строку 49: нет ID
+2025-11-26 11:50:49,525 - INFO - 
+        Всего пользователей: 50
+        Отправлено: 0
+        Ошибок: 0
+        Пропущено: 50
+        
+2025-11-26 11:52:34,792 - INFO - VKPersonalMessageSender инициализирован
+2025-11-26 11:52:34,792 - INFO - Начинаем рассылку из user_ids.xlsx
+2025-11-26 11:52:35,049 - WARNING - Пропускаем строку 0: нет ID
+2025-11-26 11:52:35,049 - WARNING - Пропускаем строку 1: нет ID
+2025-11-26 11:52:35,049 - WARNING - Пропускаем строку 2: нет ID
+2025-11-26 11:52:35,050 - WARNING - Пропускаем строку 3: нет ID
+2025-11-26 11:52:35,050 - WARNING - Пропускаем строку 4: нет ID
+2025-11-26 11:52:35,050 - WARNING - Пропускаем строку 5: нет ID
+2025-11-26 11:52:35,050 - WARNING - Пропускаем строку 6: нет ID
+2025-11-26 11:52:35,050 - WARNING - Пропускаем строку 7: нет ID
+2025-11-26 11:52:35,050 - WARNING - Пропускаем строку 8: нет ID
+2025-11-26 11:52:35,051 - WARNING - Пропускаем строку 9: нет ID
+2025-11-26 11:52:35,051 - WARNING - Пропускаем строку 10: нет ID
+2025-11-26 11:52:35,051 - WARNING - Пропускаем строку 11: нет ID
+2025-11-26 11:52:35,051 - WARNING - Пропускаем строку 12: нет ID
+2025-11-26 11:52:35,051 - WARNING - Пропускаем строку 13: нет ID
+2025-11-26 11:52:35,051 - WARNING - Пропускаем строку 14: нет ID
+2025-11-26 11:52:35,051 - WARNING - Пропускаем строку 15: нет ID
+2025-11-26 11:52:35,051 - WARNING - Пропускаем строку 16: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 17: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 18: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 19: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 20: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 21: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 22: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 23: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 24: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 25: нет ID
+2025-11-26 11:52:35,052 - WARNING - Пропускаем строку 26: нет ID
+2025-11-26 11:52:35,053 - WARNING - Пропускаем строку 27: нет ID
+2025-11-26 11:52:35,054 - WARNING - Пропускаем строку 28: нет ID
+2025-11-26 11:52:35,054 - WARNING - Пропускаем строку 29: нет ID
+2025-11-26 11:52:35,054 - WARNING - Пропускаем строку 30: нет ID
+2025-11-26 11:52:35,054 - WARNING - Пропускаем строку 31: нет ID
+2025-11-26 11:52:35,054 - WARNING - Пропускаем строку 32: нет ID
+2025-11-26 11:52:35,054 - WARNING - Пропускаем строку 33: нет ID
+2025-11-26 11:52:35,054 - WARNING - Пропускаем строку 34: нет ID
+2025-11-26 11:52:35,054 - WARNING - Пропускаем строку 35: нет ID
+2025-11-26 11:52:35,055 - WARNING - Пропускаем строку 36: нет ID
+2025-11-26 11:52:35,055 - WARNING - Пропускаем строку 37: нет ID
+2025-11-26 11:52:35,055 - WARNING - Пропускаем строку 38: нет ID
+2025-11-26 11:52:35,055 - WARNING - Пропускаем строку 39: нет ID
+2025-11-26 11:52:35,055 - WARNING - Пропускаем строку 40: нет ID
+2025-11-26 11:52:35,055 - WARNING - Пропускаем строку 41: нет ID
+2025-11-26 11:52:35,055 - WARNING - Пропускаем строку 42: нет ID
+2025-11-26 11:52:35,055 - WARNING - Пропускаем строку 43: нет ID
+2025-11-26 11:52:35,056 - WARNING - Пропускаем строку 44: нет ID
+2025-11-26 11:52:35,056 - WARNING - Пропускаем строку 45: нет ID
+2025-11-26 11:52:35,056 - WARNING - Пропускаем строку 46: нет ID
+2025-11-26 11:52:35,056 - WARNING - Пропускаем строку 47: нет ID
+2025-11-26 11:52:35,056 - WARNING - Пропускаем строку 48: нет ID
+2025-11-26 11:52:35,056 - WARNING - Пропускаем строку 49: нет ID
+2025-11-26 11:52:35,056 - INFO - 
+        Всего пользователей: 50
+        Отправлено: 0
+        Ошибок: 0
+        Пропущено: 50
+        
+2025-11-26 11:54:26,345 - INFO - VKPersonalMessageSender инициализирован
+2025-11-26 11:54:26,345 - INFO - Начинаем рассылку из user_ids.xlsx
+2025-11-26 11:54:56,986 - INFO - ✓ Отправлено Tamerlan Kabaloev (ID: 95005)
+2025-11-26 11:56:37,857 - ERROR - Ошибка загрузки фото images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 11:56:57,058 - INFO - ✓ Отправлено Александр Колесников (ID: 231797)
+2025-11-26 11:59:02,202 - ERROR - Ошибка загрузки фото images/works_shop_1.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-26 11:59:16,896 - INFO - ✓ Отправлено Николай Иванов (ID: 318919)
+2025-11-26 12:01:45,449 - INFO - ✓ Отправлено Ирина Серикова (ID: 761053)
+2025-11-26 12:04:10,779 - INFO - ✓ Отправлено Кристина Лао-Оливарес (ID: 816414)
+2025-11-26 12:05:33,731 - ERROR - Ошибка загрузки фото images/works_shop_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:05:48,069 - INFO - ✓ Отправлено Ирина Онежная (ID: 1386919)
+2025-11-26 12:07:10,863 - ERROR - Ошибка загрузки фото images/works_bot_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:07:18,530 - ERROR - Ошибка загрузки фото images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:07:37,754 - INFO - ✓ Отправлено Екатерина Ворон (ID: 2978339)
+2025-11-26 12:09:42,036 - INFO - ✓ Отправлено Екатерина Сергеева (ID: 4601269)
+2025-11-26 12:11:46,844 - ERROR - Ошибка загрузки фото images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:12:06,830 - INFO - ✓ Отправлено Наталья Комиссарова (ID: 4663148)
+2025-11-26 12:13:57,357 - INFO - ✓ Отправлено Николай Болибок (ID: 5133461)
+2025-11-26 12:15:07,032 - ERROR - Ошибка загрузки фото images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:15:24,744 - INFO - ✓ Отправлено Варвара Васильева (ID: 7203115)
+2025-11-26 12:16:58,824 - ERROR - Ошибка загрузки фото images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:17:09,501 - ERROR - Ошибка загрузки фото images/works_site_6.png: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:17:12,653 - INFO - ✓ Отправлено Виталий Славин (ID: 10557944)
+2025-11-26 12:19:28,448 - INFO - ✓ Отправлено Стас Исаенко (ID: 10707898)
+2025-11-26 12:21:12,047 - ERROR - Ошибка загрузки фото images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:21:16,158 - INFO - ✓ Отправлено Людмила Сидорова (ID: 11249760)
+2025-11-26 12:22:38,191 - ERROR - Ошибка загрузки фото images/works_bot_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:22:56,410 - ERROR - Ошибка загрузки фото images/works_shop_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:23:09,173 - INFO - ✓ Отправлено Никита Ларионов (ID: 11483628)
+2025-11-26 12:25:36,086 - INFO - ✓ Отправлено Ирина Урбанович (ID: 13463146)
+2025-11-26 12:27:07,408 - ERROR - Ошибка загрузки фото images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:27:10,183 - INFO - ✓ Отправлено Руслан Сафаров (ID: 15870242)
+2025-11-26 12:28:41,137 - ERROR - Ошибка загрузки фото images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:28:56,673 - ERROR - Ошибка загрузки фото images/works_shop_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:29:11,605 - INFO - ✓ Отправлено Саша Вакулин (ID: 15880725)
+2025-11-26 12:31:08,114 - ERROR - Ошибка загрузки фото images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:31:18,808 - ERROR - Ошибка загрузки фото images/works_shop_4.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:31:28,021 - INFO - ✓ Отправлено Артем Мельников (ID: 17034481)
+2025-11-26 12:33:29,623 - ERROR - Ошибка загрузки фото images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:33:31,425 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-26 12:34:01,654 - INFO - ✓ Отправлено Владимир Махорин (ID: 17254508)
+2025-11-26 12:36:17,412 - ERROR - Ошибка загрузки фото images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:36:30,359 - ERROR - ✗ Ошибка отправки Денис Дудник (ID: 18939040): [7] Permission to perform this action is denied
+2025-11-26 12:36:53,004 - ERROR - ✗ Ошибка отправки Александр Рогов (ID: 22198280): [7] Permission to perform this action is denied
+2025-11-26 12:37:15,568 - ERROR - Ошибка загрузки фото images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:37:21,884 - ERROR - ✗ Ошибка отправки Анджей Голуб (ID: 23195333): [7] Permission to perform this action is denied
+2025-11-26 12:37:47,053 - ERROR - ✗ Ошибка отправки Мария Потапова (ID: 23438359): [7] Permission to perform this action is denied
+2025-11-26 12:38:09,738 - ERROR - ✗ Ошибка отправки Юрий Кулев (ID: 25037963): [7] Permission to perform this action is denied
+2025-11-26 12:38:30,179 - ERROR - Ошибка загрузки фото images/works_shop_4.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:38:38,086 - ERROR - ✗ Ошибка отправки Дмитрий Дизоров (ID: 28205492): [7] Permission to perform this action is denied
+2025-11-26 12:38:59,659 - ERROR - ✗ Ошибка отправки Наиля Умарова (ID: 28713257): [7] Permission to perform this action is denied
+2025-11-26 12:39:22,417 - ERROR - ✗ Ошибка отправки Ольга Чумакина (ID: 31862856): [7] Permission to perform this action is denied
+2025-11-26 12:39:44,907 - ERROR - ✗ Ошибка отправки Влад Строкань (ID: 33127378): [7] Permission to perform this action is denied
+2025-11-26 12:40:05,698 - ERROR - ✗ Ошибка отправки Алексей Дроздов (ID: 33518049): [7] Permission to perform this action is denied
+2025-11-26 12:40:27,015 - ERROR - ✗ Ошибка отправки Антон Омелюк (ID: 34308038): [7] Permission to perform this action is denied
+2025-11-26 12:40:49,694 - ERROR - ✗ Ошибка отправки Женя Чуйко (ID: 35550007): [7] Permission to perform this action is denied
+2025-11-26 12:41:14,448 - ERROR - ✗ Ошибка отправки Сергей Белов (ID: 37837285): [7] Permission to perform this action is denied
+2025-11-26 12:41:36,345 - ERROR - ✗ Ошибка отправки Наталья Смотрова (ID: 44238982): [7] Permission to perform this action is denied
+2025-11-26 12:42:00,268 - ERROR - Ошибка загрузки фото images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:42:15,074 - ERROR - Ошибка загрузки фото images/works_site_6.png: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:42:15,885 - ERROR - ✗ Ошибка отправки Ксюша Смолякова (ID: 44652018): [7] Permission to perform this action is denied
+2025-11-26 12:42:28,554 - ERROR - Ошибка загрузки фото images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:42:41,724 - ERROR - Ошибка загрузки фото images/works_shop_4.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:42:51,007 - ERROR - ✗ Ошибка отправки roma ... (ID: 53679430): [7] Permission to perform this action is denied
+2025-11-26 12:43:13,905 - ERROR - ✗ Ошибка отправки Юлия Колобродова (ID: 53933063): [7] Permission to perform this action is denied
+2025-11-26 12:43:37,085 - ERROR - ✗ Ошибка отправки Сергей Румянцев (ID: 54453421): [7] Permission to perform this action is denied
+2025-11-26 12:44:04,173 - ERROR - ✗ Ошибка отправки Илья Фонвизин (ID: 54865078): [7] Permission to perform this action is denied
+2025-11-26 12:44:25,925 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-26 12:44:56,032 - ERROR - ✗ Ошибка отправки Алексей Командышко (ID: 56825632): [7] Permission to perform this action is denied
+2025-11-26 12:45:21,349 - ERROR - ✗ Ошибка отправки Илья Мехедькин (ID: 66863181): [7] Permission to perform this action is denied
+2025-11-26 12:45:42,779 - ERROR - Ошибка загрузки фото images/works_site_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:45:50,065 - ERROR - ✗ Ошибка отправки Александр Черняк (ID: 71672924): [7] Permission to perform this action is denied
+2025-11-26 12:46:13,030 - ERROR - Ошибка загрузки фото images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:46:20,205 - ERROR - ✗ Ошибка отправки Василий Тарасюк (ID: 76992957): [7] Permission to perform this action is denied
+2025-11-26 12:46:42,164 - ERROR - ✗ Ошибка отправки Сережа Петрович (ID: 84236840): [7] Permission to perform this action is denied
+2025-11-26 12:47:07,734 - ERROR - Ошибка загрузки фото images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:47:15,616 - ERROR - ✗ Ошибка отправки Эдуард Ильиных (ID: 84397390): [7] Permission to perform this action is denied
+2025-11-26 12:47:35,132 - ERROR - ✗ Ошибка отправки Анастасия Михиевич (ID: 85153247): [7] Permission to perform this action is denied
+2025-11-26 12:47:47,371 - ERROR - Ошибка загрузки фото images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:48:05,963 - ERROR - Ошибка загрузки фото images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:48:10,342 - ERROR - ✗ Ошибка отправки Максим Ботюк (ID: 87632583): [7] Permission to perform this action is denied
+2025-11-26 12:48:32,474 - ERROR - ✗ Ошибка отправки Евгений Костеж (ID: 89313012): [7] Permission to perform this action is denied
+2025-11-26 12:48:45,108 - ERROR - Ошибка загрузки фото images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:48:57,948 - ERROR - ✗ Ошибка отправки Евгений Русинович (ID: 89736157): [7] Permission to perform this action is denied
+2025-11-26 12:49:15,583 - ERROR - Ошибка загрузки фото images/works_shop_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:49:28,502 - ERROR - Ошибка загрузки фото images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 12:49:31,962 - ERROR - ✗ Ошибка отправки Александр Сидельников (ID: 91229792): [7] Permission to perform this action is denied
+2025-11-26 12:49:31,962 - INFO - 
+        Всего пользователей: 50
+        Отправлено: 20
+        Ошибок: 30
+        Пропущено: 0
+        
+2025-11-26 15:56:34,333 - INFO - VKPersonalMessageSender инициализирован
+2025-11-26 15:56:34,334 - INFO - Начинаем рассылку из user_ids.xlsx
+2025-11-26 15:57:08,099 - ERROR - ✗ Ошибка отправки Людмила Гридчина (ID: 6407222): [7] Permission to perform this action is denied
+2025-11-26 15:57:50,570 - ERROR - ✗ Ошибка отправки Александра Полосухина (ID: 13837324): [7] Permission to perform this action is denied
+2025-11-26 15:58:23,552 - INFO - ✓ Отправлено Руслан Сафаров (ID: 15870242)
+2025-11-26 15:59:20,127 - ERROR - ✗ Ошибка отправки Ольга Войлошникова (ID: 22278273): [7] Permission to perform this action is denied
+2025-11-26 16:00:00,932 - ERROR - ✗ Ошибка отправки Дарья Кобозева (ID: 42525344): [7] Permission to perform this action is denied
+2025-11-26 16:00:31,729 - ERROR - ✗ Ошибка отправки Наталия Антропова (ID: 69087648): [7] Permission to perform this action is denied
+2025-11-26 16:00:58,248 - ERROR - ✗ Ошибка отправки Вика Ефремова (ID: 70399461): [7] Permission to perform this action is denied
+2025-11-26 16:01:36,530 - ERROR - ✗ Ошибка отправки Светлана Стрельцова (ID: 72300290): [7] Permission to perform this action is denied
+2025-11-26 16:02:25,326 - ERROR - ✗ Ошибка отправки Артемий Демкин (ID: 91816346): [7] Permission to perform this action is denied
+2025-11-26 16:03:08,875 - ERROR - ✗ Ошибка отправки Анастасия Кагилева (ID: 122977031): [7] Permission to perform this action is denied
+2025-11-26 16:03:23,018 - ERROR - Ошибка VK API при загрузке images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:03:47,130 - ERROR - ✗ Ошибка отправки Никита Авдеенко (ID: 136412239): [7] Permission to perform this action is denied
+2025-11-26 16:04:22,294 - ERROR - ✗ Ошибка отправки Анастасия Петрякова (ID: 138592295): [7] Permission to perform this action is denied
+2025-11-26 16:05:04,570 - ERROR - ✗ Ошибка отправки Herman Busygin (ID: 141454778): [7] Permission to perform this action is denied
+2025-11-26 16:05:45,109 - ERROR - ✗ Ошибка отправки Ариша Шпаковская (ID: 179269610): [7] Permission to perform this action is denied
+2025-11-26 16:06:02,622 - ERROR - Ошибка VK API при загрузке images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:06:21,307 - ERROR - ✗ Ошибка отправки Егор Лебедев (ID: 181787820): [7] Permission to perform this action is denied
+2025-11-26 16:06:53,541 - ERROR - ✗ Ошибка отправки Артур Садриев (ID: 184203002): [7] Permission to perform this action is denied
+2025-11-26 16:07:19,336 - ERROR - ✗ Ошибка отправки Александр Кашкин (ID: 198505099): [7] Permission to perform this action is denied
+2025-11-26 16:07:55,805 - ERROR - ✗ Ошибка отправки Кир Паладий (ID: 202059032): [7] Permission to perform this action is denied
+2025-11-26 16:08:19,289 - ERROR - Ошибка VK API при загрузке images/works_site_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:08:42,522 - ERROR - ✗ Ошибка отправки Елизавета Петрова (ID: 223538768): [7] Permission to perform this action is denied
+2025-11-26 16:09:10,327 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-26 16:09:40,412 - ERROR - ✗ Ошибка отправки Регина Пидгаецкая (ID: 250314041): [7] Permission to perform this action is denied
+2025-11-26 16:09:54,345 - ERROR - Ошибка VK API при загрузке images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:10:14,643 - ERROR - ✗ Ошибка отправки Арсений Мальцев (ID: 297973781): [7] Permission to perform this action is denied
+2025-11-26 16:10:46,662 - ERROR - ✗ Ошибка отправки Александр С (ID: 317878544): [7] Permission to perform this action is denied
+2025-11-26 16:11:39,226 - ERROR - ✗ Ошибка отправки Рамиль Рахмангулов (ID: 320793959): [7] Permission to perform this action is denied
+2025-11-26 16:12:26,937 - ERROR - ✗ Ошибка отправки Ahmed Kh (ID: 367990324): [7] Permission to perform this action is denied
+2025-11-26 16:13:00,431 - ERROR - ✗ Ошибка отправки Виолетта Ширяева (ID: 377925723): [7] Permission to perform this action is denied
+2025-11-26 16:13:30,476 - ERROR - ✗ Ошибка отправки Яна Ахметзянова (ID: 448740910): [7] Permission to perform this action is denied
+2025-11-26 16:13:54,678 - ERROR - Ошибка VK API при загрузке images/works_shop_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:14:20,605 - ERROR - ✗ Ошибка отправки Мохамед Хассан (ID: 509133567): [7] Permission to perform this action is denied
+2025-11-26 16:14:55,599 - ERROR - ✗ Ошибка отправки Ahmed Khaled (ID: 513835961): [7] Permission to perform this action is denied
+2025-11-26 16:15:31,717 - ERROR - ✗ Ошибка отправки Влад Аристов (ID: 594770123): [7] Permission to perform this action is denied
+2025-11-26 16:16:11,288 - ERROR - ✗ Ошибка отправки Жумагуль Умамали (ID: 676030274): [7] Permission to perform this action is denied
+2025-11-26 16:16:43,351 - ERROR - ✗ Ошибка отправки Софья Фролова (ID: 695947482): [7] Permission to perform this action is denied
+2025-11-26 16:17:21,173 - ERROR - ✗ Ошибка отправки Фатхи Авад (ID: 748760990): [7] Permission to perform this action is denied
+2025-11-26 16:17:55,316 - ERROR - ✗ Ошибка отправки Екатерина Александровна (ID: 1667025): [7] Permission to perform this action is denied
+2025-11-26 16:18:19,930 - ERROR - ✗ Ошибка отправки Вячеслав Северюхин (ID: 1669017): [7] Permission to perform this action is denied
+2025-11-26 16:18:51,183 - ERROR - ✗ Ошибка отправки Марина Ермакова (ID: 2440195): [7] Permission to perform this action is denied
+2025-11-26 16:19:06,548 - ERROR - Ошибка VK API при загрузке images/works_shop_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:19:21,481 - ERROR - ✗ Ошибка отправки Сергей Лесин (ID: 2725184): [7] Permission to perform this action is denied
+2025-11-26 16:20:00,315 - ERROR - ✗ Ошибка отправки Наталья Рудь (ID: 4299913): [7] Permission to perform this action is denied
+2025-11-26 16:20:32,944 - ERROR - ✗ Ошибка отправки Галия Мухаметдинова (ID: 7218523): [7] Permission to perform this action is denied
+2025-11-26 16:21:03,330 - ERROR - ✗ Ошибка отправки Максим Бернадинер (ID: 7879325): [7] Permission to perform this action is denied
+2025-11-26 16:21:28,572 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-26 16:21:58,690 - ERROR - ✗ Ошибка отправки Алина Гибадулина (ID: 8502223): [7] Permission to perform this action is denied
+2025-11-26 16:22:32,532 - ERROR - ✗ Ошибка отправки Александра Макарова (ID: 9651960): [7] Permission to perform this action is denied
+2025-11-26 16:23:11,726 - ERROR - ✗ Ошибка отправки Юля Кузнецова (ID: 15114302): [7] Permission to perform this action is denied
+2025-11-26 16:23:49,759 - INFO - ✓ Отправлено Руслан Сафаров (ID: 15870242)
+2025-11-26 16:24:40,368 - ERROR - ✗ Ошибка отправки Оксана Макаренко (ID: 17441247): [7] Permission to perform this action is denied
+2025-11-26 16:25:14,490 - ERROR - ✗ Ошибка отправки Наиля Замашкина (ID: 17704604): [7] Permission to perform this action is denied
+2025-11-26 16:25:42,355 - ERROR - ✗ Ошибка отправки Ира Самойлова (ID: 22296422): [7] Permission to perform this action is denied
+2025-11-26 16:26:14,904 - ERROR - ✗ Ошибка отправки Даниил Елисеев (ID: 23083353): [7] Permission to perform this action is denied
+2025-11-26 16:26:59,501 - ERROR - ✗ Ошибка отправки Вероника Хузина (ID: 28331766): [7] Permission to perform this action is denied
+2025-11-26 16:27:31,706 - ERROR - Ошибка VK API при загрузке images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:27:40,746 - ERROR - ✗ Ошибка отправки Анастасия Софронова (ID: 29525885): [7] Permission to perform this action is denied
+2025-11-26 16:28:08,865 - ERROR - ✗ Ошибка отправки Елена Розенблюм (ID: 30777999): [7] Permission to perform this action is denied
+2025-11-26 16:28:37,464 - ERROR - ✗ Ошибка отправки Елена Криницкая (ID: 31048787): [7] Permission to perform this action is denied
+2025-11-26 16:29:07,780 - ERROR - ✗ Ошибка отправки Валерия Манцулич (ID: 34395081): [7] Permission to perform this action is denied
+2025-11-26 16:29:41,518 - ERROR - ✗ Ошибка отправки Vladislav Lebedev (ID: 35527135): [7] Permission to perform this action is denied
+2025-11-26 16:29:54,075 - ERROR - Ошибка VK API при загрузке images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:30:23,553 - ERROR - ✗ Ошибка отправки Alexandra Soloviova (ID: 36268485): [7] Permission to perform this action is denied
+2025-11-26 16:30:57,910 - ERROR - ✗ Ошибка отправки Григорий Миронов (ID: 36457662): [7] Permission to perform this action is denied
+2025-11-26 16:31:24,618 - ERROR - ✗ Ошибка отправки Данна Зейналова (ID: 37214378): [7] Permission to perform this action is denied
+2025-11-26 16:32:02,319 - ERROR - ✗ Ошибка отправки Алина Полотебнова (ID: 51650596): [7] Permission to perform this action is denied
+2025-11-26 16:32:37,957 - ERROR - ✗ Ошибка отправки Елена Требоганова (ID: 54626029): [7] Permission to perform this action is denied
+2025-11-26 16:33:28,311 - ERROR - ✗ Ошибка отправки Катрин Клюкина (ID: 55191397): [7] Permission to perform this action is denied
+2025-11-26 16:33:57,957 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-26 16:34:28,079 - ERROR - ✗ Ошибка отправки Елизавета Файнтух (ID: 57605282): [7] Permission to perform this action is denied
+2025-11-26 16:34:51,859 - ERROR - Ошибка VK API при загрузке images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:35:09,906 - ERROR - ✗ Ошибка отправки Helly Eagle (ID: 59798187): [7] Permission to perform this action is denied
+2025-11-26 16:35:43,545 - ERROR - ✗ Ошибка отправки Марина Муратова (ID: 62124167): [7] Permission to perform this action is denied
+2025-11-26 16:36:21,538 - ERROR - ✗ Ошибка отправки Мария Коновалова (ID: 62839816): [7] Permission to perform this action is denied
+2025-11-26 16:36:49,494 - ERROR - ✗ Ошибка отправки Олеся Senenko (ID: 65641505): [7] Permission to perform this action is denied
+2025-11-26 16:37:24,745 - ERROR - ✗ Ошибка отправки Екатерина Ковалевская (ID: 71355679): [7] Permission to perform this action is denied
+2025-11-26 16:38:03,235 - ERROR - ✗ Ошибка отправки Ирина Хромова (ID: 71569853): [7] Permission to perform this action is denied
+2025-11-26 16:38:36,620 - ERROR - ✗ Ошибка отправки Юля Калинина (ID: 74255707): [7] Permission to perform this action is denied
+2025-11-26 16:39:14,490 - ERROR - ✗ Ошибка отправки Арина Астанина (ID: 89268054): [7] Permission to perform this action is denied
+2025-11-26 16:39:47,448 - ERROR - ✗ Ошибка отправки Даниил Серебренников (ID: 95904184): [7] Permission to perform this action is denied
+2025-11-26 16:40:17,900 - ERROR - ✗ Ошибка отправки Данил Гармаш (ID: 99724817): [7] Permission to perform this action is denied
+2025-11-26 16:40:46,768 - ERROR - ✗ Ошибка отправки Александра Миронова (ID: 104298077): [7] Permission to perform this action is denied
+2025-11-26 16:41:23,610 - ERROR - ✗ Ошибка отправки Александра Оберная (ID: 105121343): [7] Permission to perform this action is denied
+2025-11-26 16:41:48,965 - ERROR - ✗ Ошибка отправки Елена Богачкова (ID: 107360741): [7] Permission to perform this action is denied
+2025-11-26 16:42:21,555 - ERROR - ✗ Ошибка отправки Надя Калмыкова (ID: 110315454): [7] Permission to perform this action is denied
+2025-11-26 16:42:50,459 - ERROR - ✗ Ошибка отправки Анастасия Марская (ID: 116032775): [7] Permission to perform this action is denied
+2025-11-26 16:43:32,388 - ERROR - ✗ Ошибка отправки Екатерина Печкина (ID: 123640941): [7] Permission to perform this action is denied
+2025-11-26 16:43:55,376 - ERROR - Ошибка VK API при загрузке images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-26 16:44:03,128 - ERROR - ✗ Ошибка отправки Кристина Вепринцева (ID: 126676033): [7] Permission to perform this action is denied
+2025-11-26 16:44:43,021 - ERROR - ✗ Ошибка отправки Марина Гукасова (ID: 133003162): [7] Permission to perform this action is denied
+2025-11-26 16:45:16,856 - ERROR - ✗ Ошибка отправки Валерия Кудрявцева (ID: 139674905): [7] Permission to perform this action is denied
+2025-11-26 16:45:48,458 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-26 16:46:18,555 - ERROR - ✗ Ошибка отправки Елизавета Браудо (ID: 139819760): [7] Permission to perform this action is denied
+2025-11-26 16:46:54,264 - ERROR - ✗ Ошибка отправки Елизавета Девяткина-Ардашева (ID: 145592792): [7] Permission to perform this action is denied
+2025-11-26 16:47:29,698 - ERROR - ✗ Ошибка отправки Мария Зейт (ID: 148979756): [7] Permission to perform this action is denied
+2025-11-26 16:47:29,699 - INFO - 
+        Всего пользователей: 82
+        Отправлено: 2
+        Ошибок: 80
+        Пропущено: 0
+        
+2025-11-27 12:02:05,999 - INFO - VKPersonalMessageSender инициализирован
+2025-11-27 12:02:05,999 - INFO - Начинаем рассылку из leads_стартап_1.xlsx
+2025-11-27 12:02:06,000 - ERROR - Ошибка чтения Excel файла: [Errno 2] No such file or directory: 'leads_стартап_1.xlsx'
+2025-11-27 12:03:07,498 - INFO - VKPersonalMessageSender инициализирован
+2025-11-27 12:03:07,499 - INFO - Начинаем рассылку из user_ids.xlsx
+2025-11-27 12:04:22,010 - INFO - ✓ Отправлено Игорь Асадуллин (ID: 779783)
+2025-11-27 12:05:27,265 - INFO - ✓ Отправлено Кристина Довлатова (ID: 2307506)
+2025-11-27 12:06:30,983 - INFO - ✓ Отправлено Светлана Люфусян (ID: 4621744)
+2025-11-27 12:07:23,448 - INFO - ✓ Отправлено Наталья Гвоздева (ID: 14274573)
+2025-11-27 12:08:31,413 - INFO - ✓ Отправлено Елена Тырина (ID: 17815120)
+2025-11-27 12:09:14,289 - ERROR - Ошибка VK API при загрузке images/works_shop_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:09:59,537 - ERROR - Сетевая ошибка при загрузке images/works_site_6.png: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:10:02,281 - INFO - ✓ Отправлено Дарья Некрасова (ID: 54351609)
+2025-11-27 12:11:20,733 - INFO - ✓ Отправлено Алина Шульга (ID: 55703904)
+2025-11-27 12:12:10,589 - INFO - ✓ Отправлено Марина Абрамова (ID: 65165468)
+2025-11-27 12:13:18,777 - INFO - ✓ Отправлено Елена Осадчая (ID: 75980186)
+2025-11-27 12:14:16,686 - ERROR - Сетевая ошибка при загрузке images/works_site_1.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:14:41,151 - INFO - ✓ Отправлено Мария Рязанова (ID: 91220429)
+2025-11-27 12:15:28,031 - INFO - ✓ Отправлено Юлия Юдина (ID: 113139051)
+2025-11-27 12:16:12,573 - ERROR - Сетевая ошибка при загрузке images/works_bot_2.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:16:49,456 - INFO - ✓ Отправлено Елена Мельникова (ID: 136064092)
+2025-11-27 12:17:53,542 - INFO - ✓ Отправлено Айгуль Лунный (ID: 138302499)
+2025-11-27 12:18:29,383 - ERROR - Ошибка VK API при загрузке images/works_bot_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:18:41,931 - ERROR - Ошибка VK API при загрузке images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:18:56,373 - ERROR - Ошибка VK API при загрузке images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:19:05,480 - ERROR - Ошибка VK API при загрузке images/works_shop_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:19:33,977 - ERROR - Ошибка VK API при загрузке images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:19:46,177 - INFO - ✓ Отправлено Ирина Яковлева (ID: 196470880)
+2025-11-27 12:20:15,580 - ERROR - Ошибка VK API при загрузке images/works_bot_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:20:19,503 - ERROR - Сетевая ошибка при загрузке images/works_bot_2.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:20:32,090 - ERROR - Ошибка VK API при загрузке images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:21:35,125 - ERROR - Сетевая ошибка при загрузке images/works_site_2.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:21:49,197 - INFO - ✓ Отправлено Юлия Дмитриева (ID: 259975763)
+2025-11-27 12:23:24,703 - INFO - ✓ Отправлено Настенька Антонюк (ID: 535335256)
+2025-11-27 12:24:00,000 - ERROR - Ошибка VK API при загрузке images/works_bot_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:24:07,435 - ERROR - Сетевая ошибка при загрузке images/works_design_8.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:24:27,673 - ERROR - Ошибка VK API при загрузке images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:24:40,211 - ERROR - Ошибка VK API при загрузке images/works_site_6.png: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:24:41,293 - INFO - ✓ Отправлено Елена Прокофьева (ID: 715026869)
+2025-11-27 12:25:21,201 - ERROR - Ошибка VK API при загрузке images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:25:42,149 - INFO - ✓ Отправлено Наталья Колесник (ID: 750022542)
+2025-11-27 12:26:39,550 - ERROR - Сетевая ошибка при загрузке images/works_shop_1.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:26:56,368 - INFO - ✓ Отправлено Vladimir Vladimirovich (ID: 797198955)
+2025-11-27 12:27:36,197 - ERROR - Сетевая ошибка при загрузке images/works_shop_1.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:27:57,487 - ERROR - Ошибка VK API при загрузке images/works_site_6.png: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:27:57,488 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-27 12:28:27,699 - INFO - ✓ Отправлено Виталий Терентьев (ID: 461926)
+2025-11-27 12:29:11,473 - ERROR - Сетевая ошибка при загрузке images/works_bot_3.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:29:44,706 - ERROR - ✗ Ошибка отправки Анна Бумагина (ID: 786909): [7] Permission to perform this action is denied
+2025-11-27 12:30:27,710 - ERROR - Сетевая ошибка при загрузке images/works_shop_3.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:30:42,030 - ERROR - ✗ Ошибка отправки Александр Елагин (ID: 1627680): [7] Permission to perform this action is denied
+2025-11-27 12:30:45,976 - ERROR - Сетевая ошибка при загрузке images/works_bot_1.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:31:05,149 - ERROR - Сетевая ошибка при загрузке images/works_site_2.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:31:15,055 - ERROR - ✗ Ошибка отправки Алена Муравьева (ID: 2083072): [7] Permission to perform this action is denied
+2025-11-27 12:31:24,523 - ERROR - Сетевая ошибка при загрузке images/works_design_8.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:32:03,343 - ERROR - Ошибка VK API при загрузке images/works_site_6.png: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:32:05,879 - ERROR - ✗ Ошибка отправки Алена Фьюжен (ID: 2135606): [7] Permission to perform this action is denied
+2025-11-27 12:32:20,872 - ERROR - Сетевая ошибка при загрузке images/works_shop_4.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:32:35,406 - ERROR - ✗ Ошибка отправки Alexander Lyapunov (ID: 2151790): [7] Permission to perform this action is denied
+2025-11-27 12:32:41,028 - ERROR - Сетевая ошибка при загрузке images/works_bot_2.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:33:20,587 - ERROR - ✗ Ошибка отправки Мария Загоскина (ID: 2987548): [7] Permission to perform this action is denied
+2025-11-27 12:34:00,465 - ERROR - ✗ Ошибка отправки Татьяна Вахрушева (ID: 3010058): [7] Permission to perform this action is denied
+2025-11-27 12:34:39,954 - ERROR - ✗ Ошибка отправки Дарья Вахрушева (ID: 3234757): [7] Permission to perform this action is denied
+2025-11-27 12:35:03,401 - ERROR - ✗ Ошибка отправки Алена Чеснокова (ID: 3236837): [7] Permission to perform this action is denied
+2025-11-27 12:35:21,731 - ERROR - Сетевая ошибка при загрузке images/works_site_2.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:35:27,770 - ERROR - ✗ Ошибка отправки Денис Михайлович (ID: 3338737): [7] Permission to perform this action is denied
+2025-11-27 12:35:40,465 - ERROR - Сетевая ошибка при загрузке images/works_shop_3.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 12:35:49,354 - ERROR - ✗ Ошибка отправки Максим Головнин (ID: 3387354): [7] Permission to perform this action is denied
+2025-11-27 12:36:33,746 - ERROR - ✗ Ошибка отправки Елена Клабукова (ID: 3408463): [7] Permission to perform this action is denied
+2025-11-27 12:37:01,104 - ERROR - ✗ Ошибка отправки Юлия Афанасьева (ID: 3425181): [7] Permission to perform this action is denied
+2025-11-27 12:37:21,377 - ERROR - ✗ Ошибка отправки Андрей Крылов (ID: 3591471): [7] Permission to perform this action is denied
+2025-11-27 12:37:54,833 - ERROR - ✗ Ошибка отправки Sergey Rusinov (ID: 4487371): [7] Permission to perform this action is denied
+2025-11-27 12:38:25,148 - ERROR - ✗ Ошибка отправки Денис Турушев (ID: 4683170): [7] Permission to perform this action is denied
+2025-11-27 12:38:45,768 - ERROR - ✗ Ошибка отправки Дарья Изотова (ID: 5374095): [7] Permission to perform this action is denied
+2025-11-27 12:39:06,012 - ERROR - ✗ Ошибка отправки Георгий Селезнёв (ID: 6119313): [7] Permission to perform this action is denied
+2025-11-27 12:39:38,483 - ERROR - ✗ Ошибка отправки Андрей Братухин (ID: 6200089): [7] Permission to perform this action is denied
+2025-11-27 12:40:07,466 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-27 12:40:37,577 - ERROR - ✗ Ошибка отправки Татьяна Шестакова (ID: 6636548): [7] Permission to perform this action is denied
+2025-11-27 12:41:26,902 - ERROR - ✗ Ошибка отправки Иван Сорокин (ID: 7113063): [7] Permission to perform this action is denied
+2025-11-27 12:41:51,618 - ERROR - ✗ Ошибка отправки Елена Скрябина (ID: 7183401): [7] Permission to perform this action is denied
+2025-11-27 12:42:13,975 - ERROR - ✗ Ошибка отправки Олеся Силенок (ID: 7364045): [7] Permission to perform this action is denied
+2025-11-27 12:42:48,334 - ERROR - ✗ Ошибка отправки Дмитрий Потехин (ID: 7627086): [7] Permission to perform this action is denied
+2025-11-27 12:43:46,036 - ERROR - ✗ Ошибка отправки Ольга Целищева (ID: 8899620): [7] Permission to perform this action is denied
+2025-11-27 12:44:13,939 - ERROR - ✗ Ошибка отправки Александра Гагаринова (ID: 9458767): [7] Permission to perform this action is denied
+2025-11-27 12:44:41,258 - ERROR - ✗ Ошибка отправки Анастасия Генералова (ID: 9508367): [7] Permission to perform this action is denied
+2025-11-27 12:45:07,765 - ERROR - ✗ Ошибка отправки Марина Куликова (ID: 9623484): [7] Permission to perform this action is denied
+2025-11-27 12:45:30,976 - ERROR - ✗ Ошибка отправки Светлана Токарева (ID: 9698891): [7] Permission to perform this action is denied
+2025-11-27 12:46:00,397 - ERROR - ✗ Ошибка отправки Мария Черемискина (ID: 10479007): [7] Permission to perform this action is denied
+2025-11-27 12:46:35,823 - ERROR - ✗ Ошибка отправки Максим Момотов (ID: 11414107): [7] Permission to perform this action is denied
+2025-11-27 12:47:26,728 - ERROR - Ошибка VK API при загрузке images/works_site_6.png: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:47:28,311 - ERROR - ✗ Ошибка отправки Оксана Тёмкина (ID: 11621114): [7] Permission to perform this action is denied
+2025-11-27 12:47:35,850 - ERROR - Ошибка VK API при загрузке images/works_bot_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:47:43,539 - ERROR - Ошибка VK API при загрузке images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:47:52,943 - ERROR - Ошибка VK API при загрузке images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:48:00,616 - ERROR - Ошибка VK API при загрузке images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:48:14,998 - ERROR - Ошибка VK API при загрузке images/works_shop_4.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:48:24,005 - ERROR - Ошибка VK API при загрузке images/works_site_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:48:31,456 - ERROR - Ошибка VK API при загрузке images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:48:34,390 - ERROR - ✗ Ошибка отправки Таня Новокшонова (ID: 11816783): [7] Permission to perform this action is denied
+2025-11-27 12:48:54,142 - ERROR - Ошибка VK API при загрузке images/works_shop_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:49:09,483 - ERROR - ✗ Ошибка отправки Анна Земцова (ID: 12468388): [7] Permission to perform this action is denied
+2025-11-27 12:49:42,173 - ERROR - Ошибка VK API при загрузке images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:49:45,452 - ERROR - ✗ Ошибка отправки Татьяна Kutukina (ID: 13239812): [7] Permission to perform this action is denied
+2025-11-27 12:49:59,166 - ERROR - Ошибка VK API при загрузке images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:50:18,016 - ERROR - ✗ Ошибка отправки Антон Калугин (ID: 13751353): [7] Permission to perform this action is denied
+2025-11-27 12:50:32,294 - ERROR - Ошибка VK API при загрузке images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:50:39,886 - ERROR - Ошибка VK API при загрузке images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:50:55,592 - ERROR - Ошибка VK API при загрузке images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:51:12,220 - ERROR - Ошибка VK API при загрузке images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:51:27,571 - ERROR - Ошибка VK API при загрузке images/works_site_6.png: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:51:31,516 - ERROR - ✗ Ошибка отправки Аня Прохорова (ID: 15275034): [7] Permission to perform this action is denied
+2025-11-27 12:51:45,103 - ERROR - Ошибка VK API при загрузке images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:52:05,462 - ERROR - ✗ Ошибка отправки Леонид Бугаев (ID: 15740564): [7] Permission to perform this action is denied
+2025-11-27 12:52:21,758 - ERROR - Ошибка VK API при загрузке images/works_design_8.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:52:30,642 - ERROR - Ошибка VK API при загрузке images/works_shop_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:52:48,208 - ERROR - ✗ Ошибка отправки Светлана Тараканова (ID: 15846847): [7] Permission to perform this action is denied
+2025-11-27 12:53:12,235 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-27 12:53:42,333 - ERROR - ✗ Ошибка отправки Ксения Фрыженкова (ID: 16290179): [7] Permission to perform this action is denied
+2025-11-27 12:54:17,516 - ERROR - ✗ Ошибка отправки Natalia Natalia (ID: 16331051): [7] Permission to perform this action is denied
+2025-11-27 12:54:59,167 - ERROR - ✗ Ошибка отправки Роман Золочевский (ID: 16752867): [7] Permission to perform this action is denied
+2025-11-27 12:55:31,564 - ERROR - ✗ Ошибка отправки Sveta Mikryukova (ID: 16914638): [7] Permission to perform this action is denied
+2025-11-27 12:56:17,328 - ERROR - ✗ Ошибка отправки Паша Лихачёв (ID: 17103231): [7] Permission to perform this action is denied
+2025-11-27 12:56:56,463 - ERROR - Ошибка VK API при загрузке images/works_shop_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:57:09,344 - ERROR - ✗ Ошибка отправки Кирилл Ермаков (ID: 18885274): [7] Permission to perform this action is denied
+2025-11-27 12:57:35,081 - ERROR - ✗ Ошибка отправки Оля Елизарова (ID: 19455780): [7] Permission to perform this action is denied
+2025-11-27 12:57:53,064 - ERROR - Ошибка VK API при загрузке images/works_bot_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 12:58:12,951 - ERROR - ✗ Ошибка отправки Ирина Бушманова (ID: 20246506): [7] Permission to perform this action is denied
+2025-11-27 12:58:52,009 - ERROR - ✗ Ошибка отправки Оксана Висящева (ID: 21729597): [7] Permission to perform this action is denied
+2025-11-27 12:59:30,791 - ERROR - ✗ Ошибка отправки Александр Алексеев (ID: 22594930): [7] Permission to perform this action is denied
+2025-11-27 12:59:30,792 - INFO - 
+        Всего пользователей: 69
+        Отправлено: 20
+        Ошибок: 49
+        Пропущено: 0
+        
+2025-11-27 14:11:13,657 - INFO - VKPersonalMessageSender инициализирован
+2025-11-27 14:11:13,658 - INFO - Начинаем рассылку из user_ids.xlsx
+2025-11-27 14:11:48,517 - ERROR - ✗ Ошибка отправки Евгений Рыльских (ID: 5158084): [7] Permission to perform this action is denied
+2025-11-27 14:12:36,850 - INFO - ✓ Отправлено Tamerlan Kabaloev (ID: 95005)
+2025-11-27 14:13:38,786 - INFO - ✓ Отправлено Александр Колесников (ID: 231797)
+2025-11-27 14:15:27,457 - INFO - ✓ Отправлено Николай Иванов (ID: 318919)
+2025-11-27 14:16:12,427 - ERROR - Сетевая ошибка при загрузке images/works_design_8.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:16:51,194 - ERROR - ✗ Ошибка отправки Игорь Петров (ID: 786656): [7] Permission to perform this action is denied
+2025-11-27 14:18:28,873 - ERROR - ✗ Ошибка отправки Дмитрий Менделеев (ID: 1087728): [7] Permission to perform this action is denied
+2025-11-27 14:18:52,288 - ERROR - ✗ Ошибка отправки Сергей Филимонов (ID: 1144603): [7] Permission to perform this action is denied
+2025-11-27 14:19:13,734 - ERROR - ✗ Ошибка отправки Ольга Шабельникова (ID: 2300812): [7] Permission to perform this action is denied
+2025-11-27 14:19:36,620 - ERROR - ✗ Ошибка отправки Светлана Садовина (ID: 2519818): [7] Permission to perform this action is denied
+2025-11-27 14:20:19,800 - ERROR - Ошибка VK API при загрузке images/works_site_6.png: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:20:20,824 - ERROR - ✗ Ошибка отправки Дмитрий Егошин (ID: 2754477): [7] Permission to perform this action is denied
+2025-11-27 14:20:55,226 - ERROR - ✗ Ошибка отправки Света Петрова (ID: 3069019): [7] Permission to perform this action is denied
+2025-11-27 14:21:16,335 - ERROR - Ошибка VK API при загрузке images/works_site_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:21:24,621 - ERROR - ✗ Ошибка отправки Инна Driada (ID: 3404112): [7] Permission to perform this action is denied
+2025-11-27 14:22:07,143 - ERROR - ✗ Ошибка отправки Катерина Егорова (ID: 4558593): [7] Permission to perform this action is denied
+2025-11-27 14:22:39,757 - ERROR - ✗ Ошибка отправки Рамиль Абдулин (ID: 10409446): [7] Permission to perform this action is denied
+2025-11-27 14:23:11,054 - ERROR - ✗ Ошибка отправки Дарья Потехина (ID: 14049614): [7] Permission to perform this action is denied
+2025-11-27 14:23:54,634 - ERROR - Ошибка VK API при загрузке images/works_site_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:24:11,838 - ERROR - ✗ Ошибка отправки Сергей Инюшев (ID: 14756010): [7] Permission to perform this action is denied
+2025-11-27 14:24:55,768 - ERROR - ✗ Ошибка отправки Иван Баландин (ID: 15997490): [7] Permission to perform this action is denied
+2025-11-27 14:25:25,481 - ERROR - ✗ Ошибка отправки Ирина Тимофеева (ID: 17910436): [7] Permission to perform this action is denied
+2025-11-27 14:26:01,255 - ERROR - ✗ Ошибка отправки Елена Гоффман (ID: 20471464): [7] Permission to perform this action is denied
+2025-11-27 14:26:10,406 - ERROR - Сетевая ошибка при загрузке images/works_bot_3.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:26:13,968 - ERROR - Сетевая ошибка при загрузке images/works_design_8.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:26:24,469 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-27 14:26:54,562 - ERROR - ✗ Ошибка отправки Наиль Хайрутдинов (ID: 26123096): [7] Permission to perform this action is denied
+2025-11-27 14:27:59,886 - ERROR - ✗ Ошибка отправки Viktoriya Fedulkina (ID: 26698673): [7] Permission to perform this action is denied
+2025-11-27 14:28:03,851 - ERROR - Сетевая ошибка при загрузке images/works_bot_1.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:28:07,420 - ERROR - Сетевая ошибка при загрузке images/works_bot_2.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:28:46,508 - ERROR - Сетевая ошибка при загрузке images/works_site_5.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:28:48,473 - ERROR - ✗ Ошибка отправки Ирина Земнова (ID: 36167714): [7] Permission to perform this action is denied
+2025-11-27 14:29:34,424 - ERROR - ✗ Ошибка отправки Анна Мосягина (ID: 46812161): [7] Permission to perform this action is denied
+2025-11-27 14:30:49,110 - ERROR - ✗ Ошибка отправки Ирина Медведева (ID: 48839550): [7] Permission to perform this action is denied
+2025-11-27 14:31:25,214 - ERROR - Сетевая ошибка при загрузке images/works_shop_1.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:32:00,822 - ERROR - Ошибка VK API при загрузке images/works_shop_4.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:32:04,818 - ERROR - Сетевая ошибка при загрузке images/works_site_1.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:32:12,928 - ERROR - ✗ Ошибка отправки Наталья Смирнова (ID: 72264947): [7] Permission to perform this action is denied
+2025-11-27 14:32:22,680 - ERROR - Сетевая ошибка при загрузке images/works_design_8.jpg: Expecting value: line 1 column 1 (char 0)
+2025-11-27 14:32:41,056 - ERROR - ✗ Ошибка отправки Сергей Хипхопченко (ID: 84817609): [7] Permission to perform this action is denied
+2025-11-27 14:33:30,874 - ERROR - ✗ Ошибка отправки Юлия Юлия (ID: 88986506): [7] Permission to perform this action is denied
+2025-11-27 14:34:00,206 - ERROR - ✗ Ошибка отправки Анастасия Романова (ID: 89315978): [7] Permission to perform this action is denied
+2025-11-27 14:34:34,267 - ERROR - ✗ Ошибка отправки Ольга Никитина (ID: 94800738): [7] Permission to perform this action is denied
+2025-11-27 14:35:06,680 - ERROR - ✗ Ошибка отправки Надя Уразаева (ID: 131982848): [7] Permission to perform this action is denied
+2025-11-27 14:35:33,250 - ERROR - ✗ Ошибка отправки Анна Гавриленкова (ID: 135650087): [7] Permission to perform this action is denied
+2025-11-27 14:35:59,261 - ERROR - ✗ Ошибка отправки Дарья Федотова (ID: 146740654): [7] Permission to perform this action is denied
+2025-11-27 14:36:31,870 - ERROR - ✗ Ошибка отправки Руслан Кожанов (ID: 150706535): [7] Permission to perform this action is denied
+2025-11-27 14:36:58,376 - ERROR - ✗ Ошибка отправки Валентин Десятников (ID: 166878004): [7] Permission to perform this action is denied
+2025-11-27 14:37:32,885 - ERROR - ✗ Ошибка отправки Кристина Олейник (ID: 177217646): [7] Permission to perform this action is denied
+2025-11-27 14:37:52,889 - ERROR - Ошибка VK API при загрузке images/works_shop_4.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:38:12,327 - ERROR - ✗ Ошибка отправки Виктор Красный (ID: 180313446): [7] Permission to perform this action is denied
+2025-11-27 14:38:42,073 - ERROR - ✗ Ошибка отправки Инесса Гнездилова (ID: 199813768): [7] Permission to perform this action is denied
+2025-11-27 14:38:58,057 - ERROR - Ошибка VK API при загрузке images/works_shop_3.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:39:07,802 - ERROR - ✗ Ошибка отправки Ульяна Фролова (ID: 216507600): [7] Permission to perform this action is denied
+2025-11-27 14:39:35,011 - ERROR - Ошибка VK API при загрузке images/works_site_5.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:39:44,027 - ERROR - ✗ Ошибка отправки Аня Козлова (ID: 260814574): [7] Permission to perform this action is denied
+2025-11-27 14:40:07,086 - INFO - Делаем паузу 30 секунд для избежания ограничений
+2025-11-27 14:40:37,187 - ERROR - ✗ Ошибка отправки Андрей Ласточкин (ID: 275375329): [7] Permission to perform this action is denied
+2025-11-27 14:41:02,696 - ERROR - ✗ Ошибка отправки Ирина Новоселова (ID: 388014304): [7] Permission to perform this action is denied
+2025-11-27 14:41:39,906 - ERROR - ✗ Ошибка отправки Юлия Куракина (ID: 448296983): [7] Permission to perform this action is denied
+2025-11-27 14:42:13,753 - ERROR - ✗ Ошибка отправки Станислав Галимов (ID: 170071): [7] Permission to perform this action is denied
+2025-11-27 14:42:38,841 - ERROR - ✗ Ошибка отправки Алексей Митряхин (ID: 222294): [7] Permission to perform this action is denied
+2025-11-27 14:43:08,649 - ERROR - ✗ Ошибка отправки Настя Ба (ID: 254927): [7] Permission to perform this action is denied
+2025-11-27 14:43:26,789 - ERROR - Ошибка VK API при загрузке images/works_shop_1.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:43:37,940 - ERROR - ✗ Ошибка отправки Михаил Павлов (ID: 418595): [7] Permission to perform this action is denied
+2025-11-27 14:43:49,744 - ERROR - Ошибка VK API при загрузке images/works_bot_2.jpg: [100] One of the parameters specified was missing or invalid: photo is undefined
+2025-11-27 14:44:09,352 - ERROR - ✗ Ошибка отправки Ольга Павлова (ID: 516435): [7] Permission to perform this action is denied
+2025-11-27 14:44:51,723 - ERROR - ✗ Ошибка отправки Анастасия Лоськова (ID: 565276): [7] Permission to perform this action is denied
+2025-11-27 14:45:32,170 - ERROR - ✗ Ошибка отправки Дмитрий Анатольевич (ID: 568805): [7] Permission to perform this action is denied
+2025-11-27 14:45:58,553 - ERROR - ✗ Ошибка отправки Танюшка Исламова (ID: 632396): [7] Permission to perform this action is denied
+2025-11-27 14:45:58,553 - INFO - 
+        Всего пользователей: 50
+        Отправлено: 3
+        Ошибок: 47
+        Пропущено: 0
+        
