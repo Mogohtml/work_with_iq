@@ -1,0 +1,42 @@
+name: VK Parser CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 12 * * *'  # Запускать каждый день в 12:00 по UTC (15:00 по Москве)
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+
+      - name: Install dependencies
+        run: |
+          poetry install
+
+      - name: Lint with flake8
+        run: |
+          poetry run flake8 vk_spam_bot-main/sendler.py --max-line-length=120
+
+      - name: Run tests (если есть)
+        run: |
+          poetry run pytest
+
+        env:
+          ACCESS_TOKEN_1: ${{ secrets.ACCESS_TOKEN_1 }}
+          ACCESS_TOKEN_2: ${{ secrets.ACCESS_TOKEN_2 }}
+          ACCESS_TOKEN_3: ${{ secrets.ACCESS_TOKEN_3 }}
+
