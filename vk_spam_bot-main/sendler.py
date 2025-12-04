@@ -10,11 +10,9 @@ import random
 import logging
 import pandas as pd
 import requests
-from typing import List, Tuple, Dict
+from typing import List, Dict
 from dotenv import load_dotenv
-from fuzzywuzzy import process
 import nltk
-from nltk.corpus import wordnet
 from ruwordnet import RuWordNet
 import threading
 
