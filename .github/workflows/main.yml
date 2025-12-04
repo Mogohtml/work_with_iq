@@ -26,8 +26,8 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-root
 
-      - name: Install flake8
-        run: poetry run pip install flake8  # Явно устанавливаем flake8
+      - name: Lint with flake8
+        run: poetry run flake8 vk_spam_bot-main/ --max-line-length=120
 
       - name: Lint with flake8
         run: poetry run flake8 vk_spam_bot-main/
