@@ -13,7 +13,6 @@ import requests
 from typing import List, Dict
 from dotenv import load_dotenv
 import nltk
-from ruwordnet import RuWordNet
 import threading
 
 from config import TOKENS, NICHES, KEYWORDS
@@ -51,7 +50,6 @@ class VKGroupParser:
         self.requests_count = 0
         self.last_request_time = 0
         self.skip_group = False
-        self.ruwordnet = RuWordNet()
         self.keywords = [
             ["нужен", "дизайнер", "логотипа"],
             ["заказать", "логотип", "срочно"],
