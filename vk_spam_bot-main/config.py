@@ -1,4 +1,8 @@
 import os
+from dotenv import load_dotenv
+
+# Настройка переменных среды
+load_dotenv()
 
 TOKENS = [os.getenv(f"ACCESS_TOKEN_{i}") for i in range(1, 4) if os.getenv(f"ACCESS_TOKEN_{i}")]
 # Ключевые слова для поиска релевантных людей
