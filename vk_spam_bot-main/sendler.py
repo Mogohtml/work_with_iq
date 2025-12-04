@@ -928,7 +928,7 @@ class VKGroupParser:
         try:
             birth_year = int(bdate.split('.')[2])
             return datetime.now().year - birth_year
-        except:
+        except BaseException:
             return None
 
     def _get_group_info(self, group_id: str) -> Dict:
@@ -968,7 +968,6 @@ class VKGroupParser:
 
         logger.info(f"Найдено новых групп по нише {niche}: {len(all_groups)}")
         return list(all_groups)
-
 
     def _expand_group_by_niche(self, niche: str) -> List[str]:
         niche = niche.lower().strip()
@@ -1078,7 +1077,7 @@ class VKGroupParser:
                 last_post_date = datetime.fromtimestamp(posts[0]['date'])
                 return last_post_date > datetime.now() - timedelta(days=180)
             return False
-        except:
+        except BaseException:
             return False
 
     def _remove_duplicates(self, users: List[Dict]) -> List[Dict]:
@@ -1155,7 +1154,7 @@ class VKPersonalMessageSender:
             owner_id = photo_data[0]['owner_id']
             photo_id = photo_data[0]['id']
             return f"photo{owner_id}_{photo_id}"
-        except:
+        except BaseException:
             return ""
 
     def send_messages_automatic(
@@ -1168,7 +1167,7 @@ class VKPersonalMessageSender:
     ) -> Dict:
         try:
             df = pd.read_excel(excel_file_path)
-        except:
+        except BaseException:
             return {'error': 'Файл не найден'}
         df = df.iloc[::-1].reset_index(drop=True)
         stats = {'sent': 0, 'failed': 0}
@@ -1215,11 +1214,9 @@ class VKPersonalMessageSender:
                     time.sleep(3600)
                 elif 'user is blocked' in str(e).lower():
                     break
-            except:
+            except BaseException:
                 stats['failed'] += 1
         return stats
-
-
 
 
 def parse_users_in_background(parser, niche):
@@ -1236,6 +1233,7 @@ def parse_users_in_background(parser, niche):
         logger.info(f"Фоновый парсинг завершён. Собрано {len(unique_leads)} пользователей.")
     else:
         logger.warning(f"Фоновый парсинг: не удалось собрать лидов по нише: {niche}")
+
 
 if __name__ == "__main__":
     parser = VKGroupParser(token=TOKENS[0])
@@ -1305,5 +1303,3 @@ if __name__ == "__main__":
 
         # Переход к следующей нише
         current_niche_index += 1
-
-
