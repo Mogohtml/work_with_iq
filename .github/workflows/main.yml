@@ -31,7 +31,7 @@ jobs:
         run: poetry run python vk_spam_bot-main/sendler.py
 
       - name: Upload Excel files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: excel-files
           path: vk_spam_bot-main/*.xlsx
