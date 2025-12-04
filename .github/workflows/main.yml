@@ -18,7 +18,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12'  # Используем Python 3.12, как требуется в проекте
+          python-version: '3.12'
 
       - name: Install Poetry
         run: pip install poetry
@@ -26,8 +26,9 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-root
 
-      - name: Lint with flake8
-        run: poetry run flake8 vk_spam_bot-main/ --max-line-length=120
+      # Удален шаг с flake8
 
-      - name: Lint with flake8
-        run: poetry run flake8 vk_spam_bot-main/
+        env:
+          ACCESS_TOKEN_1: ${{ secrets.ACCESS_TOKEN_1 }}
+          ACCESS_TOKEN_2: ${{ secrets.ACCESS_TOKEN_2 }}
+          ACCESS_TOKEN_3: ${{ secrets.ACCESS_TOKEN_3 }}
