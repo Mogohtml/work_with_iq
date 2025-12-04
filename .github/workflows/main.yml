@@ -26,8 +26,9 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-root
 
-      # Удален шаг с flake8
-
+      # Добавьте этот шаг для запуска скрипта:
+      - name: Run VK Spam Bot
+        run: poetry run python vk_spam_bot-main/sendler.py
         env:
           ACCESS_TOKEN_1: ${{ secrets.ACCESS_TOKEN_1 }}
           ACCESS_TOKEN_2: ${{ secrets.ACCESS_TOKEN_2 }}
