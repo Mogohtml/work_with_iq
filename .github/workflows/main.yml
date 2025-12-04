@@ -6,18 +6,19 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '0 12 * * *'  # Запуск каждый день в 12:00 UTC (15:00 по Москве)
+    - cron: '0 12 * * *'  # Запускать каждый день в 12:00 по UTC (15:00 по Москве)
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up Python 3.12
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.12'  # Используем Python 3.12, как в pyproject.toml
+          python-version: '3.9'  # или '3.12', если используется в проекте
 
       - name: Install Poetry
         run: pip install poetry
@@ -25,14 +26,8 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-root
 
-      - name: Install flake8
-        run: poetry run pip install flake8  # Явно устанавливаем flake8
-
       - name: Lint with flake8
-        run: poetry run flake8 vk_spam_bot-main/ --max-line-length=120
-
-      - name: Run script
-        run: poetry run python vk_spam_bot-main/Spam.py
+        run: poetry run flake8 vk_spam_bot-main/
         env:
           ACCESS_TOKEN_1: ${{ secrets.ACCESS_TOKEN_1 }}
           ACCESS_TOKEN_2: ${{ secrets.ACCESS_TOKEN_2 }}
