@@ -29,6 +29,11 @@ jobs:
       # Добавьте этот шаг для запуска скрипта:
       - name: Run VK Spam Bot
         run: poetry run python vk_spam_bot-main/sendler.py
+        env:
+          ACCESS_TOKEN_1: ${{ secrets.ACCESS_TOKEN_1 }}
+          ACCESS_TOKEN_2: ${{ secrets.ACCESS_TOKEN_2 }}
+          ACCESS_TOKEN_3: ${{ secrets.ACCESS_TOKEN_3 }}
+          
 
       - name: Upload Excel files
         uses: actions/upload-artifact@v4
