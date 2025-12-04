@@ -41,6 +41,12 @@ jobs:
           name: excel-files
           path: vk_spam_bot-main/*.xlsx
 
+      - name: Upload cash files
+        uses: actions/upload-artifact@v4
+        with:
+          name: cash-files
+          path: vk_spam_bot-main/cash/
+
 
         env:
           ACCESS_TOKEN_1: ${{ secrets.ACCESS_TOKEN_1 }}
