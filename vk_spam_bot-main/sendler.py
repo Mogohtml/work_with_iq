@@ -15,7 +15,6 @@ from dotenv import load_dotenv
 from fuzzywuzzy import process
 import nltk
 from nltk.corpus import wordnet
-from ruwordnet import RuWordNet
 import threading
 
 from config import TOKENS, NICHES, KEYWORDS
@@ -53,7 +52,6 @@ class VKGroupParser:
         self.requests_count = 0
         self.last_request_time = 0
         self.skip_group = False
-        self.ruwordnet = RuWordNet()
         self.keywords = [
             ["нужен", "дизайнер", "логотипа"],
             ["заказать", "логотип", "срочно"],
