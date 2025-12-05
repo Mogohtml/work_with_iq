@@ -825,15 +825,16 @@ class VKGroupParser:
     def _smart_delay(self):
         self.requests_count += 1
         if self.requests_count % 3 == 0:
-            delay = random.uniform(2.0, 4.0)
+            delay = random.uniform(3.0, 6.0)  # Увеличил с 2.0-4.0 до 3.0-6.0
         else:
-            delay = random.uniform(0.5, 1.5)
-        if self.requests_count % 20 == 0:
-            logger.info("Делаем паузу 30 секунд для избежания ограничений")
-            time.sleep(30)
+            delay = random.uniform(1.0, 3.0)  # Увеличил с 0.5-1.5 до 1.0-3.0
+        if self.requests_count % 15 == 0:  # Уменьшил с 20 до 15
+            logger.info("Делаем паузу 45 секунд для избежания ограничений")
+            time.sleep(45)  # Увеличил с 30 до 45 секунд
         else:
             time.sleep(delay)
         self.last_request_time = time.time()
+
 
     def parse_group_members(self, group_id: str, max_users: int = 500, filters: Dict = None) -> List[Dict]:
         logger.info(f"Начинаем парсинг группы: {group_id}")
@@ -995,6 +996,7 @@ class VKGroupParser:
                     all_leads.extend(leads)
                     if len(all_leads) >= max_users:
                         break
+                time.sleep(random.uniform(10.0, 20.0))  # Пауза между группами
             else:
                 logger.info(f"Группа {group_id} неактивна, пропускаем")
 
@@ -1005,22 +1007,48 @@ class VKGroupParser:
         logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
         return all_leads
 
-    def save_users(self, users: List[Dict], filename: str = 'user_ids'):
-        user_data = []
-        for user in users:
-            first_name = user.get('first_name', '')
-            last_name = user.get('last_name', '')
-            user_id = user.get('id', '')
-            user_url = f"https://vk.com/id{user_id}"
-            user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}")
+def save_users(self, users: List[Dict], filename: str = 'user_ids'):
+    user_data = []
+    for user in users:
+        first_name = user.get('first_name', '')
+        last_name = user.get('last_name', '')
+        user_id = user.get('id', '')
+        user_url = f"https://vk.com/id{user_id}"
+        user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}\tFalse")  # Добавляем столбец sent
 
-        df = pd.DataFrame(user_data, columns=['UserInfo'])
-        df[['Name', 'ID', 'URL']] = df['UserInfo'].str.split('\t', expand=True, n=2)
-        df = df.drop(columns=['UserInfo'])
+    df = pd.DataFrame(user_data, columns=['UserInfo'])
+    df[['Name', 'ID', 'URL', 'sent']] = df['UserInfo'].str.split('\t', expand=True)
+    df = df.drop(columns=['UserInfo'])
+    df['sent'] = df['sent'].astype(bool)  # Преобразуем в булевый тип
 
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        save_path = os.path.join(script_dir, 'vk_spam_bot-main')
-        os.makedirs(save_path, exist_ok=True)
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    save_path = os.path.join(script_dir, 'vk_spam_bot-main')
+    os.makedirs(save_path, exist_ok=True)
+
+    if filename == 'user_ids':
+        excel_filename = os.path.join(save_path, "user_ids.xlsx")
+        if os.path.exists(excel_filename):
+            existing_df = pd.read_excel(excel_filename)
+            # Добавляем столбец 'sent', если его нет в существующем файле
+            if 'sent' not in existing_df.columns:
+                existing_df['sent'] = False
+            existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
+            df_filtered = df[~df['ID'].isin(existing_ids)]
+            if not df_filtered.empty:
+                combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
+                combined_df.to_excel(excel_filename, index=False)
+            else:
+                existing_df.to_excel(excel_filename, index=False)
+        else:
+            df.to_excel(excel_filename, index=False)
+    else:
+        cash_path = os.path.join(save_path, 'cash')
+        os.makedirs(cash_path, exist_ok=True)
+        cash_filename = os.path.join(cash_path, f"{filename}.xlsx")
+        df.to_excel(cash_filename, index=False)
+
+    logger.info(f"Лиды сохранены в {filename}.xlsx")
+
 
         if filename == 'user_ids':
             excel_filename = os.path.join(save_path, "user_ids.xlsx")
@@ -1115,7 +1143,7 @@ class VKGroupParser:
                 stats['sent'] += 1
                 sent_today += 1
                 logger.info(f"✓ Отправлено {user_id}: {user.get('first_name')} {user.get('last_name')}")
-                delay = random.uniform(80, 140)
+                delay = random.uniform(150, 220)
                 logger.debug(f"Задержка {delay:.1f} сек...")
                 time.sleep(delay)
             except vk_api.exceptions.ApiError as e:
@@ -1124,8 +1152,9 @@ class VKGroupParser:
                 stats['errors'].append({'user_id': user_id, 'error': error_msg})
                 logger.error(f"✗ Ошибка отправки {user_id}: {error_msg}")
                 if 'flood control' in error_msg.lower():
-                    logger.error("FLOOD CONTROL! Слишком много запросов. Остановка на 1 час.")
-                    time.sleep(3600)
+                    logger.error("FLOOD CONTROL! Останавливаемся на 1 час.")
+                    time.sleep(3600)  # Пауза 1 час при flood control
+                    continue  # Продолжаем после паузы
                 elif 'user is blocked' in error_msg.lower():
                     logger.error("Аккаунт заблокирован! Останавливаем рассылку.")
                     break
@@ -1175,53 +1204,76 @@ def main():
     "market", "niche", "analysis", "competitors", "trend", "plan", "strategy", "test",
 ]
 
-    TOKENS = [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 4) if os.environ.get(f"ACCESS_TOKEN_{i}")]
+    # Загружаем текущую нишу из файла
+    current_niche_file = "current_niche.txt"
+    if os.path.exists(current_niche_file):
+        with open(current_niche_file, "r") as f:
+            current_niche_index = int(f.read().strip())
+    else:
+        current_niche_index = 0
 
-    if not TOKENS:
-        logger.error("Нет доступных токенов!")
-        return
-
-    parser = VKGroupParser(token=TOKENS[0])
-
-    for niche in NICHES:
+    # Парсим только одну нишу за запуск
+    if current_niche_index < len(NICHES):
+        niche = NICHES[current_niche_index]
         logger.info(f"Парсинг по нише: {niche}")
+
+        parser = VKGroupParser(token=os.environ.get("ACCESS_TOKEN_1"))
         leads = parser.parse_leads_by_niche(niche=niche, max_users=500, filters=FILTERS)
         if leads:
             logger.info(f"Собрано {len(leads)} лидов по нише: {niche}")
         else:
             logger.warning(f"Не удалось собрать лидов по нише: {niche}")
 
-    for token in TOKENS:
-        sender = VKGroupParser(token=token)
-        try:
-            df = pd.read_excel("vk_spam_bot-main/user_ids.xlsx")
-            users = df.to_dict('records')
-            message_template = """
+        # Отправляем сообщения через все доступные токены
+        for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 4) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
+            try:
+                sender = VKGroupParser(token=token)
+                df = pd.read_excel("vk_spam_bot-main/user_ids.xlsx")
+
+                # Добавляем столбец 'sent', если его нет
+                if 'sent' not in df.columns:
+                    df['sent'] = False
+
+                # Фильтруем пользователей, которым еще не отправляли сообщения
+                users_to_send = df[~df['sent']].to_dict('records')
+
+                if not users_to_send:
+                    logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
+                    continue
+
+                message_template = """
 Привет, {first_name}! 👋
 🎨 **Я специализируюсь на создании визуальных решений**, которые помогают вашему бренду выделяться и запоминаться. Моя задача — превратить ваши идеи в стильный, функциональный и эффективный дизайн, чтобы ваш бизнес сиял! ✨
-Что я предлагаю:
-- 🏗️ **Дизайн выставочных стендов** — яркие и запоминающиеся конструкции для презентаций.
-- 🎯 **Разработка фирменного стиля** — логотип, цветовая палитра, шрифты, брендбук для полного брендинга.
-- 📄 **Полиграфическая продукция** — буклеты, плакаты, визитки, упаковка с индивидуальным подходом.
-- 💻 **Цифровой дизайн** — креативные решения для веб и мобильных приложений.
-- 🔗 **QR-коды и интерактивные элементы** — современные инструменты для взаимодействия с аудиторией.
 💬 {first_name}, давайте обсудим ваш проект и создадим что-то уникальное! 🚀
 📌 **Портфолио и отзывы:** [profi.ru/profile/DzhabagiyevMM](https://profi.ru/profile/DzhabagiyevMM)
 """
-            photo_paths = [
-                "images/works_design_5.jpg",
-                "images/works_design_8.jpg",
-                "images/works_shop_1.jpg",
-                "images/works_shop_3.jpg",
-                "images/works_shop_4.jpg",
-                "images/works_site_1.jpg",
-                "images/works_site_2.jpg",
-                "images/works_site_5.jpg",
-            ]
-            stats = sender.send_messages(users, message_template, photo_paths, max_per_day=60)
-            logger.info(f"Отправка на токене: {stats}")
-        except Exception as e:
-            logger.error(f"Ошибка при отправке сообщений: {e}")
+                photo_paths = [
+                    "images/works_design_5.jpg",
+                    "images/works_design_8.jpg",
+                    "images/works_shop_1.jpg",
+                    "images/works_shop_3.jpg",
+                    "images/works_shop_4.jpg",
+                    "images/works_site_1.jpg",
+                    "images/works_site_2.jpg",
+                    "images/works_site_5.jpg",
+                ]
 
+                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=60)
+                logger.info(f"Отправка на токене {token[:5]}...: {stats}")
+
+                # Обновляем статус отправки в файле
+                for user in users_to_send:
+                    df.loc[df['ID'] == user['ID'], 'sent'] = True
+                df.to_excel("vk_spam_bot-main/user_ids.xlsx", index=False)
+
+            except Exception as e:
+                logger.error(f"Ошибка при отправке сообщений с токена {token[:5]}: {e}")
+
+        # Сохраняем индекс следующей ниши
+        with open(current_niche_file, "w") as f:
+            f.write(str(current_niche_index + 1))
+
+    else:
+        logger.info("Все ниши обработаны! Начните заново, удалив файл current_niche.txt")
 if __name__ == "__main__":
     main()
