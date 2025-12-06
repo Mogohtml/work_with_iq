@@ -1210,12 +1210,12 @@ def main():
                 sender = VKGroupParser(token=token)
                 df = pd.read_excel("vk_spam_bot-main/user_ids.xlsx")
 
-                # Добавляем столбец 'sent', если его нет
+                # Проверяем наличие столбца 'sent', если его нет, добавляем
                 if 'sent' not in df.columns:
                     df['sent'] = False
 
-                # Фильтруем пользователей, которым еще не отправляли сообщения
-                users_to_send = df[~df['sent']].to_dict('records')
+                # Фильтруем пользователей, которым еще не отправляли сообщения и у которых есть ID
+                users_to_send = df[(~df['sent']) & df['ID'].notna()].to_dict('records')
 
                 if not users_to_send:
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
@@ -1243,7 +1243,8 @@ def main():
 
                 # Обновляем статус отправки в файле
                 for user in users_to_send:
-                    df.loc[df['ID'] == user['ID'], 'sent'] = True
+                    if 'ID' in user:
+                        df.loc[df['ID'] == user['ID'], 'sent'] = True
                 df.to_excel("vk_spam_bot-main/user_ids.xlsx", index=False)
 
             except Exception as e:
