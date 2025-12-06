@@ -825,15 +825,16 @@ class VKGroupParser:
     def _smart_delay(self):
         self.requests_count += 1
         if self.requests_count % 3 == 0:
-            delay = random.uniform(3.0, 6.0)  # Увеличил с 2.0-4.0 до 3.0-6.0
+            delay = random.uniform(5.0, 10.0)  # Увеличьте задержки
         else:
-            delay = random.uniform(1.0, 3.0)  # Увеличил с 0.5-1.5 до 1.0-3.0
-        if self.requests_count % 15 == 0:  # Уменьшил с 20 до 15
-            logger.info("Делаем паузу 45 секунд для избежания ограничений")
-            time.sleep(45)  # Увеличил с 30 до 45 секунд
+            delay = random.uniform(2.0, 5.0)
+        if self.requests_count % 10 == 0:  # Уменьшите частоту длинных пауз, но увеличьте их продолжительность
+            logger.info("Делаем паузу 90 секунд для избежания ограничений")
+            time.sleep(90)
         else:
             time.sleep(delay)
         self.last_request_time = time.time()
+
 
 
     def parse_group_members(self, group_id: str, max_users: int = 500, filters: Dict = None) -> List[Dict]:
@@ -844,7 +845,7 @@ class VKGroupParser:
 
         users = []
         offset = 0
-        count = 1000
+        count = 200
 
         if filters is None:
             filters = {}
@@ -982,9 +983,12 @@ class VKGroupParser:
         if not group_ids:
             logger.warning(f"Не найдено групп по нише: {niche}")
             return []
-
+    
+        parsed_groups = self.get_parsed_groups(niche)
+        new_groups = [group_id for group_id in group_ids if group_id not in parsed_groups]
+    
         all_leads = []
-        for group_id in group_ids:
+        for group_id in new_groups:
             if self._is_group_active(group_id):
                 logger.info(f"Парсинг группы: {group_id}...")
                 remaining_users = max_users - len(all_leads)
@@ -999,13 +1003,15 @@ class VKGroupParser:
                 time.sleep(random.uniform(10.0, 20.0))  # Пауза между группами
             else:
                 logger.info(f"Группа {group_id} неактивна, пропускаем")
-
+    
         if all_leads:
             unique_leads = self._remove_duplicates(all_leads)
             self.save_users(unique_leads, filename="user_ids")
-
+            self.save_parsed_groups(new_groups, niche)
+    
         logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
         return all_leads
+
 
     def save_users(self, users: List[Dict], filename: str = 'user_ids'):
         user_data = []
@@ -1025,28 +1031,50 @@ class VKGroupParser:
         save_path = os.path.join(script_dir, 'vk_spam_bot-main')
         os.makedirs(save_path, exist_ok=True)
     
-        if filename == 'user_ids':
-            excel_filename = os.path.join(save_path, "user_ids.xlsx")
-            if os.path.exists(excel_filename):
-                existing_df = pd.read_excel(excel_filename)
-                if 'sent' not in existing_df.columns:
-                    existing_df['sent'] = False
-                existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
-                df_filtered = df[~df['ID'].isin(existing_ids)]
-                if not df_filtered.empty:
-                    combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
-                    combined_df.to_excel(excel_filename, index=False)
-                else:
-                    existing_df.to_excel(excel_filename, index=False)
+        excel_filename = os.path.join(save_path, "user_ids.xlsx")
+    
+        if os.path.exists(excel_filename):
+            existing_df = pd.read_excel(excel_filename)
+            if 'sent' not in existing_df.columns:
+                existing_df['sent'] = False
+            existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
+            df_filtered = df[~df['ID'].isin(existing_ids)]
+            if not df_filtered.empty:
+                combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
+                combined_df.to_excel(excel_filename, index=False)
             else:
-                df.to_excel(excel_filename, index=False)
+                logger.info("Нет новых пользователей для добавления.")
         else:
-            cash_path = os.path.join(save_path, 'cash')
-            os.makedirs(cash_path, exist_ok=True)
-            cash_filename = os.path.join(cash_path, f"{filename}.xlsx")
-            df.to_excel(cash_filename, index=False)
+            df.to_excel(excel_filename, index=False)
     
         logger.info(f"Лиды сохранены в {filename}.xlsx")
+
+    def save_parsed_groups(self, groups: List[str], niche: str):
+        groups_file = "parsed_groups.json"
+        parsed_groups = {}
+    
+        if os.path.exists(groups_file):
+            with open(groups_file, 'r') as f:
+                parsed_groups = json.load(f)
+    
+        if niche not in parsed_groups:
+            parsed_groups[niche] = []
+    
+        for group in groups:
+            if group not in parsed_groups[niche]:
+                parsed_groups[niche].append(group)
+    
+        with open(groups_file, 'w') as f:
+            json.dump(parsed_groups, f, indent=4)
+    
+    def get_parsed_groups(self, niche: str) -> List[str]:
+        groups_file = "parsed_groups.json"
+        if os.path.exists(groups_file):
+            with open(groups_file, 'r') as f:
+                parsed_groups = json.load(f)
+                return parsed_groups.get(niche, [])
+        return []
+
 
 
     def _remove_duplicates(self, users: List[Dict]) -> List[Dict]:
@@ -1123,7 +1151,7 @@ class VKGroupParser:
                 stats['sent'] += 1
                 sent_today += 1
                 logger.info(f"✓ Отправлено {user_id}: {user.get('first_name')} {user.get('last_name')}")
-                delay = random.uniform(150, 220)
+                delay = random.uniform(200, 300)
                 logger.debug(f"Задержка {delay:.1f} сек...")
                 time.sleep(delay)
             except vk_api.exceptions.ApiError as e:
@@ -1205,7 +1233,7 @@ def main():
             logger.warning(f"Не удалось собрать лидов по нише: {niche}")
 
         # Отправляем сообщения через все доступные токены
-        for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 4) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
+        for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 2) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
             try:
                 sender = VKGroupParser(token=token)
                 df = pd.read_excel("vk_spam_bot-main/user_ids.xlsx")
