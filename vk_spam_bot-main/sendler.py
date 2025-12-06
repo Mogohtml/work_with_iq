@@ -1211,6 +1211,8 @@ def main():
     "рынок", "ниша", "анализ", "конкуренты", "тренд", "план", "стратегия", "MVP", "A/B",
     "market", "niche", "analysis", "competitors", "trend", "plan", "strategy", "test",
 ]
+    # Добавьте задержку перед началом работы
+    time.sleep(10)
 
     # Загружаем текущую нишу из файла
     current_niche_file = "current_niche.txt"
