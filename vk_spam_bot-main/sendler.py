@@ -1014,12 +1014,12 @@ def save_users(self, users: List[Dict], filename: str = 'user_ids'):
         last_name = user.get('last_name', '')
         user_id = user.get('id', '')
         user_url = f"https://vk.com/id{user_id}"
-        user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}\tFalse")  # Добавляем столбец sent
+        user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}\tFalse")
 
     df = pd.DataFrame(user_data, columns=['UserInfo'])
     df[['Name', 'ID', 'URL', 'sent']] = df['UserInfo'].str.split('\t', expand=True)
     df = df.drop(columns=['UserInfo'])
-    df['sent'] = df['sent'].astype(bool)  # Преобразуем в булевый тип
+    df['sent'] = df['sent'].astype(bool)
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     save_path = os.path.join(script_dir, 'vk_spam_bot-main')
@@ -1029,7 +1029,6 @@ def save_users(self, users: List[Dict], filename: str = 'user_ids'):
         excel_filename = os.path.join(save_path, "user_ids.xlsx")
         if os.path.exists(excel_filename):
             existing_df = pd.read_excel(excel_filename)
-            # Добавляем столбец 'sent', если его нет в существующем файле
             if 'sent' not in existing_df.columns:
                 existing_df['sent'] = False
             existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
@@ -1049,25 +1048,6 @@ def save_users(self, users: List[Dict], filename: str = 'user_ids'):
 
     logger.info(f"Лиды сохранены в {filename}.xlsx")
 
-
-        if filename == 'user_ids':
-            excel_filename = os.path.join(save_path, "user_ids.xlsx")
-            if os.path.exists(excel_filename):
-                existing_df = pd.read_excel(excel_filename)
-                existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
-                df_filtered = df[~df['ID'].isin(existing_ids)]
-                if not df_filtered.empty:
-                    combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
-                    combined_df.to_excel(excel_filename, index=False)
-            else:
-                df.to_excel(excel_filename, index=False)
-        else:
-            cash_path = os.path.join(save_path, 'cash')
-            os.makedirs(cash_path, exist_ok=True)
-            cash_filename = os.path.join(cash_path, f"{filename}.xlsx")
-            df.to_excel(cash_filename, index=False)
-
-        logger.info(f"Лиды сохранены в {filename}.xlsx")
 
     def _remove_duplicates(self, users: List[Dict]) -> List[Dict]:
         seen_ids = set()
