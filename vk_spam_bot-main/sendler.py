@@ -1015,40 +1015,53 @@ class VKGroupParser:
 
 
     def save_users(self, users: List[Dict], filename: str = 'user_ids'):
+        if not users:
+            logger.info("Нет пользователей для сохранения.")
+            return
+    
         user_data = []
         for user in users:
             first_name = user.get('first_name', '')
             last_name = user.get('last_name', '')
-            user_id = user.get('id', '')
+            user_id = user.get('id', user.get('ID', ''))
             user_url = f"https://vk.com/id{user_id}"
             user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}\tFalse")
     
         df = pd.DataFrame(user_data, columns=['UserInfo'])
         df[['Name', 'ID', 'URL', 'sent']] = df['UserInfo'].str.split('\t', expand=True)
         df = df.drop(columns=['UserInfo'])
-        df['sent'] = df['sent'].astype(bool)
+        df['sent'] = False
     
         script_dir = os.path.dirname(os.path.abspath(__file__))
         save_path = os.path.join(script_dir, 'vk_spam_bot-main')
+        cash_path = os.path.join(save_path, 'cash')
+        os.makedirs(cash_path, exist_ok=True)
         os.makedirs(save_path, exist_ok=True)
     
-        excel_filename = os.path.join(save_path, "user_ids.xlsx")
-    
-        if os.path.exists(excel_filename):
-            existing_df = pd.read_excel(excel_filename)
-            if 'sent' not in existing_df.columns:
-                existing_df['sent'] = False
-            existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
-            df_filtered = df[~df['ID'].isin(existing_ids)]
-            if not df_filtered.empty:
-                combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
-                combined_df.to_excel(excel_filename, index=False)
+        if filename == 'user_ids':
+            excel_filename = os.path.join(save_path, "user_ids.xlsx")
+            if os.path.exists(excel_filename):
+                existing_df = pd.read_excel(excel_filename)
+                if 'sent' not in existing_df.columns:
+                    existing_df['sent'] = False
+                existing_ids = set(existing_df['ID'].dropna().astype(str).tolist())
+                df_filtered = df[~df['ID'].astype(str).isin(existing_ids)]
+                if not df_filtered.empty:
+                    combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
+                    combined_df.to_excel(excel_filename, index=False)
+                    logger.info(f"Добавлено {len(df_filtered)} новых пользователей в user_ids.xlsx")
+                else:
+                    logger.info("Нет новых пользователей для добавления.")
             else:
-                logger.info("Нет новых пользователей для добавления.")
+                df.to_excel(excel_filename, index=False)
+                logger.info(f"Создан новый файл user_ids.xlsx с {len(df)} пользователями")
         else:
-            df.to_excel(excel_filename, index=False)
+            cash_filename = os.path.join(cash_path, f"{filename}.xlsx")
+            df.to_excel(cash_filename, index=False)
+            logger.info(f"Лиды сохранены в cash/{filename}.xlsx")
     
-        logger.info(f"Лиды сохранены в {filename}.xlsx")
+        logger.info(f"Сохранено {len(users)} пользователей.")
+
 
     def save_parsed_groups(self, groups: List[str], niche: str):
         groups_file = "parsed_groups.json"
@@ -1247,7 +1260,7 @@ def main():
                     df['sent'] = False
 
                 # Фильтруем пользователей, которым еще не отправляли сообщения и у которых есть ID
-                users_to_send = df[(~df['sent']) & df['ID'].notna()].to_dict('records')
+                users_to_send = df[~(df['sent'].fillna(False).astype(bool))].to_dict('records')
 
                 if not users_to_send:
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
