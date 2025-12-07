@@ -1031,6 +1031,7 @@ class VKGroupParser:
         df[['Name', 'ID', 'URL', 'sent']] = df['UserInfo'].str.split('\t', expand=True)
         df = df.drop(columns=['UserInfo'])
         df['sent'] = False
+        df['ID'] = df['ID'].astype(int)
     
         script_dir = os.path.dirname(os.path.abspath(__file__))
         save_path = os.path.join(script_dir, 'vk_spam_bot-main')
@@ -1042,10 +1043,12 @@ class VKGroupParser:
             excel_filename = os.path.join(save_path, "user_ids.xlsx")
             if os.path.exists(excel_filename):
                 existing_df = pd.read_excel(excel_filename)
-                if 'sent' not in existing_df.columns:
+                if 'sent' in existing_df.columns:
+                    existing_df['sent'] = existing_df['sent'].fillna(False).astype(bool)
+                else:
                     existing_df['sent'] = False
-                existing_ids = set(existing_df['ID'].dropna().astype(str).tolist())
-                df_filtered = df[~df['ID'].astype(str).isin(existing_ids)]
+                existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
+                df_filtered = df[~df['ID'].isin(existing_ids)]
                 if not df_filtered.empty:
                     combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
                     combined_df.to_excel(excel_filename, index=False)
@@ -1061,6 +1064,7 @@ class VKGroupParser:
             logger.info(f"Лиды сохранены в cash/{filename}.xlsx")
     
         logger.info(f"Сохранено {len(users)} пользователей.")
+
 
 
     def save_parsed_groups(self, groups: List[str], niche: str):
@@ -1254,13 +1258,14 @@ def main():
             try:
                 sender = VKGroupParser(token=token)
                 df = pd.read_excel("vk_spam_bot-main/user_ids.xlsx")
-
-                # Проверяем наличие столбца 'sent', если его нет, добавляем
-                if 'sent' not in df.columns:
+                if 'sent' in df.columns:
+                    df['sent'] = df['sent'].fillna(False).astype(bool)
+                else:
                     df['sent'] = False
 
                 # Фильтруем пользователей, которым еще не отправляли сообщения и у которых есть ID
-                users_to_send = df[~(df['sent'].fillna(False).astype(bool))].to_dict('records')
+                users_to_send = df[df['sent'].ne(True)].to_dict('records')
+
 
                 if not users_to_send:
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
@@ -1322,7 +1327,8 @@ def main():
                 # Обновляем статус отправки в файле
                 for user in users_to_send:
                     if 'ID' in user:
-                        df.loc[df['ID'] == user['ID'], 'sent'] = True
+                        df.loc[df['ID'] == int(user['ID']), 'sent'] = True
+
                 df.to_excel("vk_spam_bot-main/user_ids.xlsx", index=False)
 
             except Exception as e:
