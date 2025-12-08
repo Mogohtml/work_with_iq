@@ -1,47 +1,22 @@
 import os
-from datetime import datetime, timedelta
-from itertools import combinations
-
-from utils import generate_keyword_combinations
-import keyboard
 import vk_api
 import time
 import random
 import logging
 import pandas as pd
 import requests
-from typing import List, Dict
-from dotenv import load_dotenv
-import nltk
-import threading
-
-from config import TOKENS, NICHES, KEYWORDS
-
-# Настройка переменных среды
-load_dotenv()
-
 
 # Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('vk_auto.log', encoding='utf-8'),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
 
-# Скачивание WordNet
-try:
-    nltk.data.find('corpora/wordnet')
-except LookupError:
-    nltk.download('wordnet')
-
-
 class VKGroupParser:
-    """Класс парсера участников групп ВКонтакте."""
-
     def __init__(self, token: str):
         self.token = token
         self.session = vk_api.VkApi(token=token)
@@ -830,9 +805,6 @@ class VKGroupParser:
             ["фрилансер", "меню", "дизайн"],
             ["дизайн", "каталоги", "визуал"],
             ["каталоги", "дизайн", "продукты"],]
-        # Пример использования:
-        self.KEYWORD_COMBINATIONS = generate_keyword_combinations(KEYWORDS, min_words=2, max_words=3)
-        self._init_user()
 
     def _init_user(self):
         try:
@@ -844,24 +816,14 @@ class VKGroupParser:
 
     def _smart_delay(self):
         self.requests_count += 1
-        delay = random.uniform(0.5, 1.5) if self.requests_count % 3 != 0 else random.uniform(2.0, 4.0)
-        if self.requests_count % 20 == 0:
-            time.sleep(30)
         else:
             time.sleep(delay)
 
-    def _listen_for_skip(self):
-        keyboard.add_hotkey('ctrl+n', lambda: setattr(self, 'skip_group', True))
-        keyboard.wait()
 
-    def parse_group_members(self, group_id: str, max_users: int = 10, filters: Dict = None) -> List[Dict]:
-        listener_thread = threading.Thread(target=self._listen_for_skip, daemon=True)
-        listener_thread.start()
 
         group_info = self._get_group_info(group_id)
         users = []
         offset = 0
-        count = 4
         if filters is None:
             filters = {}
 
@@ -888,7 +850,6 @@ class VKGroupParser:
                 if len(items) < count:
                     break
             except Exception as e:
-                logger.error(f"Ошибка: {e}")
                 break
         return users
 
@@ -905,8 +866,6 @@ class VKGroupParser:
             return False
         if filters.get('age_from') or filters.get('age_to'):
             age = self._get_user_age(user)
-            if age and ((filters.get('age_from') and age < filters['age_from']) or (
-                    filters.get('age_to') and age > filters['age_to'])):
                 return False
         return True
 
@@ -914,102 +873,43 @@ class VKGroupParser:
         if user.get('online'):
             return True
         if 'last_seen' in user:
-            return (time.time() - user['last_seen']['time']) / 86400 <= days
         return False
 
-    def _get_user_age(self, user: Dict) -> int:
         bdate = user.get('bdate')
         if not bdate or len(bdate.split('.')) != 3:
             return None
         try:
             birth_year = int(bdate.split('.')[2])
-            return datetime.now().year - birth_year
         except:
             return None
 
     def _get_group_info(self, group_id: str) -> Dict:
         try:
-            return self.vk.groups.getById(group_id=group_id, fields='members_count')[0]
         except Exception as e:
-            logger.error(f"Ошибка: {e}")
             raise
 
-    def find_groups_by_niche(self, niche: str, count: int) -> List[str]:
-        """Поиск групп по нише с учетом синонимов и проверкой на уже спарсенные группы."""
-        expanded_queries = self._expand_group_by_niche(niche)
         all_groups = set()
-        cash_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'vk_spam_bot-main', 'cash')
-
-        # Проверяем, какие группы уже спарсены для этой ниши
-        already_parsed_groups = set()
-        if os.path.exists(cash_path):
-            for filename in os.listdir(cash_path):
-                if filename.startswith(f"leads_{niche}_"):
-                    group_id = filename.replace(f"leads_{niche}_", "").replace(".xlsx", "")
-                    already_parsed_groups.add(group_id)
-
-        # Ищем новые группы
-        for query in expanded_queries:
             try:
-                response = self.vk.groups.search(q=query, count=count, type="group")
                 groups = response.get('items', [])
                 for group in groups:
-                    group_id = str(group['id'])
-                    if group_id not in already_parsed_groups:  # Пропускаем уже спарсенные группы
-                        all_groups.add(group_id)
-                        if len(all_groups) >= 20:  # Ограничиваем количество уникальных групп
                             return list(all_groups)
             except Exception as e:
-                logger.error(f"Ошибка поиска групп для запроса: {query}: {e}")
 
-        logger.info(f"Найдено новых групп по нише {niche}: {len(all_groups)}")
-        return list(all_groups)
-
-    def _expand_group_by_niche(self, niche: str) -> List[str]:
-        niche = niche.lower().strip()
-        expanded_queries = set([niche])
-
-        # Фильтруем KEYWORDS по текущей нише
-        category_keywords = [kw for kw in KEYWORDS if niche in kw]
-
-        # Генерируем комбинации только для релевантных ключевых слов
-        for r in range(2, 4):
-            for combo in combinations(category_keywords, r):
-                expanded_queries.add(" ".join(combo))
-
-        expanded_queries.add(niche + "*")
-        return list(expanded_queries)
-
-    def parse_leads_by_niche(self, niche: str, max_users: int = 10, filters: Dict = None, group_count: int = 20,
-                             max_active_groups: int = 10) -> List[Dict]:
-        """Парсинг лидов по нише с сохранением по группам и проверкой на дубликаты."""
         group_ids = self.find_groups_by_niche(niche, group_count)
         if not group_ids:
-            logger.warning(f"Не найдено новых групп по нише: {niche}")
             return []
 
         all_leads = []
-        for group_id in group_ids[:max_active_groups]:
-            if self._is_group_active(group_id) and self._is_group_relevant_by_comments(group_id, self.keywords):
                 logger.info(f"Парсинг группы: {group_id}...")
                 remaining_users = max_users - len(all_leads)
                 if remaining_users <= 0:
                     break
-
-                leads = self.parse_group_members(
-                    group_id=group_id,
-                    max_users=remaining_users,
-                    filters=filters
-                )
-
                 if leads:
-                    # Сохраняем лидов по каждой группе отдельно
                     self.save_users(leads, filename=f"leads_{niche}_{group_id}")
                     all_leads.extend(leads)
                     if len(all_leads) >= max_users:
                         break
 
-        # Сохраняем все уникальные лиды в общий файл
         if all_leads:
             unique_leads = self._remove_duplicates(all_leads)
             self.save_users(unique_leads, filename="user_ids")
@@ -1017,85 +917,14 @@ class VKGroupParser:
         logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
         return all_leads
 
-    def _are_comments_relevant(self, comments: List[Dict], keywords: List[List[str]]) -> bool:
-        if not comments or not isinstance(comments, list):
-            return False
-        for comment in comments:
-            if not isinstance(comment, dict):
-                continue
-            comment_text = comment.get('text', '').lower().strip()
-            if not comment_text:
-                continue
-            for word_set in keywords:
-                if len(word_set) != 3:
-                    continue  # Пропустить невалидные триады
-                matches = sum(1 for word in word_set if word in comment_text)
-                if matches >= 3:
-                    return True
-        return False
-
-    def _is_group_relevant_by_comments(self, group_id: str, keywords: List[List[str]]) -> bool:
-        try:
-            posts = self.vk.wall.get(owner_id=f"-{group_id}", count=5).get('items', [])
-            if not posts:
-                return False
-            for post in posts:
-                if not isinstance(post, dict) or 'id' not in post:
-                    continue
-                try:
-                    comments = self.vk.wall.getComments(owner_id=f"-{group_id}", post_id=post['id'], count=10).get(
-                        'items', [])
-                    if self._are_comments_relevant(comments, keywords):
-                        return True
-                except vk_api.exceptions.ApiError as e:
-                    if 'Access denied' in str(e) or 'post was not found' in str(e):
-                        logger.warning(f"Нет доступа к комментариям поста {post['id']} в группе {group_id}, пропускаем")
-                        continue  # Пропустить этот пост, проверить следующий
-                    else:
-                        logger.error(f"Ошибка API при получении комментариев: {e}")
-                        return False  # Для других ошибок вернуть False
-        except vk_api.exceptions.ApiError as e:
-            if 'Access denied' in str(e):
-                logger.warning(f"Нет доступа к стене группы {group_id}, пропускаем проверку комментариев")
-                return False  # Группа закрытая, не проверять
-            else:
-                logger.error(f"Ошибка при получении постов группы {group_id}: {e}")
-                return False
-        except Exception as e:
-            logger.error(f"Неожиданная ошибка при проверке комментариев группы {group_id}: {e}")
-            return False
-        return False
-
-    def _is_group_active(self, group_id: str) -> bool:
-        try:
-            posts = self.vk.wall.get(owner_id=f"-{group_id}", count=1).get('items', [])
-            if posts:
-                last_post_date = datetime.fromtimestamp(posts[0]['date'])
-                return last_post_date > datetime.now() - timedelta(days=180)
-            return False
-        except:
-            return False
-
-    def _remove_duplicates(self, users: List[Dict]) -> List[Dict]:
-        seen_ids = set()
-        unique_users = []
-        for user in users:
-            user_id = user.get('id')
-            if user_id and user_id not in seen_ids:
-                seen_ids.add(user_id)
-                unique_users.append(user)
-        return unique_users
 
     def save_users(self, users: List[Dict], filename: str = 'user_ids'):
         user_data = []
         for user in users:
             first_name = user.get('first_name', '')
             last_name = user.get('last_name', '')
-            user_id = user.get('id', '')
             user_url = f"https://vk.com/id{user_id}"
-            user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}")
         df = pd.DataFrame(user_data, columns=['UserInfo'])
-        df[['Name', 'ID', 'URL']] = df['UserInfo'].str.split('\t', expand=True, n=2)
         df = df.drop(columns=['UserInfo'])
 
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -1114,27 +943,11 @@ class VKGroupParser:
             else:
                 df.to_excel(excel_filename, index=False)
         else:
-            cash_path = os.path.join(save_path, 'cash')
-            os.makedirs(cash_path, exist_ok=True)
             cash_filename = os.path.join(cash_path, f"{filename}.xlsx")
             df.to_excel(cash_filename, index=False)
 
 
-class VKPersonalMessageSender:
-    def __init__(self, token: str):
-        self.token = token
-        self.session = vk_api.VkApi(token=token)
-        self.vk = self.session.get_api()
-        self.requests_count = 0
-        self.last_request_time = 0
 
-    def _smart_delay(self):
-        self.requests_count += 1
-        delay = random.uniform(0.5, 1.5) if self.requests_count % 3 != 0 else random.uniform(2.0, 4.0)
-        if self.requests_count % 20 == 0:
-            time.sleep(30)
-        else:
-            time.sleep(delay)
 
     def upload_photo(self, peer_id: int, photo_path: str) -> str:
         if not os.path.exists(photo_path):
@@ -1150,126 +963,38 @@ class VKPersonalMessageSender:
             owner_id = photo_data[0]['owner_id']
             photo_id = photo_data[0]['id']
             return f"photo{owner_id}_{photo_id}"
-        except:
             return ""
 
-    def send_messages_automatic(
-            self,
-            excel_file_path: str,
-            message_template: str,
-            photo_paths: List[str],
-            messages_per_token: int = 20,
-            delay_range: tuple = (80, 140)  # Диапазон задержки между сообщениями в секундах
-    ) -> Dict:
-        try:
-            df = pd.read_excel(excel_file_path)
-        except:
-            return {'error': 'Файл не найден'}
-        df = df.iloc[::-1].reset_index(drop=True)
-        stats = {'sent': 0, 'failed': 0}
-        sent_per_token = 0
-        valid_photo_paths = [p for p in photo_paths if os.path.exists(p)]
-        for index in range(len(df)):
-            if sent_per_token >= messages_per_token:
                 break
-            row = df.iloc[index]
-            user_id = row.get('ID')
-            name = row.get('Name', '')
-            first_name = name.split()[0] if name else ''
-            if not user_id or pd.isna(user_id):
                 continue
             try:
-                message = message_template.format(first_name=first_name)
-                attachments = [self.upload_photo(user_id, p) for p in valid_photo_paths if p]
                 attachments = [a for a in attachments if a]
-                self._smart_delay()  # Задержка для запросов к API
-                if attachments:
-                    self.vk.messages.send(
-                        user_id=user_id,
-                        message=message,
-                        attachment=",".join(attachments),
-                        random_id=random.randint(1, 2 ** 31)
-                    )
-                else:
                     self.vk.messages.send(
                         user_id=user_id,
                         message=message,
                         random_id=random.randint(1, 2 ** 31)
                     )
-                df = df.drop(index).reset_index(drop=True)
-                df.to_excel(excel_file_path, index=False)
                 stats['sent'] += 1
-                sent_per_token += 1
-                # Задержка между отправкой сообщений
-                delay = random.uniform(*delay_range)
-                logger.info(f"Задержка {delay:.1f} секунд перед следующим сообщением...")
                 time.sleep(delay)
             except vk_api.exceptions.ApiError as e:
                 stats['failed'] += 1
-                if 'flood control' in str(e).lower():
                     time.sleep(3600)
-                elif 'user is blocked' in str(e).lower():
                     break
-            except:
                 stats['failed'] += 1
         return stats
 
 
 
 
-def parse_users_in_background(parser, niche):
-    """Функция для парсинга пользователей в фоновом потоке."""
-    logger.info(f"Начинаем фоновый парсинг по нише: {niche}")
-    leads = parser.parse_leads_by_niche(
-        niche=niche,
-        max_users=500,
-        filters={'city_ids': [1, 2], 'age_from': 18, 'age_to': 35, 'only_can_message': True, 'only_active': True}
-    )
-    if leads:
-        unique_leads = parser._remove_duplicates(leads)
-        parser.save_users(unique_leads, filename="user_ids")
-        logger.info(f"Фоновый парсинг завершён. Собрано {len(unique_leads)} пользователей.")
     else:
-        logger.warning(f"Фоновый парсинг: не удалось собрать лидов по нише: {niche}")
-
-if __name__ == "__main__":
-    parser = VKGroupParser(token=TOKENS[0])
     current_niche_index = 0
-    message_template = """
-        Привет, {first_name}! 👋
-    🎨 **Я специализируюсь на создании визуальных решений**, которые помогают вашему бренду выделяться и запоминаться. Моя задача — превратить ваши идеи в стильный, функциональный и эффективный дизайн, чтобы ваш бизнес сиял! ✨
-    Что я предлагаю:
-    - 🏗️ **Дизайн выставочных стендов** — яркие и запоминающиеся конструкции для презентаций.
-    - 🎯 **Разработка фирменного стиля** — логотип, цветовая палитра, шрифты, брендбук для полного брендинга.
-    - 📄 **Полиграфическая продукция** — буклеты, плакаты, визитки, упаковка с индивидуальным подходом.
-    - 💻 **Цифровой дизайн** — креативные решения для веб и мобильных приложений.
-    - 🔗 **QR-коды и интерактивные элементы** — современные инструменты для взаимодействия с аудиторией.
-    💬 {first_name}, давайте обсудим ваш проект и создадим что-то уникальное! 🚀
-    📌 **Портфолио и отзывы:** [profi.ru/profile/DzhabagiyevMM](https://profi.ru/profile/DzhabagiyevMM)
-    """
 
-    while True:
-        niche = NICHES[current_niche_index % len(NICHES)]
         logger.info(f"Парсинг по нише: {niche}")
 
-        # Парсинг новых пользователей
-        leads = parser.parse_leads_by_niche(
-            niche=niche,
-            max_users=500,
-            filters={'city_ids': [1, 2], 'age_from': 18, 'age_to': 35, 'only_can_message': True, 'only_active': True}
-        )
         if leads:
-            unique_leads = parser._remove_duplicates(leads)
-            parser.save_users(unique_leads, filename="user_ids")
         else:
             logger.warning(f"Не удалось собрать лидов по нише: {niche}")
 
-        # Отправка сообщений
-        for token in TOKENS:
-            sender = VKPersonalMessageSender(token=token)
-            stats = sender.send_messages_automatic(
-                excel_file_path='user_ids.xlsx',
-                message_template=message_template,  # Используем ваш шаблон
                 photo_paths=[
                     "images/works_design_5.jpg",
                     "images/works_design_8.jpg",
@@ -1279,26 +1004,8 @@ if __name__ == "__main__":
                     "images/works_site_1.jpg",
                     "images/works_site_2.jpg",
                     "images/works_site_5.jpg",
-                ],
-                messages_per_token=20,
-                delay_range=(80, 140)
-            )
-            logger.info(f"Отправка на токене: {stats}")
 
-        # Запускаем фоновый парсинг по следующей нише
-        next_niche = NICHES[(current_niche_index + 1) % len(NICHES)]
-        parsing_thread = threading.Thread(
-            target=parse_users_in_background,
-            args=(parser, next_niche),
-            daemon=True
-        )
-        parsing_thread.start()
 
-        # Пауза 12 часов (основной поток ждёт, а фоновый парсит)
-        logger.info("Основной поток ждёт 12 часов, фоновый поток парсит новых пользователей...")
-        time.sleep(12 * 3600)
 
-        # Переход к следующей нише
-        current_niche_index += 1
 
 
