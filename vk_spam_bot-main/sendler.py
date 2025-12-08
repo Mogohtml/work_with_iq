@@ -1134,9 +1134,9 @@ class VKGroupParser:
                 stats['skipped'] = len(users) - stats['sent'] - stats['failed']
                 break
     
-            user_id = user.get('ID')  # Используем ключ 'ID' вместо 'id'
-            if not user_id or not user.get('can_write_private_message'):
-                logger.debug(f"Пропускаем пользователя - закрытые ЛС или отсутствует ID")
+            user_id = user.get('ID')
+            if not user_id:
+                logger.debug(f"Пропускаем пользователя - отсутствует ID")
                 stats['skipped'] += 1
                 continue
     
@@ -1152,23 +1152,16 @@ class VKGroupParser:
                 attachments = [self.upload_photo(user_id, p) for p in photo_paths if p]
                 attachments = [a for a in attachments if a]
     
-                if attachments:
-                    self.vk.messages.send(
-                        user_id=user_id,
-                        message=message,
-                        attachment=",".join(attachments),
-                        random_id=random.randint(1, 2 ** 31)
-                    )
-                else:
-                    self.vk.messages.send(
-                        user_id=user_id,
-                        message=message,
-                        random_id=random.randint(1, 2 ** 31)
-                    )
+                self.vk.messages.send(
+                    user_id=user_id,
+                    message=message,
+                    attachment=",".join(attachments) if attachments else None,
+                    random_id=random.randint(1, 2**31)
+                )
     
                 stats['sent'] += 1
                 sent_today += 1
-                logger.info(f"✓ Отправлено {user_id}: {user.get('first_name')} {user.get('last_name')}")
+                logger.info(f"✓ Отправлено {user_id}: {user.get('first_name')} {user.get('last_name', '')}")
                 delay = random.uniform(150, 220)
                 logger.debug(f"Задержка {delay:.1f} сек...")
                 time.sleep(delay)
@@ -1190,6 +1183,7 @@ class VKGroupParser:
     
         logger.info(f"Отправлено: {stats['sent']}, Ошибок: {stats['failed']}, Пропущено: {stats['skipped']}")
         return stats
+
 
 
 def main():
@@ -1258,13 +1252,15 @@ def main():
             try:
                 sender = VKGroupParser(token=token)
                 df = pd.read_excel("vk_spam_bot-main/user_ids.xlsx")
-                if 'sent' in df.columns:
-                    df['sent'] = df['sent'].fillna(False).astype(bool)
-                else:
+                if 'sent' not in df.columns:
                     df['sent'] = False
-
-                # Фильтруем пользователей, которым еще не отправляли сообщения и у которых есть ID
-                users_to_send = df[df['sent'].ne(True)].to_dict('records')
+                else:
+                    df['sent'] = df['sent'].fillna(False)
+                
+                df['ID'] = pd.to_numeric(df['ID'], errors='coerce')
+                df = df.dropna(subset=['ID'])
+                
+                users_to_send = df[df['sent'] == False].to_dict('records')
 
 
                 if not users_to_send:
