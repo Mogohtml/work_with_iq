@@ -20,6 +20,9 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Update Poetry Lock
+        run: poetry lock
+
       - name: Install Poetry
         run: pip install poetry
 
