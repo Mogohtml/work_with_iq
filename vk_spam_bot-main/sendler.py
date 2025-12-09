@@ -1102,6 +1102,14 @@ class VKGroupParser:
                 unique_users.append(user)
         return unique_users
 
+    def check_token_validity(self):
+        try:
+            self.vk.users.get()
+            return True
+        except Exception as e:
+            logger.error(f"Токен недействителен: {e}")
+            return False
+
     def upload_photo(self, peer_id: int, photo_path: str) -> str:
         if not os.path.exists(photo_path):
             logger.error(f"Файл не найден: {photo_path}")
