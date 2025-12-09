@@ -1,8 +1,13 @@
 import os
+import json
+import sys
+import threading
 import vk_api
 import time
 import random
 import logging
+from datetime import datetime, timedelta
+from typing import List, Dict, Optional
 import pandas as pd
 import requests
 
@@ -11,10 +16,12 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
+        logging.FileHandler('vk_parser.log', encoding='utf-8'),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
+
 
 class VKGroupParser:
     def __init__(self, token: str):
@@ -25,6 +32,9 @@ class VKGroupParser:
         self.requests_count = 0
         self.last_request_time = 0
         self.skip_group = False
+        self._init_user()
+
+        # Ключевые слова для фильтрации пользователей
         self.keywords = [
             ["нужен", "дизайнер", "логотипа"],
             ["заказать", "логотип", "срочно"],
@@ -804,32 +814,50 @@ class VKGroupParser:
             ["меню", "бренд", "стиль"],
             ["фрилансер", "меню", "дизайн"],
             ["дизайн", "каталоги", "визуал"],
-            ["каталоги", "дизайн", "продукты"],]
+            ["каталоги", "дизайн", "продукты"], ]
+        self.keywords = list(set(tuple(keyword) for keyword in self.keywords))
 
     def _init_user(self):
         try:
             user_info = self.vk.users.get()[0]
             self.user_id = user_info['id']
+            logger.info(f"Авторизован как: {user_info['first_name']} {user_info['last_name']}")
         except Exception as e:
             logger.error(f"Ошибка авторизации: {e}")
             raise
 
     def _smart_delay(self):
         self.requests_count += 1
+        if self.requests_count % 3 == 0:
+            delay = random.uniform(5.0, 10.0)  # Увеличьте задержки
+        else:
+            delay = random.uniform(2.0, 5.0)
+        if self.requests_count % 10 == 0:  # Уменьшите частоту длинных пауз, но увеличьте их продолжительность
+            logger.info("Делаем паузу 90 секунд для избежания ограничений")
+            time.sleep(90)
         else:
             time.sleep(delay)
+        self.last_request_time = time.time()
 
-
+    def parse_group_members(self, group_id: str, max_users: int = 500, filters: Dict = None) -> List[Dict]:
+        logger.info(f"Начинаем парсинг группы: {group_id}")
 
         group_info = self._get_group_info(group_id)
+        logger.info(f"Группа: {group_info['name']}, участников: {group_info['members_count']}")
+
         users = []
         offset = 0
+        count = 200
+
         if filters is None:
             filters = {}
 
         while len(users) < max_users:
             if self.skip_group:
+                logger.info(f"Пропускаем группу {group_id}")
+                self.skip_group = False
                 break
+
             try:
                 self._smart_delay()
                 response = self.vk.groups.getMembers(
@@ -840,172 +868,483 @@ class VKGroupParser:
                 )
                 items = response.get('items', [])
                 if not items:
+                    logger.info("Достигнут конец списка участников")
                     break
+
                 for user in items:
                     if self._filter_user(user, filters):
                         users.append(user)
                         if len(users) >= max_users:
                             break
+
+                logger.info(f"Обработано: {offset + len(items)}, отфильтровано: {len(users)}")
                 offset += count
+
                 if len(items) < count:
                     break
+
+            except vk_api.exceptions.ApiError as e:
+                logger.error(f"Ошибка API: {e}")
+                if 'Access denied' in str(e):
+                    logger.error("Нет доступа к участникам группы (закрытая группа)")
+                    break
+                time.sleep(5)
+
             except Exception as e:
+                logger.error(f"Неожиданная ошибка: {e}")
                 break
+
+        logger.info(f"Парсинг завершен. Собрано {len(users)} пользователей")
         return users
 
     def _filter_user(self, user: Dict, filters: Dict) -> bool:
         if 'deactivated' in user:
             return False
+
         if filters.get('only_can_message', False) and not user.get('can_write_private_message'):
             return False
+
         if filters.get('only_active', True) and not self._is_user_active(user):
             return False
+
         if filters.get('city_ids') and user.get('city', {}).get('id') not in filters['city_ids']:
             return False
+
         if filters.get('sex') and user.get('sex') != filters['sex']:
             return False
+
         if filters.get('age_from') or filters.get('age_to'):
             age = self._get_user_age(user)
+            if age and ((filters.get('age_from') and age < filters['age_from']) or
+                        (filters.get('age_to') and age > filters['age_to'])):
                 return False
+
         return True
 
     def _is_user_active(self, user: Dict, days: int = 30) -> bool:
         if user.get('online'):
             return True
         if 'last_seen' in user:
+            last_seen = user['last_seen'].get('time', 0)
+            days_inactive = (time.time() - last_seen) / 86400
+            return days_inactive <= days
         return False
 
+    def _get_user_age(self, user: Dict) -> Optional[int]:
         bdate = user.get('bdate')
         if not bdate or len(bdate.split('.')) != 3:
             return None
         try:
             birth_year = int(bdate.split('.')[2])
+            current_year = datetime.now().year
+            return current_year - birth_year
         except:
             return None
 
     def _get_group_info(self, group_id: str) -> Dict:
         try:
+            response = self.vk.groups.getById(
+                group_id=group_id,
+                fields='members_count,description,status,activity'
+            )[0]
+            return response
         except Exception as e:
+            logger.error(f"Ошибка получения информации о группе: {e}")
             raise
 
+    def find_groups_by_niche(self, niche: str, count: int = 1000) -> List[str]:
         all_groups = set()
-            try:
-                groups = response.get('items', [])
-                for group in groups:
-                            return list(all_groups)
-            except Exception as e:
+        try:
+            response = self.vk.groups.search(q=niche, count=count, type="group")
+            groups = response.get('items', [])
+            for group in groups:
+                all_groups.add(str(group['id']))
+        except Exception as e:
+            logger.error(f"Ошибка поиска групп для запроса: {niche}: {e}")
+        logger.info(f"Найдено групп по нише {niche}: {len(all_groups)}")
+        return list(all_groups)
 
+    def _is_group_active(self, group_id: str) -> bool:
+        try:
+            posts_response = self.vk.wall.get(owner_id=f"-{group_id}", count=1)
+            posts = posts_response.get('items', [])
+            if posts:
+                last_post = posts[0]
+                last_post_timestamp = last_post.get('date')
+                if last_post_timestamp:
+                    last_post_date = datetime.fromtimestamp(last_post_timestamp)
+                    six_months_ago = datetime.now() - timedelta(days=6 * 30)
+                    return last_post_date > six_months_ago
+            return False
+        except Exception as e:
+            logger.error(f"Ошибка проверки активности группы {group_id}: {e}")
+            return False
+
+    def parse_leads_by_niche(self, niche: str, max_users: int = 500, filters: Dict = None, group_count: int = 1000) -> \
+    List[Dict]:
         group_ids = self.find_groups_by_niche(niche, group_count)
         if not group_ids:
+            logger.warning(f"Не найдено групп по нише: {niche}")
             return []
 
+        parsed_groups = self.get_parsed_groups(niche)
+        new_groups = [group_id for group_id in group_ids if group_id not in parsed_groups]
+
         all_leads = []
+        for group_id in new_groups:
+            if self._is_group_active(group_id):
                 logger.info(f"Парсинг группы: {group_id}...")
                 remaining_users = max_users - len(all_leads)
                 if remaining_users <= 0:
                     break
+                leads = self.parse_group_members(group_id=group_id, max_users=remaining_users, filters=filters)
                 if leads:
                     self.save_users(leads, filename=f"leads_{niche}_{group_id}")
                     all_leads.extend(leads)
                     if len(all_leads) >= max_users:
                         break
+                time.sleep(random.uniform(10.0, 20.0))  # Пауза между группами
+            else:
+                logger.info(f"Группа {group_id} неактивна, пропускаем")
 
         if all_leads:
             unique_leads = self._remove_duplicates(all_leads)
             self.save_users(unique_leads, filename="user_ids")
+            self.save_parsed_groups(new_groups, niche)
 
         logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
         return all_leads
 
-
     def save_users(self, users: List[Dict], filename: str = 'user_ids'):
+        if not users:
+            logger.info("Нет пользователей для сохранения.")
+            return
+
         user_data = []
         for user in users:
             first_name = user.get('first_name', '')
             last_name = user.get('last_name', '')
+            user_id = user.get('id', user.get('ID', ''))
             user_url = f"https://vk.com/id{user_id}"
+            user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}\tFalse")
+
         df = pd.DataFrame(user_data, columns=['UserInfo'])
+        df[['Name', 'ID', 'URL', 'sent']] = df['UserInfo'].str.split('\t', expand=True)
         df = df.drop(columns=['UserInfo'])
+        df['sent'] = False
+        df['ID'] = df['ID'].astype(int)
 
         script_dir = os.path.dirname(os.path.abspath(__file__))
         save_path = os.path.join(script_dir, 'vk_spam_bot-main')
+        cash_path = os.path.join(save_path, 'cash')
+        os.makedirs(cash_path, exist_ok=True)
         os.makedirs(save_path, exist_ok=True)
 
         if filename == 'user_ids':
             excel_filename = os.path.join(save_path, "user_ids.xlsx")
             if os.path.exists(excel_filename):
                 existing_df = pd.read_excel(excel_filename)
+                if 'sent' in existing_df.columns:
+                    existing_df['sent'] = existing_df['sent'].fillna(False).astype(bool)
+                else:
+                    existing_df['sent'] = False
                 existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
                 df_filtered = df[~df['ID'].isin(existing_ids)]
                 if not df_filtered.empty:
                     combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
                     combined_df.to_excel(excel_filename, index=False)
+                    logger.info(f"Добавлено {len(df_filtered)} новых пользователей в user_ids.xlsx")
+                else:
+                    logger.info("Нет новых пользователей для добавления.")
             else:
                 df.to_excel(excel_filename, index=False)
+                logger.info(f"Создан новый файл user_ids.xlsx с {len(df)} пользователями")
         else:
             cash_filename = os.path.join(cash_path, f"{filename}.xlsx")
             df.to_excel(cash_filename, index=False)
+            logger.info(f"Лиды сохранены в cash/{filename}.xlsx")
 
+        logger.info(f"Сохранено {len(users)} пользователей.")
 
+    def save_parsed_groups(self, groups: List[str], niche: str):
+        groups_file = "parsed_groups.json"
+        parsed_groups = {}
 
+        if os.path.exists(groups_file):
+            with open(groups_file, 'r') as f:
+                parsed_groups = json.load(f)
+
+        if niche not in parsed_groups:
+            parsed_groups[niche] = []
+
+        for group in groups:
+            if group not in parsed_groups[niche]:
+                parsed_groups[niche].append(group)
+
+        with open(groups_file, 'w') as f:
+            json.dump(parsed_groups, f, indent=4)
+
+    def get_parsed_groups(self, niche: str) -> List[str]:
+        groups_file = "parsed_groups.json"
+        if os.path.exists(groups_file):
+            with open(groups_file, 'r') as f:
+                parsed_groups = json.load(f)
+                return parsed_groups.get(niche, [])
+        return []
+
+    def _remove_duplicates(self, users: List[Dict]) -> List[Dict]:
+        seen_ids = set()
+        unique_users = []
+        for user in users:
+            user_id = user.get('id')
+            if user_id and user_id not in seen_ids:
+                seen_ids.add(user_id)
+                unique_users.append(user)
+        return unique_users
 
     def upload_photo(self, peer_id: int, photo_path: str) -> str:
         if not os.path.exists(photo_path):
+            logger.error(f"Файл не найден: {photo_path}")
             return ""
         try:
             upload_url = self.vk.photos.getMessagesUploadServer(peer_id=peer_id)['upload_url']
-            response = requests.post(upload_url, files={'photo': open(photo_path, 'rb')}).json()
+            with open(photo_path, 'rb') as photo_file:
+                response = requests.post(upload_url, files={'photo': photo_file}).json()
             if 'error' in response:
+                logger.error(f"Ошибка загрузки фото: {response['error']}")
                 return ""
             photo_data = self.vk.photos.saveMessagesPhoto(**response)
             if not photo_data:
+                logger.error("Ошибка сохранения фото")
                 return ""
-            owner_id = photo_data[0]['owner_id']
-            photo_id = photo_data[0]['id']
-            return f"photo{owner_id}_{photo_id}"
+            return f"photo{photo_data[0]['owner_id']}_{photo_data[0]['id']}"
+        except Exception as e:
+            logger.error(f"Ошибка загрузки фото {photo_path}: {e}")
             return ""
 
-                break
+    def send_messages(self, users: List[Dict], message_template: str, photo_paths: List[str],
+                      max_per_day: int = 20) -> Dict:
+        logger.info(f"Начинаем рассылку для {len(users)} пользователей")
+        stats = {'total': len(users), 'sent': 0, 'failed': 0, 'skipped': 0, 'errors': []}
+        sent_today = 0
+
+        for user in users:
+            if sent_today >= max_per_day:  # Проверка лимита
+                logger.warning(f"Достигнут дневной лимит: {max_per_day}")
+                break  # Остановка после достижения лимита
+
+            user_id = user.get('ID')
+            if not user_id:
+                logger.debug(f"Пропускаем пользователя - отсутствует ID")
+                stats['skipped'] += 1
                 continue
+
             try:
+                message = message_template.format(first_name=user.get('first_name', ''))
+            except Exception as e:
+                logger.error(f"Ошибка форматирования сообщения для {user_id}: {e}")
+                stats['failed'] += 1
+                continue
+
+            try:
+                self._smart_delay()
+                attachments = [self.upload_photo(user_id, p) for p in photo_paths if os.path.exists(p)]
                 attachments = [a for a in attachments if a]
-                    self.vk.messages.send(
-                        user_id=user_id,
-                        message=message,
-                        random_id=random.randint(1, 2 ** 31)
-                    )
+
+                self.vk.messages.send(
+                    user_id=user_id,
+                    message=message,
+                    attachment=",".join(attachments) if attachments else None,
+                    random_id=random.randint(1, 2 ** 31)
+                )
+
                 stats['sent'] += 1
-                time.sleep(delay)
+                sent_today += 1  # Увеличиваем счетчик отправленных сообщений
+                logger.info(f"✓ Отправлено {user_id}: {user.get('first_name')} {user.get('last_name', '')}")
+                time.sleep(random.uniform(150, 220))
+
             except vk_api.exceptions.ApiError as e:
+                error_msg = str(e)
                 stats['failed'] += 1
+                stats['errors'].append({'user_id': user_id, 'error': error_msg})
+                logger.error(f"✗ Ошибка отправки {user_id}: {error_msg}")
+                if 'flood control' in error_msg.lower():
+                    logger.error("FLOOD CONTROL! Останавливаемся на 1 час.")
                     time.sleep(3600)
+                elif 'user is blocked' in error_msg.lower():
+                    logger.error("Аккаунт заблокирован! Останавливаем рассылку.")
                     break
+            except Exception as e:
                 stats['failed'] += 1
+                logger.error(f"Неожиданная ошибка для {user_id}: {e}")
+
+        logger.info(f"Отправлено: {stats['sent']}, Ошибок: {stats['failed']}, Пропущено: {stats['skipped']}")
         return stats
 
 
+def main():
+    FILTERS = {
+        'city_ids': [1, 2],
+        'age_from': 18,
+        'age_to': 35,
+        'sex': 0,
+        'only_can_message': True,
+        'only_active': True,
+    }
 
+    # Ниши для поиска групп
+    NICHES = [
+        # Общие
+        "бизнес", "предпринимательство", "дело", "стартап", "проект", "фирма", "компания",
+        "старт", "начало", "идея", "рост", "scale", "biz", "startup", "company", "project",
+        "growth", "business", "entreprenuership",
 
+        # Дизайн и Визуал
+        "дизайн", "арт", "стиль", "визуал", "графика", "проектирование", "моделирование",
+        "верстка", "айдентика", "брендбук", "креатив", "логотип", "лого", "знак", "баннер",
+        "афиша", "образец", "шаблон", "макет", "ui/ux", "ui", "ux", "интерфейс", "юзабилити",
+        "web", "веб", "дизайнер", "brand", "design", "style", "logo", "banner", "creative",
+        "guide", "guideline", "identity", "art", "graphic", "layout", "template", "mockup",
+        "wireframe", "prototype", "frontend", "uiux", "uxui",
+
+        # Маркетинг и Реклама
+        "маркетинг", "реклама", "продвижение", "промо", "промоушен", "пиар", "pr", "продажи",
+        "контент", "кампания", "объявления", "трафик", "лиды", "конверсия", "метрики",
+        "аналитика", "сео", "seo", "sem", "контекст", "таргет", "email", "аудитория",
+        "бренд", "продукт", "рынок", "клиент", "потребитель", "анонс", "propaganda", "ad",
+        "ads", "ppc", "smm", "marketing", "promotion", "sales", "leads", "traffic",
+        "conversion", "metrics", "analytics", "audience", "brand", "product", "market",
+        "customer", "user", "campaign", "content", "target", "social",
+
+        # Прочее
+        "рынок", "ниша", "анализ", "конкуренты", "тренд", "план", "стратегия", "MVP", "A/B",
+        "market", "niche", "analysis", "competitors", "trend", "plan", "strategy", "test",
+    ]
+    # Добавьте задержку перед началом работы
+    time.sleep(10)
+
+    # Загружаем текущую нишу из файла
+    current_niche_file = "current_niche.txt"
+    if os.path.exists(current_niche_file):
+        with open(current_niche_file, "r") as f:
+            current_niche_index = int(f.read().strip())
     else:
-    current_niche_index = 0
+        current_niche_index = 0
 
+    # Парсим только одну нишу за запуск
+    if current_niche_index < len(NICHES):
+        niche = NICHES[current_niche_index]
         logger.info(f"Парсинг по нише: {niche}")
 
+        parser = VKGroupParser(token=os.environ.get("ACCESS_TOKEN_1"))
+        leads = parser.parse_leads_by_niche(niche=niche, max_users=500, filters=FILTERS)
         if leads:
+            logger.info(f"Собрано {len(leads)} лидов по нише: {niche}")
         else:
             logger.warning(f"Не удалось собрать лидов по нише: {niche}")
 
-                photo_paths=[
-                    "images/works_design_5.jpg",
-                    "images/works_design_8.jpg",
-                    "images/works_shop_1.jpg",
-                    "images/works_shop_3.jpg",
-                    "images/works_shop_4.jpg",
-                    "images/works_site_1.jpg",
-                    "images/works_site_2.jpg",
-                    "images/works_site_5.jpg",
+        # Проверка токена на актуальность
+        if not parser.check_token_validity():
+            logger.error("Токен недействителен. Обновите токен и перезапустите скрипт.")
+            sys.exit(1)
+
+        # Отправляем сообщения через все доступные токены
+        for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 2) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
+            try:
+                sender = VKGroupParser(token=token)
+                df = pd.read_excel("vk_spam_bot-main/user_ids.xlsx")
+                if 'sent' not in df.columns:
+                    df['sent'] = False
+                else:
+                    df['sent'] = df['sent'].fillna(False)
+
+                df['ID'] = pd.to_numeric(df['ID'], errors='coerce')
+                df = df.dropna(subset=['ID'])
+
+                # После загрузки df из Excel
+                if 'Name' in df.columns:
+                    df[['first_name', 'last_name']] = df['Name'].str.split(' ', n=1, expand=True)
+                else:
+                    df['first_name'] = ''
+                    df['last_name'] = ''
+
+                users_to_send = df[df['sent'] == False].to_dict('records')
 
 
+                if not users_to_send:
+                    logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
+                    continue
+
+                message_template = """🌟 Пост-резюме от дизайнера специально для вас, {first_name}! 🌟
+
+1. 🚀 Крючок и обо мне:
+«Хотите, чтобы ваш бренд выделялся и запоминался, {first_name}? Я — Магомед-Басир, дизайнер, который превращает идеи в стильные и эффективные визуальные решения!»
+«Ищете профессионала, который поймёт ваш проект с полуслова и создаст уникальный дизайн? Давайте обсудим ваш запрос, {first_name}! 👇»
+
+Мое позиционирование: Специализируюсь на создании ярких визуальных концепций для брендов и бизнеса, помогая им выделиться и привлечь внимание.
+
+---
+2. 🎯 Чем могу помочь (Ключевые услуги):
+✨ Логотипы и фирменный стиль — уникальная идентичность для вашего бренда
+🔥 Дизайн для соцсетей — посты, Stories, обложки, которые привлекают внимание
+📊 Презентации и инфографика — визуально понятные и стильные материалы
+🚀 Упаковка и мерч — дизайн, который продаёт
+
+---
+3. 💡 Мой подход (Почему я?):
+«Работаю не просто красиво, а стратегически — каждый элемент дизайна должен работать на ваш бизнес, {first_name}.»
+«Понимаю, как визуал влияет на восприятие бренда и продажи.»
+«Всегда на связи, соблюдаю сроки и работаю с брифами.»
+
+---
+4. 📈 Портфолио (Самое важное!):
+«Мои лучшие работы и отзывы клиентов: [profi.ru/profile/DzhabagiyevMM](https://profi.ru/profile/DzhabagiyevMM)»
+«А здесь — свежие кейсы и бэкстейджи: [https://docs.google.com/document/d/17Uoh5Pw6aU20O719HH0AIwlFDlRftgjy1YlSqapNPjY/edit?usp=sharing](https://docs.google.com/document/d/17Uoh5Pw6aU20O719HH0AIwlFDlRftgjy1YlSqapNPjY/edit?usp=sharing)»
+
+---
+5. 📞 Контакты (Как связаться):
+«Готовы к сильному визуалу, {first_name}? Пишите!»
+💬 @Basmansky (писать в ЛС)
+📌 Телефон: +7 (964) 026-72-30
+
+*Призыв к действию:* «Напишите мне слово ДИЗАЙН — и я помогу проанализировать ваш текущий визуал, {first_name}!»
+
+---
+6. 🏷 Хэштеги:
+#дизайнерфриланс #графическийдизайн #логотип #фирменныйстиль #дизайнтелеграм #упаковкабренда #дизайнермосква #фриланс
+"""
+
+                photo_paths = [
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_design_5.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_design_8.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_1.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_3.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_4.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_site_1.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_site_2.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_site_5.jpg"),
+                ],
+
+                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=60)
+                logger.info(f"Отправка на токене {token[:5]}...: {stats}")
+
+                # Обновляем статус отправки в файле
+                for user in users_to_send:
+                    if 'ID' in user:
+                        df.loc[df['ID'] == int(user['ID']), 'sent'] = True
+
+                df.to_excel("vk_spam_bot-main/user_ids.xlsx", index=False)
+
+            except Exception as e:
+                logger.error(f"Ошибка при отправке сообщений с токена {token[:5]}: {e}")
+
+        # Сохраняем индекс следующей ниши
+        with open(current_niche_file, "w") as f:
+            f.write(str(current_niche_index + 1))
+
+    else:
+        logger.info("Все ниши обработаны! Начните заново, удалив файл current_niche.txt")
 
 
-
+if __name__ == "__main__":
+    main()
