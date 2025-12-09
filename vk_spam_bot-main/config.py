@@ -1,6 +1,5 @@
 import os
 
-TOKENS = [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 4) if os.environ.get(f"ACCESS_TOKEN_{i}")]
 
 # Ключевые слова для поиска релевантных людей
 NICHES = [
