@@ -10,6 +10,8 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Optional
 import pandas as pd
 import requests
+from database import VKUserDatabase
+
 
 # Настройка логирования
 logging.basicConfig(
@@ -398,51 +400,42 @@ class VKGroupParser:
             logger.info("Нет пользователей для сохранения.")
             return
 
-        user_data = []
+        # Преобразуем данные для SQLite
+        users_for_db = []
         for user in users:
-            first_name = user.get('first_name', '')
-            last_name = user.get('last_name', '')
-            user_id = user.get('id', user.get('ID', ''))
-            user_url = f"https://vk.com/id{user_id}"
-            user_data.append(f"{first_name} {last_name}\t{user_id}\t{user_url}\tFalse")
+            user_id = user.get('id') or user.get('ID')
+            if not user_id:
+                continue
+            users_for_db.append({
+                "id": user_id,
+                "first_name": user.get('first_name', ''),
+                "last_name": user.get('last_name', ''),
+            })
 
-        df = pd.DataFrame(user_data, columns=['UserInfo'])
-        df[['Name', 'ID', 'URL', 'sent']] = df['UserInfo'].str.split('\t', expand=True)
-        df = df.drop(columns=['UserInfo'])
-        df['sent'] = False
-        df['ID'] = df['ID'].astype(int)
+        # Сохраняем в SQLite
+        try:
+            db = VKUserDatabase()
+            db.backup_db()
+            db.add_users(users_for_db)
+        except Exception as e:
+            logger.error(f"Ошибка при сохранении в базу: {e}")
 
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        save_path = os.path.join(script_dir, 'vk_spam_bot-main')
-        cash_path = os.path.join(save_path, 'cash')
-        os.makedirs(cash_path, exist_ok=True)
-        os.makedirs(save_path, exist_ok=True)
-
-        if filename == 'user_ids':
-            excel_filename = os.path.join(save_path, "user_ids.xlsx")
-            if os.path.exists(excel_filename):
-                existing_df = pd.read_excel(excel_filename)
-                if 'sent' in existing_df.columns:
-                    existing_df['sent'] = existing_df['sent'].fillna(False).astype(bool)
-                else:
-                    existing_df['sent'] = False
-                existing_ids = set(existing_df['ID'].dropna().astype(int).tolist())
-                df_filtered = df[~df['ID'].isin(existing_ids)]
-                if not df_filtered.empty:
-                    combined_df = pd.concat([existing_df, df_filtered], ignore_index=True)
-                    combined_df.to_excel(excel_filename, index=False)
-                    logger.info(f"Добавлено {len(df_filtered)} новых пользователей в user_ids.xlsx")
-                else:
-                    logger.info("Нет новых пользователей для добавления.")
-            else:
-                df.to_excel(excel_filename, index=False)
-                logger.info(f"Создан новый файл user_ids.xlsx с {len(df)} пользователями")
-        else:
-            cash_filename = os.path.join(cash_path, f"{filename}.xlsx")
-            df.to_excel(cash_filename, index=False)
-            logger.info(f"Лиды сохранены в cash/{filename}.xlsx")
-
-        logger.info(f"Сохранено {len(users)} пользователей.")
+        # Сохраняем в кэш (Excel) только если это не основной файл
+        if filename != 'user_ids':
+            users_for_excel = []
+            for user in users:
+                user_id = user.get('id') or user.get('ID')
+                users_for_excel.append({
+                    "Name": f"{user.get('first_name', '')} {user.get('last_name', '')}",
+                    "ID": user_id,
+                    "URL": f"https://vk.com/id{user_id}",
+                    "sent": False,
+                })
+            df = pd.DataFrame(users_for_excel)
+            cash_path = os.path.join("vk_spam_bot-main", "cash")
+            os.makedirs(cash_path, exist_ok=True)
+            df.to_excel(os.path.join(cash_path, f"{filename}.xlsx"), index=False)
+            logger.info(f"Сохранено {len(users_for_excel)} пользователей в кэш.")
 
     def save_parsed_groups(self, groups: List[str], niche: str):
         groups_file = "parsed_groups.json"
@@ -586,6 +579,15 @@ class VKGroupParser:
                 stats['sent'] += 1
                 sent_today += 1
                 logger.info(f"✓ Отправлено {user_id}: {user.get('first_name')} {user.get('last_name', '')}")
+
+                # Внутри цикла отправки сообщений:
+                if stats['sent'] > 0:
+                    try:
+                        db = VKUserDatabase()
+                        db.update_sent_status(user['ID'], sent=True)
+                    except Exception as e:
+                        logger.error(f"Ошибка обновления статуса для пользователя {user['ID']}: {e}")
+
                 time.sleep(random.uniform(150, 220))
 
             except vk_api.exceptions.ApiError as e:
@@ -610,6 +612,9 @@ class VKGroupParser:
 
 
 def main():
+    os.makedirs("backups", exist_ok=True)
+    os.makedirs("vk_spam_bot-main/cash", exist_ok=True)
+
     FILTERS = {
         'city_ids': [1, 2],
         'age_from': 18,
@@ -679,24 +684,8 @@ def main():
         for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 2) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
             try:
                 sender = VKGroupParser(token=token)
-                df = pd.read_excel("vk_spam_bot-main/user_ids.xlsx")
-                if 'sent' not in df.columns:
-                    df['sent'] = False
-                else:
-                    df['sent'] = df['sent'].fillna(False)
-
-                df['ID'] = pd.to_numeric(df['ID'], errors='coerce')
-                df = df.dropna(subset=['ID'])
-
-                # После загрузки df из Excel
-                if 'Name' in df.columns:
-                    df[['first_name', 'last_name']] = df['Name'].str.split(' ', n=1, expand=True)
-                else:
-                    df['first_name'] = ''
-                    df['last_name'] = ''
-
-                users_to_send = df[df['sent'] == False].to_dict('records')
-
+                db = VKUserDatabase()
+                users_to_send = db.get_unsent_users()
 
                 if not users_to_send:
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")

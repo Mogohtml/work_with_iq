@@ -35,11 +35,20 @@ jobs:
           ACCESS_TOKEN_3: ${{ secrets.ACCESS_TOKEN_3 }}
 
 
-      - name: Upload Excel files
-        uses: actions/upload-artifact@v4
+      - name: Backup database
+        run: |
+          mkdir -p backups
+          if [ -f users.db ]; then
+            cp users.db backups/users_backup_$(date +%Y%m%d_%H%M%S).db
+          else
+            echo "Файл users.db не найден. Пропускаем резервное копирование."
+          fi
+
+      - name: Upload backup
+        uses: actions/upload-artifact@v2
         with:
-          name: excel-files
-          path: vk_spam_bot-main/*.xlsx
+          name: db-backup
+          path: backups/
 
       - name: Upload cash files
         uses: actions/upload-artifact@v4
