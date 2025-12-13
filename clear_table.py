@@ -1,10 +1,16 @@
+import os
 import sqlite3
 import logging
+
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-def clear_groups_table(db_path="../users.db"):
+def clear_groups_table(db_path="../users.db", password=os.environ.get("SQL_PASSWORD")):
     try:
         with sqlite3.connect(db_path) as conn:
             cursor = conn.cursor()
