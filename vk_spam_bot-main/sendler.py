@@ -11,9 +11,7 @@ from typing import List, Dict, Optional
 import pandas as pd
 import requests
 from database import VKUserDatabase
-from dotenv import load_dotenv
 
-load_dotenv()
 
 # Настройка логирования
 logging.basicConfig(
