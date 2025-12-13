@@ -604,8 +604,6 @@ class VKGroupParser:
 
 
 def main():
-    os.makedirs("backups", exist_ok=True)
-    os.makedirs("vk_spam_bot-main/cash", exist_ok=True)
 
     FILTERS = {
         'city_ids': [1, 2],
