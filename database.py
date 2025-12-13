@@ -1,19 +1,13 @@
-# database.py
 import sqlite3
-import os
-import shutil
-from datetime import datetime
 import logging
+from typing import List, Dict, Optional
+import os
+from datetime import datetime
 
-# Настройка логирования для базы
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger("database")
+logger = logging.getLogger(__name__)
 
 class VKUserDatabase:
-    def __init__(self, db_path="users.db"):
+    def __init__(self, db_path="../users.db"):
         self.db_path = db_path
         self._init_db()
 
@@ -32,26 +26,35 @@ class VKUserDatabase:
                         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
                     )
                 """)
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS groups (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        group_id INTEGER,
+                        niche TEXT,
+                        parsed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        UNIQUE(group_id, niche)
+                    )
+                """)
                 conn.commit()
                 logger.info("База данных инициализирована.")
         except Exception as e:
             logger.error(f"Ошибка инициализации базы: {e}")
             raise
 
-    def backup_db(self, backup_dir="backups"):
+    def backup_db(self):
         """Создание резервной копии базы данных."""
         try:
+            backup_dir = "backups"
             os.makedirs(backup_dir, exist_ok=True)
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             backup_path = os.path.join(backup_dir, f"users_backup_{timestamp}.db")
-            shutil.copy2(self.db_path, backup_path)
+            with sqlite3.connect(self.db_path) as src, sqlite3.connect(backup_path) as dest:
+                src.backup(dest)
             logger.info(f"Резервная копия базы создана: {backup_path}")
-            return backup_path
         except Exception as e:
-            logger.error(f"Ошибка создания резервной копии: {e}")
-            raise
+            logger.error(f"Ошибка создания резервной копии базы: {e}")
 
-    def add_users(self, users):
+    def add_users(self, users: List[Dict]):
         """Добавление пользователей в базу данных (игнорируются дубликаты)."""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -67,21 +70,45 @@ class VKUserDatabase:
             logger.error(f"Ошибка добавления пользователей: {e}")
             raise
 
-    def update_sent_status(self, user_id, sent=True):
-        """Обновление статуса отправки сообщения."""
+    def add_group(self, group_id: str, niche: str):
+        """Добавление информации о спарсенной группе."""
         try:
             with sqlite3.connect(self.db_path) as conn:
                 cursor = conn.cursor()
                 cursor.execute("""
-                    UPDATE users SET sent = ? WHERE id = ?
-                """, (sent, user_id))
+                    INSERT OR IGNORE INTO groups (group_id, niche)
+                    VALUES (?, ?)
+                """, (group_id, niche))
                 conn.commit()
-                logger.info(f"Обновлён статус отправки для пользователя {user_id}.")
+                logger.info(f"Добавлена информация о группе {group_id} для ниши {niche}.")
         except Exception as e:
-            logger.error(f"Ошибка обновления статуса: {e}")
+            logger.error(f"Ошибка добавления информации о группе: {e}")
             raise
 
-    def get_unsent_users(self):
+    def get_parsed_groups(self, niche: str) -> List[str]:
+        """Получение списка уже спарсенных групп из базы данных."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT group_id FROM groups WHERE niche = ?", (niche,))
+                rows = cursor.fetchall()
+                return [str(row[0]) for row in rows]
+        except Exception as e:
+            logger.error(f"Ошибка получения списка спарсенных групп: {e}")
+            return []
+
+    def is_group_parsed(self, group_id: str, niche: str) -> bool:
+        """Проверка, была ли группа уже спарсена."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT 1 FROM groups WHERE group_id = ? AND niche = ?", (group_id, niche))
+                return cursor.fetchone() is not None
+        except Exception as e:
+            logger.error(f"Ошибка проверки группы {group_id}: {e}")
+            return False
+
+    def get_unsent_users(self) -> List[Dict]:
         """Получение пользователей, которым ещё не отправлено сообщение."""
         try:
             with sqlite3.connect(self.db_path) as conn:
@@ -91,7 +118,7 @@ class VKUserDatabase:
                 users = []
                 for row in rows:
                     users.append({
-                        "id": row[0],
+                        "ID": row[0],
                         "first_name": row[1],
                         "last_name": row[2]
                     })
@@ -100,3 +127,14 @@ class VKUserDatabase:
             logger.error(f"Ошибка получения пользователей: {e}")
             raise
 
+    def update_sent_status(self, user_id: int, sent: bool):
+        """Обновление статуса отправки сообщения пользователю."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("UPDATE users SET sent = ? WHERE id = ?", (sent, user_id))
+                conn.commit()
+                logger.info(f"Статус отправки для пользователя {user_id} обновлён.")
+        except Exception as e:
+            logger.error(f"Ошибка обновления статуса для пользователя {user_id}: {e}")
+            raise

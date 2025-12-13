@@ -11,7 +11,9 @@ from typing import List, Dict, Optional
 import pandas as pd
 import requests
 from database import VKUserDatabase
+from dotenv import load_dotenv
 
+load_dotenv()
 
 # Настройка логирования
 logging.basicConfig(
@@ -360,18 +362,35 @@ class VKGroupParser:
             logger.error(f"Ошибка проверки активности группы {group_id}: {e}")
             return False
 
-    def parse_leads_by_niche(self, niche: str, max_users: int = 500, filters: Dict = None, group_count: int = 1000) -> \
+    def save_parsed_groups(self, groups: List[str], niche: str):
+        """Сохранение информации о спарсенных группах в базе данных."""
+        try:
+            db = VKUserDatabase()
+            for group_id in groups:
+                db.add_group(group_id, niche)
+        except Exception as e:
+            logger.error(f"Ошибка при сохранении информации о группах: {e}")
+
+    def parse_leads_by_niche(self, niche: str, max_users: int = 500, filters: Dict = None, group_count: int = 20) -> \
     List[Dict]:
-        group_ids = self.find_groups_by_niche(niche, group_count)
+        group_ids = self.find_groups_by_niche(niche, 1000)  # Ищем 1000 групп, но парсим только 20
         if not group_ids:
             logger.warning(f"Не найдено групп по нише: {niche}")
             return []
 
-        parsed_groups = self.get_parsed_groups(niche)
+        db = VKUserDatabase()
+        parsed_groups = db.get_parsed_groups(niche)
         new_groups = [group_id for group_id in group_ids if group_id not in parsed_groups]
 
+        if not new_groups:
+            logger.warning(f"Все группы по нише {niche} уже спарсены.")
+            return []
+
+        # Ограничиваем количество групп для парсинга за один запуск
+        groups_to_parse = new_groups[:group_count]
+
         all_leads = []
-        for group_id in new_groups:
+        for group_id in groups_to_parse:
             if self._is_group_active(group_id):
                 logger.info(f"Парсинг группы: {group_id}...")
                 remaining_users = max_users - len(all_leads)
@@ -383,17 +402,26 @@ class VKGroupParser:
                     all_leads.extend(leads)
                     if len(all_leads) >= max_users:
                         break
-                time.sleep(random.uniform(10.0, 20.0))  # Пауза между группами
+                time.sleep(random.uniform(10.0, 20.0))
             else:
                 logger.info(f"Группа {group_id} неактивна, пропускаем")
 
         if all_leads:
             unique_leads = self._remove_duplicates(all_leads)
             self.save_users(unique_leads, filename="user_ids")
-            self.save_parsed_groups(new_groups, niche)
+            self.save_parsed_groups(groups_to_parse, niche)
 
         logger.info(f"Собрано {len(all_leads)} лидов по нише: {niche}")
         return all_leads
+
+    def is_group_parsed(self, group_id: str, niche: str) -> bool:
+        """Проверка, была ли группа уже спарсена."""
+        try:
+            db = VKUserDatabase()
+            return db.is_group_parsed(group_id, niche)
+        except Exception as e:
+            logger.error(f"Ошибка проверки группы {group_id}: {e}")
+            return False
 
     def save_users(self, users: List[Dict], filename: str = 'user_ids'):
         if not users:
@@ -437,31 +465,14 @@ class VKGroupParser:
             df.to_excel(os.path.join(cash_path, f"{filename}.xlsx"), index=False)
             logger.info(f"Сохранено {len(users_for_excel)} пользователей в кэш.")
 
-    def save_parsed_groups(self, groups: List[str], niche: str):
-        groups_file = "parsed_groups.json"
-        parsed_groups = {}
-
-        if os.path.exists(groups_file):
-            with open(groups_file, 'r') as f:
-                parsed_groups = json.load(f)
-
-        if niche not in parsed_groups:
-            parsed_groups[niche] = []
-
-        for group in groups:
-            if group not in parsed_groups[niche]:
-                parsed_groups[niche].append(group)
-
-        with open(groups_file, 'w') as f:
-            json.dump(parsed_groups, f, indent=4)
-
-    def get_parsed_groups(self, niche: str) -> List[str]:
-        groups_file = "parsed_groups.json"
-        if os.path.exists(groups_file):
-            with open(groups_file, 'r') as f:
-                parsed_groups = json.load(f)
-                return parsed_groups.get(niche, [])
-        return []
+    def is_group_parsed(self, group_id: str, niche: str) -> bool:
+        """Проверка, была ли группа уже спарсена."""
+        try:
+            db = VKUserDatabase()
+            return db.is_group_parsed(group_id, niche)
+        except Exception as e:
+            logger.error(f"Ошибка проверки группы {group_id}: {e}")
+            return False
 
     def _remove_duplicates(self, users: List[Dict]) -> List[Dict]:
         seen_ids = set()
@@ -508,18 +519,6 @@ class VKGroupParser:
             photo_paths: List[str],
             max_per_day: int = 20
     ) -> Dict:
-        """
-        Отправляет сообщения пользователям с вложениями (фото).
-
-        Args:
-            users: Список пользователей (с ключами 'ID', 'first_name', 'last_name').
-            message_template: Шаблон сообщения с плейсхолдером {first_name}.
-            photo_paths: Список путей к фотографиям для вложений.
-            max_per_day: Максимальное количество сообщений в день.
-
-        Returns:
-            Словарь с статистикой отправки.
-        """
         logger.info(f"Начинаем рассылку для {len(users)} пользователей")
         stats = {
             'total': len(users),
@@ -530,7 +529,6 @@ class VKGroupParser:
         }
         sent_today = 0
 
-        # Проверяем, что photo_paths — это список строк
         if not isinstance(photo_paths, list):
             logger.error(f"photo_paths должен быть списком строк, получен: {type(photo_paths)}")
             return stats
@@ -555,8 +553,6 @@ class VKGroupParser:
 
             try:
                 self._smart_delay()
-
-                # Проверяем, что каждый путь — это строка
                 attachments = []
                 for photo_path in photo_paths:
                     if not isinstance(photo_path, str):
@@ -580,13 +576,11 @@ class VKGroupParser:
                 sent_today += 1
                 logger.info(f"✓ Отправлено {user_id}: {user.get('first_name')} {user.get('last_name', '')}")
 
-                # Внутри цикла отправки сообщений:
-                if stats['sent'] > 0:
-                    try:
-                        db = VKUserDatabase()
-                        db.update_sent_status(user['ID'], sent=True)
-                    except Exception as e:
-                        logger.error(f"Ошибка обновления статуса для пользователя {user['ID']}: {e}")
+                try:
+                    db = VKUserDatabase()
+                    db.update_sent_status(user_id, sent=True)
+                except Exception as e:
+                    logger.error(f"Ошибка обновления статуса для пользователя {user_id}: {e}")
 
                 time.sleep(random.uniform(150, 220))
 
@@ -595,14 +589,12 @@ class VKGroupParser:
                 stats['failed'] += 1
                 stats['errors'].append({'user_id': user_id, 'error': error_msg})
                 logger.error(f"✗ Ошибка отправки {user_id}: {error_msg}")
-
                 if 'flood control' in error_msg.lower():
                     logger.error("FLOOD CONTROL! Останавливаемся на 1 час.")
                     time.sleep(3600)
                 elif 'user is blocked' in error_msg.lower():
                     logger.error("Аккаунт заблокирован! Останавливаем рассылку.")
                     break
-
             except Exception as e:
                 stats['failed'] += 1
                 logger.error(f"Неожиданная ошибка для {user_id}: {e}")
@@ -691,105 +683,50 @@ def main():
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
                     continue
 
-                message_template = """🚀 Пост-резюме от разработчика интернет-магазинов для вас, {first_name}! 🚀
+                message_template = """👋 Привет, {first_name}!
 
-                ---
-                1. **🔧 Обо мне и моем опыте**
-                «Хотите запустить или улучшить интернет-магазин, который будет работать быстро, безопасно и приносить прибыль 24/7?»
-                Я — **Магомед-Басир**, разработчик с **3-летним опытом** создания интернет-магазинов на **Python и FastAPI**.
-                Специализируюсь на **полном цикле разработки**: от бэкенда и интеграций до технической поддержки и оптимизации.
+                Я Магомед-Басир, разработчик интернет-решений. Нашел тебя в группе по теме "{niche}" и решил предложить свои услуги, так как вижу, что ты интересуешься этой областью.
 
-                ---
-                2. **🎯 Чем могу помочь (Ключевые услуги)**
+                🔹 Чем могу помочь:
+                ✔ Разработка интернет-магазинов и лендингов под ключ
+                ✔ Создание ботов и мини-приложений
+                ✔ Интеграции с платежками, CRM, 1С
+                ✔ Адаптивный дизайн и техническая поддержка
 
-                ### **📌 Разработка интернет-магазина**
-                ✅ Создание интернет-магазина **с нуля** (под ключ)
-                ✅ Разработка **админ-панели** и **личного кабинета** для клиентов
-                ✅ Реализация **корзины**, **фильтров**, **поиска**, **отзывов**, **блога**
-                ✅ **Мультиязычность** и **мобильная версия** (адаптивный дизайн)
-                ✅ **SEO-оптимизация** и **аналитика** (Яндекс.Метрика, Google Analytics)
+                🔹 Мои работы:
+                🌐 Интернет-магазины
+                🤖 Боты для бизнеса
+                📱 Мини-приложения
+                🎨 Уникальный дизайн
 
-                ### **🔗 Интеграции**
-                ✅ **Платежные системы**: ЮKassa, Сбербанк, PayPal, Stripe, Robokassa
-                ✅ **CRM-системы**: Bitrix24, amoCRM, RetailCRM, Мегаплан
-                ✅ **1С и бухгалтерия**: Обмен данными с 1С, МойСклад
-                ✅ **Маркетплейсы**: Интеграция с Ozon, Wildberries, Яндекс.Маркет
-                ✅ **Доставка и логистика**: СДЭК, Boxberry, Почта России, DPD
-                ✅ **Чат-боты и мессенджеры**: Telegram, WhatsApp, Viber
-                ✅ **API и внешние сервисы**: Любые API-интеграции (платежи, SMS, email, аналитика)
+                📌 Портфолио и отзывы:
+                🔸 [profi.ru/profile/DzhabagiyevMM](https://profi.ru/profile/DzhabagiyevMM)
+                🔸 [Документ с кейсами](https://docs.google.com/document/d/17Uoh5Pw6aU20O719HH0AIwlFDlRftgjy1YlSqapNPjY/edit?usp=sharing)
 
-                ### **🎨 Дизайн интернет-магазина**
-                ✅ **Уникальный и современный дизайн** (UI/UX)
-                ✅ **Фирменный стиль** и **брендирование**
-                ✅ **Баннеры, иконки, иллюстрации** для главной страницы и категорий
-                ✅ **Адаптивный дизайн** (для ПК, планшетов, смартфонов)
+                Если заинтересовало, напиши мне "МАГАЗИН" - отвечу на вопросы и помогу с проектом!
 
-                ### **🛠 Техническая поддержка**
-                ✅ **Круглосуточная техническая поддержка**
-                ✅ **Обновление и доработка** функционала
-                ✅ **Резервное копирование** и **восстановление данных**
-                ✅ **Настройка безопасности** (SSL, защита от DDoS, бэкапы)
-                ✅ **Оптимизация скорости** загрузки страниц
-                ✅ **Исправление ошибок** и багов
+                📞 Связаться:
+                💬 Telegram: @Basmansky
+                📱 Телефон: +7 (964) 026-72-30
 
-                ### **⚡ Оптимизация интернет-магазина**
-                ✅ **Оптимизация скорости** (кеширование, сжатие, CDN)
-                ✅ **Оптимизация юзабилити** (удобство для клиентов)
-                ✅ **Оптимизация конверсии** (увеличение продаж)
-                ✅ **Оптимизация хостинга** (выбор и настройка сервера)
-                ✅ **Оптимизация базы данных** (ускорение запросов)
-
-                ---
-                3. **💡 Мой подход (Почему стоит выбрать меня?)**
-                🔹 **Работаю на результат**: каждый элемент магазина должен **увеличивать продажи** и **упрощать управление**.
-                🔹 **Использую современные технологии**: **Python, FastAPI, Django, PostgreSQL** — это гарантирует **высокую производительность** и **масштабируемость**.
-                🔹 **Прозрачность и коммуникация**: всегда на связи, соблюдаю сроки, работаю по **брифу** или **ТЗ**.
-                🔹 **Поддержка после запуска**: помогаю с **обновлениями, доработками и технической поддержкой**.
-
-                ---
-                4. **📂 Портфолио (Примеры работ)**
-                🔸 Мои **лучшие кейсы** и отзывы клиентов:
-                👉 [profi.ru/profile/DzhabagiyevMM](https://profi.ru/profile/DzhabagiyevMM)
-                🔸 Технические детали реализованных проектов:
-                👉 [Ссылка на документ с кейсами](https://docs.google.com/document/d/17Uoh5Pw6aU20O719HH0AIwlFDlRftgjy1YlSqapNPjY/edit?usp=sharing)
-
-                ---
-                5. **📞 Контакты (Как связаться?)**
-                Готовы запустить или улучшить интернет-магазин? **Пишите!**
-                💬 **Telegram**: @Basmansky
-                📞 **Телефон**: +7 (964) 026-72-30
-
-                **🎁 Призыв к действию:**
-                Напишите мне **"МАГАЗИН"** — и я **бесплатно проанализирую** ваш текущий проект или помогу составить **план разработки**!
-
-                ---
-                6. **🏷 Хэштеги**
-                #разработкаинтернетмагазинов #pythonразработчик #fastapi #интернетмагазинподключ
-                #интеграцияплатежей #разработкабекенда #фрилансразработка #интернетмагазинснуля
-                #техническаяподдержка #оптимизациямагазина #интеграция1с #интеграцияcrm
-                #дизайнмагазина #адаптивныйдизайн #безопасностьмагазина #sslсертификат"""
-
+                Удачи в деле! 🌟
+                """
 
                 photo_paths = [
-                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_design_5.jpg"),
-                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_design_8.jpg"),
-                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_1.jpg"),
-                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_3.jpg"),
-                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_4.jpg"),
                     os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_site_1.jpg"),
                     os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_site_2.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_site_3.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_site_4.jpg"),
                     os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_site_5.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_1.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_4.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_3.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_5.jpg"),
+                    os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_6.jpg"),
                 ]
 
-                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=60)
+                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=20)
                 logger.info(f"Отправка на токене {token[:5]}...: {stats}")
-
-                # Обновляем статус отправки в файле
-                for user in users_to_send:
-                    if 'ID' in user:
-                        df.loc[df['ID'] == int(user['ID']), 'sent'] = True
-
-                df.to_excel("vk_spam_bot-main/user_ids.xlsx", index=False)
 
             except Exception as e:
                 logger.error(f"Ошибка при отправке сообщений с токена {token[:5]}: {e}")
