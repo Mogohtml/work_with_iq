@@ -602,6 +602,7 @@ class VKGroupParser:
 
 
 def main():
+    time.sleep(10)
 
     FILTERS = {
         'city_ids': [1, 2],
