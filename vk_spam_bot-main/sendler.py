@@ -11,6 +11,9 @@ from typing import List, Dict, Optional
 import pandas as pd
 import requests
 from database import VKUserDatabase
+from dotenv import load_dotenv
+
+
 
 
 # Настройка логирования
@@ -26,9 +29,37 @@ logger = logging.getLogger(__name__)
 
 
 class VKGroupParser:
-    def __init__(self, token: str):
+    def __init__(self, token: str, proxy_url: str = None):
         self.token = token
-        self.session = vk_api.VkApi(token=token)
+        self.proxy_url = proxy_url
+        self.proxy_retries = 3  # Количество попыток подключения через прокси
+
+        if self.proxy_url:
+            for _ in range(self.proxy_retries):
+                try:
+                    response = requests.get(
+                        "https://api.vk.com/method/users.get",
+                        params={"access_token": self.token, "v": "5.131"},
+                        proxies={"http": self.proxy_url, "https": self.proxy_url},
+                        timeout=10
+                    )
+                    if response.status_code == 200:
+                        break
+                    else:
+                        logger.warning(f"Прокси вернул код {response.status_code}, повторная попытка...")
+                        time.sleep(5)
+                except Exception as e:
+                    logger.warning(f"Ошибка проверки прокси: {e}. Попытка {_ + 1} из {self.proxy_retries}")
+                    time.sleep(5)
+            else:
+                logger.error("Прокси недоступен после нескольких попыток. Работаем без прокси.")
+                self.proxy_url = None
+
+        # Настройка прокси для vk_api
+        if self.proxy_url:
+            self.session = vk_api.VkApi(token=token, proxy=self.proxy_url)
+        else:
+            self.session = vk_api.VkApi(token=token)
         self.vk = self.session.get_api()
         self.user_id = None
         self.requests_count = 0
@@ -335,6 +366,7 @@ class VKGroupParser:
     def find_groups_by_niche(self, niche: str, count: int = 1000) -> List[str]:
         all_groups = set()
         try:
+            proxies = {"http": self.proxy_url, "https": self.proxy_url} if self.proxy_url else None
             response = self.vk.groups.search(q=niche, count=count, type="group")
             groups = response.get('items', [])
             for group in groups:
@@ -496,8 +528,17 @@ class VKGroupParser:
             return ""
         try:
             upload_url = self.vk.photos.getMessagesUploadServer(peer_id=peer_id)['upload_url']
+
+            # Настройка прокси для requests
+            proxies = None
+            if self.proxy_url:
+                proxies = {
+                    "http": self.proxy_url,
+                    "https": self.proxy_url,
+                }
+
             with open(photo_path, 'rb') as photo_file:
-                response = requests.post(upload_url, files={'photo': photo_file}).json()
+                response = requests.post(upload_url, files={'photo': photo_file}, proxies=proxies).json()
             if 'error' in response:
                 logger.error(f"Ошибка загрузки фото: {response['error']}")
                 return ""
@@ -515,7 +556,9 @@ class VKGroupParser:
             users: List[Dict],
             message_template: str,
             photo_paths: List[str],
-            max_per_day: int = 20
+            max_per_day: int = 20,
+            niche: str = None,
+            is_reminder: bool = False  # Новый параметр: True, если это повторное уведомление
     ) -> Dict:
         logger.info(f"Начинаем рассылку для {len(users)} пользователей")
         stats = {
@@ -543,7 +586,7 @@ class VKGroupParser:
                 continue
 
             try:
-                message = message_template.format(first_name=user.get('first_name', ''))
+                message = message_template.format(first_name=user.get('first_name', ''), niche=niche)
             except Exception as e:
                 logger.error(f"Ошибка форматирования сообщения для {user_id}: {e}")
                 stats['failed'] += 1
@@ -576,7 +619,10 @@ class VKGroupParser:
 
                 try:
                     db = VKUserDatabase()
-                    db.update_sent_status(user_id, sent=True)
+                    if is_reminder:
+                        db.update_reminder_status(user_id, reminder_sent=True)
+                    else:
+                        db.update_sent_status(user_id, sent=True)
                 except Exception as e:
                     logger.error(f"Ошибка обновления статуса для пользователя {user_id}: {e}")
 
@@ -641,8 +687,6 @@ def main():
         "рынок", "ниша", "анализ", "конкуренты", "тренд", "план", "стратегия", "MVP", "A/B",
         "market", "niche", "analysis", "competitors", "trend", "plan", "strategy", "test",
     ]
-    # Добавьте задержку перед началом работы
-    time.sleep(10)
 
     # Загружаем текущую нишу из файла
     current_niche_file = "current_niche.txt"
@@ -657,7 +701,7 @@ def main():
         niche = NICHES[current_niche_index]
         logger.info(f"Парсинг по нише: {niche}")
 
-        parser = VKGroupParser(token=os.environ.get("ACCESS_TOKEN_1"))
+        parser = VKGroupParser(token=os.environ.get("ACCESS_TOKEN_1"), proxy_url=os.environ.get("PROXY_URL"))
         leads = parser.parse_leads_by_niche(niche=niche, max_users=500, filters=FILTERS)
         if leads:
             logger.info(f"Собрано {len(leads)} лидов по нише: {niche}")
@@ -672,9 +716,9 @@ def main():
         # Отправляем сообщения через все доступные токены
         for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 2) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
             try:
-                sender = VKGroupParser(token=token)
+                sender = VKGroupParser(token=token, proxy_url=os.environ.get("PROXY_URL"))
                 db = VKUserDatabase()
-                users_to_send = db.get_unsent_users()
+                users_to_send = db.get_unsent_users(limit=19)
 
                 if not users_to_send:
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
@@ -722,11 +766,62 @@ def main():
                     os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_6.jpg"),
                 ]
 
-                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=20)
+                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=19, niche=niche,
+                                             is_reminder=True)
                 logger.info(f"Отправка на токене {token[:5]}...: {stats}")
 
             except Exception as e:
                 logger.error(f"Ошибка при отправке сообщений с токена {token[:5]}: {e}")
+
+        # --- Блок отправки повторных уведомлений ---
+        for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 2) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
+            try:
+                sender = VKGroupParser(token=token, proxy_url=os.environ.get("PROXY_URL"))
+                db = VKUserDatabase()
+                users_for_reminder = db.get_users_for_reminder()
+
+                if not users_for_reminder:
+                    logger.info(f"Нет пользователей для повторного уведомления с токена {token[:5]}...")
+                    continue
+
+                reminder_message_template = """👋 Привет, {first_name}!
+
+                Напоминаю о своём предложении по разработке интернет-решений. Возможно, ты ещё не успел рассмотреть его или остались вопросы.
+
+                🔹 Чем могу помочь:
+                ✔ Разработка интернет-магазинов и лендингов под ключ
+                ✔ Создание ботов и мини-приложений
+                ✔ Интеграции с платежками, CRM, 1С
+                ✔ Адаптивный дизайн и техническая поддержка
+
+                📌 Портфолио и отзывы:
+                🔸 [profi.ru/profile/DzhabagiyevMM](https://profi.ru/profile/DzhabagiyevMM)
+                🔸 [Документ с кейсами](https://docs.google.com/document/d/17Uoh5Pw6aU20O719HH0AIwlFDlRftgjy1YlSqapNPjY/edit?usp=sharing)
+
+                Если заинтересовало, напиши мне "МАГАЗИН" — отвечу на вопросы и помогу с проектом!
+
+                📞 Связаться:
+                💬 Telegram: @Basmansky
+                📱 Телефон: +7 (964) 026-72-30
+
+                Удачи в деле! 🌟
+                """
+
+                stats = sender.send_messages(
+                    users_for_reminder,
+                    reminder_message_template,
+                    photo_paths,
+                    max_per_day=19,
+                    niche=niche
+                )
+                logger.info(f"Повторные уведомления на токене {token[:5]}...: {stats}")
+
+                # Обновляем статус reminder_sent
+                for user in users_for_reminder:
+                    db.update_reminder_status(user["ID"], True)
+
+            except Exception as e:
+                logger.error(f"Ошибка при отправке повторных уведомлений с токена {token[:5]}: {e}")
 
         # Сохраняем индекс следующей ниши
         with open(current_niche_file, "w") as f:
@@ -734,6 +829,7 @@ def main():
 
     else:
         logger.info("Все ниши обработаны! Начните заново, удалив файл current_niche.txt")
+
 
 
 if __name__ == "__main__":
