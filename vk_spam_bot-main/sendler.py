@@ -11,6 +11,9 @@ from typing import List, Dict, Optional
 import pandas as pd
 import requests
 from database import VKUserDatabase
+from dotenv import load_dotenv
+
+
 
 
 # Настройка логирования
@@ -26,9 +29,37 @@ logger = logging.getLogger(__name__)
 
 
 class VKGroupParser:
-    def __init__(self, token: str):
+    def __init__(self, token: str, proxy_url: str = None):
         self.token = token
-        self.session = vk_api.VkApi(token=token)
+        self.proxy_url = proxy_url
+        self.proxy_retries = 3  # Количество попыток подключения через прокси
+
+        if self.proxy_url:
+            for _ in range(self.proxy_retries):
+                try:
+                    response = requests.get(
+                        "https://api.vk.com/method/users.get",
+                        params={"access_token": self.token, "v": "5.131"},
+                        proxies={"http": self.proxy_url, "https": self.proxy_url},
+                        timeout=10
+                    )
+                    if response.status_code == 200:
+                        break
+                    else:
+                        logger.warning(f"Прокси вернул код {response.status_code}, повторная попытка...")
+                        time.sleep(5)
+                except Exception as e:
+                    logger.warning(f"Ошибка проверки прокси: {e}. Попытка {_ + 1} из {self.proxy_retries}")
+                    time.sleep(5)
+            else:
+                logger.error("Прокси недоступен после нескольких попыток. Работаем без прокси.")
+                self.proxy_url = None
+
+        # Настройка прокси для vk_api
+        if self.proxy_url:
+            self.session = vk_api.VkApi(token=token, proxy=self.proxy_url)
+        else:
+            self.session = vk_api.VkApi(token=token)
         self.vk = self.session.get_api()
         self.user_id = None
         self.requests_count = 0
@@ -335,6 +366,7 @@ class VKGroupParser:
     def find_groups_by_niche(self, niche: str, count: int = 1000) -> List[str]:
         all_groups = set()
         try:
+            proxies = {"http": self.proxy_url, "https": self.proxy_url} if self.proxy_url else None
             response = self.vk.groups.search(q=niche, count=count, type="group")
             groups = response.get('items', [])
             for group in groups:
@@ -496,8 +528,17 @@ class VKGroupParser:
             return ""
         try:
             upload_url = self.vk.photos.getMessagesUploadServer(peer_id=peer_id)['upload_url']
+
+            # Настройка прокси для requests
+            proxies = None
+            if self.proxy_url:
+                proxies = {
+                    "http": self.proxy_url,
+                    "https": self.proxy_url,
+                }
+
             with open(photo_path, 'rb') as photo_file:
-                response = requests.post(upload_url, files={'photo': photo_file}).json()
+                response = requests.post(upload_url, files={'photo': photo_file}, proxies=proxies).json()
             if 'error' in response:
                 logger.error(f"Ошибка загрузки фото: {response['error']}")
                 return ""
@@ -515,7 +556,8 @@ class VKGroupParser:
             users: List[Dict],
             message_template: str,
             photo_paths: List[str],
-            max_per_day: int = 20
+            max_per_day: int = 20,
+            niche: str = None
     ) -> Dict:
         logger.info(f"Начинаем рассылку для {len(users)} пользователей")
         stats = {
@@ -543,7 +585,7 @@ class VKGroupParser:
                 continue
 
             try:
-                message = message_template.format(first_name=user.get('first_name', ''))
+                message = message_template.format(first_name=user.get('first_name', ''), niche=niche)
             except Exception as e:
                 logger.error(f"Ошибка форматирования сообщения для {user_id}: {e}")
                 stats['failed'] += 1
@@ -641,8 +683,6 @@ def main():
         "рынок", "ниша", "анализ", "конкуренты", "тренд", "план", "стратегия", "MVP", "A/B",
         "market", "niche", "analysis", "competitors", "trend", "plan", "strategy", "test",
     ]
-    # Добавьте задержку перед началом работы
-    time.sleep(10)
 
     # Загружаем текущую нишу из файла
     current_niche_file = "current_niche.txt"
@@ -657,7 +697,8 @@ def main():
         niche = NICHES[current_niche_index]
         logger.info(f"Парсинг по нише: {niche}")
 
-        parser = VKGroupParser(token=os.environ.get("ACCESS_TOKEN_1"))
+
+        parser = VKGroupParser(token=os.environ.get("ACCESS_TOKEN_1"), proxy_url=os.environ.get("PROXY_URL"))
         leads = parser.parse_leads_by_niche(niche=niche, max_users=500, filters=FILTERS)
         if leads:
             logger.info(f"Собрано {len(leads)} лидов по нише: {niche}")
@@ -672,9 +713,9 @@ def main():
         # Отправляем сообщения через все доступные токены
         for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 2) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
             try:
-                sender = VKGroupParser(token=token)
+                sender = VKGroupParser(token=token, proxy_url=os.environ.get("PROXY_URL"))
                 db = VKUserDatabase()
-                users_to_send = db.get_unsent_users()
+                users_to_send = db.get_unsent_users(limit=20)
 
                 if not users_to_send:
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
@@ -722,7 +763,7 @@ def main():
                     os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_6.jpg"),
                 ]
 
-                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=20)
+                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=19, niche=niche)
                 logger.info(f"Отправка на токене {token[:5]}...: {stats}")
 
             except Exception as e:
