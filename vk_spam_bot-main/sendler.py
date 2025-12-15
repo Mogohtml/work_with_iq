@@ -557,7 +557,8 @@ class VKGroupParser:
             message_template: str,
             photo_paths: List[str],
             max_per_day: int = 20,
-            niche: str = None
+            niche: str = None,
+            is_reminder: bool = False  # Новый параметр: True, если это повторное уведомление
     ) -> Dict:
         logger.info(f"Начинаем рассылку для {len(users)} пользователей")
         stats = {
@@ -618,7 +619,10 @@ class VKGroupParser:
 
                 try:
                     db = VKUserDatabase()
-                    db.update_sent_status(user_id, sent=True)
+                    if is_reminder:
+                        db.update_reminder_status(user_id, reminder_sent=True)
+                    else:
+                        db.update_sent_status(user_id, sent=True)
                 except Exception as e:
                     logger.error(f"Ошибка обновления статуса для пользователя {user_id}: {e}")
 
@@ -697,7 +701,6 @@ def main():
         niche = NICHES[current_niche_index]
         logger.info(f"Парсинг по нише: {niche}")
 
-
         parser = VKGroupParser(token=os.environ.get("ACCESS_TOKEN_1"), proxy_url=os.environ.get("PROXY_URL"))
         leads = parser.parse_leads_by_niche(niche=niche, max_users=500, filters=FILTERS)
         if leads:
@@ -715,7 +718,7 @@ def main():
             try:
                 sender = VKGroupParser(token=token, proxy_url=os.environ.get("PROXY_URL"))
                 db = VKUserDatabase()
-                users_to_send = db.get_unsent_users(limit=20)
+                users_to_send = db.get_unsent_users(limit=19)
 
                 if not users_to_send:
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
@@ -763,11 +766,62 @@ def main():
                     os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_6.jpg"),
                 ]
 
-                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=19, niche=niche)
+                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=19, niche=niche,
+                                             is_reminder=True)
                 logger.info(f"Отправка на токене {token[:5]}...: {stats}")
 
             except Exception as e:
                 logger.error(f"Ошибка при отправке сообщений с токена {token[:5]}: {e}")
+
+        # --- Блок отправки повторных уведомлений ---
+        for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 2) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
+            try:
+                sender = VKGroupParser(token=token, proxy_url=os.environ.get("PROXY_URL"))
+                db = VKUserDatabase()
+                users_for_reminder = db.get_users_for_reminder()
+
+                if not users_for_reminder:
+                    logger.info(f"Нет пользователей для повторного уведомления с токена {token[:5]}...")
+                    continue
+
+                reminder_message_template = """👋 Привет, {first_name}!
+
+                Напоминаю о своём предложении по разработке интернет-решений. Возможно, ты ещё не успел рассмотреть его или остались вопросы.
+
+                🔹 Чем могу помочь:
+                ✔ Разработка интернет-магазинов и лендингов под ключ
+                ✔ Создание ботов и мини-приложений
+                ✔ Интеграции с платежками, CRM, 1С
+                ✔ Адаптивный дизайн и техническая поддержка
+
+                📌 Портфолио и отзывы:
+                🔸 [profi.ru/profile/DzhabagiyevMM](https://profi.ru/profile/DzhabagiyevMM)
+                🔸 [Документ с кейсами](https://docs.google.com/document/d/17Uoh5Pw6aU20O719HH0AIwlFDlRftgjy1YlSqapNPjY/edit?usp=sharing)
+
+                Если заинтересовало, напиши мне "МАГАЗИН" — отвечу на вопросы и помогу с проектом!
+
+                📞 Связаться:
+                💬 Telegram: @Basmansky
+                📱 Телефон: +7 (964) 026-72-30
+
+                Удачи в деле! 🌟
+                """
+
+                stats = sender.send_messages(
+                    users_for_reminder,
+                    reminder_message_template,
+                    photo_paths,
+                    max_per_day=19,
+                    niche=niche
+                )
+                logger.info(f"Повторные уведомления на токене {token[:5]}...: {stats}")
+
+                # Обновляем статус reminder_sent
+                for user in users_for_reminder:
+                    db.update_reminder_status(user["ID"], True)
+
+            except Exception as e:
+                logger.error(f"Ошибка при отправке повторных уведомлений с токена {token[:5]}: {e}")
 
         # Сохраняем индекс следующей ниши
         with open(current_niche_file, "w") as f:
@@ -775,6 +829,7 @@ def main():
 
     else:
         logger.info("Все ниши обработаны! Начните заново, удалив файл current_niche.txt")
+
 
 
 if __name__ == "__main__":

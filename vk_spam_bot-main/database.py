@@ -166,13 +166,53 @@ class VKUserDatabase:
             logger.error(f"Ошибка проверки группы {group_id}: {e}")
             return False
 
-    def get_unsent_users(self) -> List[Dict]:
+    def get_unsent_users(self, limit: int = 20) -> List[Dict]:
         """Получение пользователей, которым ещё не отправлено сообщение."""
+        try:
+            with sqlite3.connect(self.db_path) as conn:
+                cursor = conn.cursor()
+                cursor.execute("SELECT id, first_name, last_name FROM users WHERE sent = 0 LIMIT ?", (limit,))
+                rows = cursor.fetchall()
+                users = []
+                for row in rows:
+                    users.append({
+                        "ID": row[0],
+                        "first_name": row[1],
+                        "last_name": row[2]
+                    })
+                return users
+        except Exception as e:
+            logger.error(f"Ошибка получения пользователей: {e}")
+            raise
+
+    def update_sent_status(self, user_id: int, sent: bool):
         try:
             self._decrypt_db()
             with self._connect() as conn:
                 cursor = conn.cursor()
-                cursor.execute("SELECT id, first_name, last_name FROM users WHERE sent = 0")
+                cursor.execute(
+                    "UPDATE users SET sent = ?, sent_at = CURRENT_TIMESTAMP WHERE id = ?",
+                    (sent, user_id)
+                )
+                conn.commit()
+                logger.info(f"Статус отправки для пользователя {user_id} обновлён.")
+            self._encrypt_db()
+        except Exception as e:
+            logger.error(f"Ошибка обновления статуса для пользователя {user_id}: {e}")
+            raise
+
+    def get_users_for_reminder(self) -> List[Dict]:
+        try:
+            self._decrypt_db()
+            with self._connect() as conn:
+                cursor = conn.cursor()
+                cursor.execute("""
+                               SELECT id, first_name, last_name
+                               FROM users
+                               WHERE sent = 1
+                                 AND sent_at <= DATETIME('now', '-3 days')
+                                 AND reminder_sent = 0
+                               """)
                 rows = cursor.fetchall()
                 users = []
                 for row in rows:
@@ -184,19 +224,22 @@ class VKUserDatabase:
             self._encrypt_db()
             return users
         except Exception as e:
-            logger.error(f"Ошибка получения пользователей: {e}")
+            logger.error(f"Ошибка получения пользователей для напоминания: {e}")
             raise
 
-    def update_sent_status(self, user_id: int, sent: bool):
-        """Обновление статуса отправки сообщения пользователю."""
+    def update_reminder_status(self, user_id: int, reminder_sent: bool):
         try:
             self._decrypt_db()
             with self._connect() as conn:
                 cursor = conn.cursor()
-                cursor.execute("UPDATE users SET sent = ? WHERE id = ?", (sent, user_id))
+                cursor.execute(
+                    "UPDATE users SET reminder_sent = ? WHERE id = ?",
+                    (reminder_sent, user_id)
+                )
                 conn.commit()
-                logger.info(f"Статус отправки для пользователя {user_id} обновлён.")
+                logger.info(f"Статус повторного уведомления для пользователя {user_id} обновлён.")
             self._encrypt_db()
         except Exception as e:
-            logger.error(f"Ошибка обновления статуса для пользователя {user_id}: {e}")
+            logger.error(f"Ошибка обновления статуса повторного уведомления для пользователя {user_id}: {e}")
             raise
+
