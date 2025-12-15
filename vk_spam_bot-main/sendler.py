@@ -12,7 +12,7 @@ import pandas as pd
 import requests
 from database import VKUserDatabase
 from dotenv import load_dotenv
-
+load_dotenv()
 
 
 
@@ -739,7 +739,7 @@ def main():
         # --- Блок отправки повторных уведомлений ---
         for token in [os.environ.get(f"ACCESS_TOKEN_{i}") for i in range(1, 2) if os.environ.get(f"ACCESS_TOKEN_{i}")]:
             try:
-                sender = VKGroupParser(token=token, proxy_url=os.environ.get("PROXY_URL"))
+                sender = VKGroupParser(token=token)
                 db = VKUserDatabase()
                 users_for_reminder = db.get_users_for_reminder()
 
