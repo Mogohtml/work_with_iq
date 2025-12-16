@@ -12,7 +12,7 @@ import pandas as pd
 import requests
 from database import VKUserDatabase
 from dotenv import load_dotenv
-load_dotenv()
+
 
 
 
@@ -681,7 +681,7 @@ def main():
             try:
                 sender = VKGroupParser(token=token)
                 db = VKUserDatabase()
-                users_to_send = db.get_unsent_users(limit=19)
+                users_to_send = db.get_unsent_users(limit=20)
 
                 if not users_to_send:
                     logger.info(f"Нет пользователей для отправки сообщений с токена {token[:5]}...")
@@ -729,7 +729,7 @@ def main():
                     os.path.join(os.path.dirname(os.path.abspath(__file__)), "images/works_shop_6.jpg"),
                 ]
 
-                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=19, niche=niche,
+                stats = sender.send_messages(users_to_send, message_template, photo_paths, max_per_day=20, niche=niche,
                                              is_reminder=True)
                 logger.info(f"Отправка на токене {token[:5]}...: {stats}")
 
@@ -774,7 +774,7 @@ def main():
                     users_for_reminder,
                     reminder_message_template,
                     photo_paths,
-                    max_per_day=19,
+                    max_per_day=20,
                     niche=niche
                 )
                 logger.info(f"Повторные уведомления на токене {token[:5]}...: {stats}")
